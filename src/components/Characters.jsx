@@ -39,6 +39,10 @@ export function Characters() {
         }
     };
 
+    const handleDeleteCharacter = async (id) => {
+        await api.delete(`/characters/${id}`)
+    }
+
     return (
         <Grid container sx={{ mt: 2 }}>
             {
@@ -60,7 +64,7 @@ export function Characters() {
                                 </Typography>
                             </CardContent>
                             <CardActions sx={{ justifyContent: 'flex-start' }}>
-                                <Button size="small" color="error" variant="text">Deletar</Button>
+                                <Button onClick={() => handleDeleteCharacter(character.id)} size="small" color="error" variant="text">Deletar</Button>
                                 <Button onClick={() => navigate(`/personagens/${character.id}`)} size="small" color="secondary" variant="outlined">Visualizar</Button>
                             </CardActions>
                         </Card>
