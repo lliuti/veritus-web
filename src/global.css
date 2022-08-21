@@ -1,0 +1,28 @@
+body {
+    /* background-color: rgba(255, 255, 251, 0.25);
+    background-image: radial-gradient(rgb(121, 85, 72, 0.25) 0.65px, rgb(255, 255, 251, 0.25) 0.65px);
+    background-size: 13px 13px; */
+
+    background-color: #121212;
+    /* opacity: 1; */
+    background-image: radial-gradient(#090909 1.3px, #121212 1.3px);
+    background-size: 26px 26px;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: #121212;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #272727;
+    border-radius: 10px;
+    transition: 300ms all;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #bfbfbf;
+}
