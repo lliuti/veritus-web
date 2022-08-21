@@ -5,8 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "start": "react-scripts start",
     "build": "vite build",
-    "preview": "vite preview"
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "dependencies": {
     "@emotion/react": "^11.10.0",
@@ -18,11 +23,13 @@
     "@tiptap/react": "^2.0.0-beta.114",
     "@tiptap/starter-kit": "^2.0.0-beta.191",
     "axios": "^0.27.2",
+    "gh-pages": "^4.0.0",
     "notistack": "^2.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
     "react-router-dom": "^6.3.0",
+    "react-scripts": "^5.0.1",
     "sass": "^1.54.3",
     "socket.io-client": "^4.5.1",
     "styled-components": "^5.3.5"
