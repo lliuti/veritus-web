@@ -41,6 +41,7 @@ export function Characters() {
 
     const handleDeleteCharacter = async (id) => {
         await api.delete(`/characters/${id}`)
+        fetchMyCharacters();
     }
 
     return (
