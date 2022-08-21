@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, HashRouter, useNavigate } from "react-router-dom";
 import { Home } from "./pages/home/Home";
 import { Login } from "./pages/account/login/Login";
 import { CreateAccount } from "./pages/account/createAccount/CreateAccount";
@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 
 export const Router = () => {
     return (
-        <BrowserRouter>
+        <HashRouter>
             <Routes>
                 {/* <Route path="/" element={loggedIn ? <Home /> : <Navigate to="/conta/entrar"/>}/> */}
                 <Route path="/conta/criar" element={<CreateAccount />} />
@@ -22,7 +22,7 @@ export const Router = () => {
                 <Route path="/personagens/:id" element={<ProtectedCharacterSheet />} />
                 <Route path='*' exact={true} element={<PageNotFound/>} />
             </Routes>
-        </BrowserRouter>
+        </HashRouter>
     )
 }
 
