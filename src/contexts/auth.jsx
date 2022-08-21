@@ -49,6 +49,9 @@ export const AuthProvider = ({ children }) => {
   const VerifyAdmin = async () => {
     try {
       const id = localStorage.getItem("user@id");
+      if (!id) {
+        return false
+      };
       const response = await api.get(`/users/${id}/admin`);
       setAdmin(response.data);
       return response.data;
