@@ -23,7 +23,8 @@ export function Dashboard() {
     const [data, setData] = useState();
     const navigate = useNavigate();    
 
-    const socket = io("http://localhost:3333");
+    // const socket = io("http://localhost:3000");
+    const socket = io("https://veritus-api.herokuapp.com");
 
     useEffect(() => {
         fetchConciseSheets();
