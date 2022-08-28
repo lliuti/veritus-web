@@ -19,6 +19,7 @@ export function Attributes({ characterAttributes, fetchCharacter }) {
     const [dex, setDex] = useState("0");
     const [cha, setCha] = useState("0");
     const [int, setInt] = useState("0");
+    const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
         fillCharacterAttributes();
@@ -41,9 +42,15 @@ export function Attributes({ characterAttributes, fetchCharacter }) {
     };
 
     const handleAttributeRollOpen = async (attribute) => {
-        const response = await api.post(`/characters/${characterAttributes.id}/roll/attribute`, { attribute });
-        setAttributeRollDialogInfo(response.data);
-        setAttributeRollOpen(true);
+        try {
+            const response = await api.post(`/characters/${characterAttributes.id}/roll/attribute`, { attribute });
+            setAttributeRollDialogInfo(response.data);
+            setAttributeRollOpen(true);
+        } catch (err) {
+            enqueueSnackbar("Não foi possivel realizar a rolagem de atributo.", { 
+                variant: "error"
+            });
+        }
     }
     
     const handleAttributeRollClose= () => {
@@ -103,15 +110,21 @@ function EditAttributesDialog(props) {
     };
 
     const handleUpdateAttributes = async () => {
-        setUpdateLoading(true);
-        await api.put(`/characters/${characterAttributes.id}/attributes`, { str,vig,dex,cha,int });
-        
-        fetchCharacter();
-        onClose();
-        setUpdateLoading(false);
-        enqueueSnackbar("Atributos atualizados.", { 
-            variant: "info"
-        });
+        try {
+            setUpdateLoading(true);
+            await api.put(`/characters/${characterAttributes.id}/attributes`, { str,vig,dex,cha,int });
+            
+            fetchCharacter();
+            onClose();
+            setUpdateLoading(false);
+            enqueueSnackbar("Atributos atualizados.", { 
+                variant: "info"
+            });
+        } catch (err) {
+            enqueueSnackbar("Não foi possível atualizar os atributos.", { 
+                variant: "error"
+            });
+        }
     };
 
     return (

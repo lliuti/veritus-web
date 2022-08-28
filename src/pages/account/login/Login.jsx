@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useAuth } from "../../../contexts/useAuth";
 import { useNavigate } from "react-router-dom";
+import { useSnackbar } from 'notistack';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -17,19 +18,33 @@ export const Login = () => {
 
     const navigate = useNavigate();
     const context = useAuth();
+    const { enqueueSnackbar } = useSnackbar();
 
     const handleSubmit = async () => {
         setIsLoading(true);
 
         if (username == "" || password == "") {
+            enqueueSnackbar("Preencha os campos.", { 
+                variant: "error"
+            });
             setIsLoading(false);
             return;
         }
 
-        context.Login(username, password);
+        const response = await context.Login(username, password);
 
+        if (response && response.code == "ERR_BAD_REQUEST") {
+            setUsername("");
+            setPassword("");
+            enqueueSnackbar("Não foi possível entrar.", { 
+                variant: "error"
+            });
+
+            setIsLoading(false);
+            return;
+        }
+        
         navigate("/");
-        setIsLoading(false);
     }
 
     return (
@@ -91,7 +106,7 @@ export const Login = () => {
                             loading={isLoading}
                             fullWidth
                             color="secondary"
-                            variant="contained"
+                            variant="outlined"
                             onClick={handleSubmit}
                         >
                             Entrar

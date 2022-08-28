@@ -4,6 +4,7 @@ import { Login } from "./pages/account/login/Login";
 import { CreateAccount } from "./pages/account/createAccount/CreateAccount";
 import { Dashboard } from "./pages/dashboard/Dashboard";
 import { CharacterSheet } from "./pages/characterSheet/CharacterSheet";
+import { Profile } from "./pages/account/profile/Profile";
 import { useAuth } from "./contexts/useAuth";
 
 import Container from '@mui/material/Container';
@@ -17,6 +18,7 @@ export const Router = () => {
                 {/* <Route path="/" element={loggedIn ? <Home /> : <Navigate to="/conta/entrar"/>}/> */}
                 <Route path="/conta/criar" element={<CreateAccount />} />
                 <Route path="/conta/entrar" element={<Login />} />
+                <Route path="/conta/:id/perfil" element={<ProtectedProfile />} />
                 <Route path="/" element={<ProtectedMain/>}/>
                 <Route path="/mestre/dashboard" element={<ProtectedDashboard />} />
                 <Route path="/personagens/:id" element={<ProtectedCharacterSheet />} />
@@ -43,9 +45,14 @@ const ProtectedMain = () => {
 
 const ProtectedDashboard = () => {
   const context = useAuth();
-  if (context.signed && !context.admin) {
-    return <ProtectedMain/>;
-  } else if (context.signed && context.admin) {
+  // if (context.signed && !context.admin) {
+  //   return <ProtectedMain/>;
+  // } else if (context.signed && context.admin) {
+  //   return <Dashboard/>;
+  // } else {
+  //   return <Login />;
+  // }
+  if (context.signed) {
     return <Dashboard/>;
   } else {
     return <Login />;
@@ -55,4 +62,9 @@ const ProtectedDashboard = () => {
 const ProtectedCharacterSheet = () => {
   const context = useAuth();
   return context.signed ? <CharacterSheet /> : <Login />;
+}
+
+const ProtectedProfile = () => {
+  const context = useAuth();
+  return context.signed ? <Profile /> : <Login />;
 }

@@ -17,21 +17,28 @@ export function Notes({ characterNotes, fetchCharacter }) {
     }, [characterNotes]);
 
     const handleUpdateNotes = async () => {
-        await api.put(`/characters/${characterNotes.id}/notes`, { 
-            resistances,
-            quickNotes
-         });
+        try {
+            await api.put(`/characters/${characterNotes.id}/notes`, { 
+                resistances,
+                quickNotes
+             });
+    
+            fetchCharacter();
+            enqueueSnackbar("Anotações/Resistencias atualizadas.", { 
+                variant: "info"
+            });
+        } catch (err) {
+            enqueueSnackbar("Não foi possível atualizar as Resistencias/Anotações.", { 
+                variant: "error"
+            });
+        }
 
-        fetchCharacter();
-        enqueueSnackbar("Anotações atualizadas.", { 
-            variant: "info"
-        });
     }
 
     return (
-        <Grid item xs={12} sm={12} md={6} sx={{ mt: 3 }}>
+        <Grid item xs={12} md={6} sx={{ mt: 2 }}>
             <Grid container spacing={3}>
-                <Grid item md={6}>
+                <Grid item xs={12} sm={6}>
                     <Typography component="h1" variant="h5" color="inherit" sx={{ mb: 1}}>Resistencias</Typography>
                     <TextField
                         id="filled-multiline-static"
@@ -47,7 +54,7 @@ export function Notes({ characterNotes, fetchCharacter }) {
                         onBlur={handleUpdateNotes}
                     />
                 </Grid>
-                <Grid item md={6}>
+                <Grid item xs={12} sm={6}>
                     <Typography component="h1" variant="h5" color="inherit" sx={{ mb: 1}}>Notas Rápidas</Typography>
                     <TextField
                         id="filled-multiline-static"

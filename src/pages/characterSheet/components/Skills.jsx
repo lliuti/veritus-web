@@ -17,7 +17,6 @@ import Select from '@mui/material/Select';
 export function Skills({ characterSkills, fetchCharacter }) {
     const [editSkillsOpen, setEditSkillsOpen] = useState(false);
     const [skillRollOpen, setSkillRollOpen] = useState(false);
-
     const [acrobacia, setAcrobacia] = useState(""); 
     const [adestramento, setAdestramento] = useState(""); 
     const [artes, setArtes] = useState(""); 
@@ -46,8 +45,9 @@ export function Skills({ characterSkills, fetchCharacter }) {
     const [tatica, setTatica] = useState(""); 
     const [tecnologia, setTecnologia] = useState(""); 
     const [vontade, setVontade] = useState(""); 
-
     const [skillRollDialogInfo, setSkillRollDialogInfo] = useState([]);
+    
+    const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
         fillCharacterSkills();
@@ -93,9 +93,15 @@ export function Skills({ characterSkills, fetchCharacter }) {
     };
     
     const handleSkillRollOpen = async (skill) => {
-        const response = await api.post(`/characters/${characterSkills.id}/roll/skill`, { skill });
-        setSkillRollDialogInfo(response.data);
-        setSkillRollOpen(true);
+        try {
+            const response = await api.post(`/characters/${characterSkills.id}/roll/skill`, { skill });
+            setSkillRollDialogInfo(response.data);
+            setSkillRollOpen(true);
+        } catch (err) {
+            enqueueSnackbar("Não foi possível realizar a rolagem de perícia.", { 
+                variant: "error"
+            });
+        }
     };
     
     const handleSkillRollClose = () => {
@@ -103,15 +109,16 @@ export function Skills({ characterSkills, fetchCharacter }) {
     };
 
     return (
-        <Grid item xs={12} sm={6} md={4} sx={{ mt: 3 }}>
+        <Grid item xs={12} md={4} sx={{ mt: 3 }}>
             <Typography component="h1" variant="h5" color="inherit" sx={{ mb: 1}}>Perícias</Typography>
-            <Grid container spacing={1}>
+            <Grid container spacing={{ xs: 0.8, sm: 1 }}>
                 <Grid item xs={6}>
                     <Button 
                         onClick={() => handleSkillRollOpen("acrobacia")} 
                         color="secondary" 
                         variant='outlined' 
-                        fullWidth 
+                        fullWidth
+                        size="small"
                         sx={{ my: 0.4}}>
                             Acrobacia: +{acrobacia}
                     </Button>
@@ -119,7 +126,9 @@ export function Skills({ characterSkills, fetchCharacter }) {
                         onClick={() => handleSkillRollOpen("adestramento")} 
                         color="secondary" 
                         variant='outlined' 
-                        fullWidth 
+                        fullWidth
+                        
+                        size="small" 
                         sx={{ my: 0.4}}>
                             Adestramento: +{adestramento}
                     </Button>
@@ -127,7 +136,9 @@ export function Skills({ characterSkills, fetchCharacter }) {
                         onClick={() => handleSkillRollOpen("artes")} 
                         color="secondary" 
                         variant='outlined' 
-                        fullWidth 
+                        fullWidth
+                        
+                        size="small" 
                         sx={{ my: 0.4}}>
                             Artes: +{artes}
                     </Button>
@@ -135,7 +146,9 @@ export function Skills({ characterSkills, fetchCharacter }) {
                         onClick={() => handleSkillRollOpen("atletismo")} 
                         color="secondary" 
                         variant='outlined' 
-                        fullWidth 
+                        fullWidth
+                        
+                        size="small" 
                         sx={{ my: 0.4}}>
                             Atletismo: +{atletismo}
                     </Button>
@@ -143,7 +156,9 @@ export function Skills({ characterSkills, fetchCharacter }) {
                         onClick={() => handleSkillRollOpen("atualidades")} 
                         color="secondary" 
                         variant='outlined' 
-                        fullWidth 
+                        fullWidth
+                        
+                        size="small" 
                         sx={{ my: 0.4}}>
                             Atualidades: +{atualidades}
                     </Button>
@@ -151,7 +166,9 @@ export function Skills({ characterSkills, fetchCharacter }) {
                         onClick={() => handleSkillRollOpen("ciencias")} 
                         color="secondary" 
                         variant='outlined' 
-                        fullWidth 
+                        fullWidth
+                        
+                        size="small" 
                         sx={{ my: 0.4}}>
                             Ciencias: +{ciencias}
                     </Button>
@@ -159,7 +176,9 @@ export function Skills({ characterSkills, fetchCharacter }) {
                         onClick={() => handleSkillRollOpen("crime")} 
                         color="secondary" 
                         variant='outlined' 
-                        fullWidth 
+                        fullWidth
+                        
+                        size="small" 
                         sx={{ my: 0.4}}>
                             Crime: +{crime}
                     </Button>
@@ -167,7 +186,9 @@ export function Skills({ characterSkills, fetchCharacter }) {
                         onClick={() => handleSkillRollOpen("diplomacia")} 
                         color="secondary" 
                         variant='outlined' 
-                        fullWidth 
+                        fullWidth
+                        
+                        size="small" 
                         sx={{ my: 0.4}}>
                             Diplomacia: +{diplomacia}
                     </Button>
@@ -175,7 +196,9 @@ export function Skills({ characterSkills, fetchCharacter }) {
                         onClick={() => handleSkillRollOpen("enganacao")} 
                         color="secondary" 
                         variant='outlined' 
-                        fullWidth 
+                        fullWidth
+                        
+                        size="small" 
                         sx={{ my: 0.4}}>
                             Enganação: +{enganacao}
                     </Button>
@@ -183,7 +206,9 @@ export function Skills({ characterSkills, fetchCharacter }) {
                         onClick={() => handleSkillRollOpen("fortitude")} 
                         color="secondary" 
                         variant='outlined' 
-                        fullWidth 
+                        fullWidth
+                        
+                        size="small" 
                         sx={{ my: 0.4}}>
                             Fortitude: +{fortitude}
                     </Button>
@@ -191,7 +216,9 @@ export function Skills({ characterSkills, fetchCharacter }) {
                         onClick={() => handleSkillRollOpen("furtividade")} 
                         color="secondary" 
                         variant='outlined' 
-                        fullWidth 
+                        fullWidth
+                        
+                        size="small" 
                         sx={{ my: 0.4}}>
                             Furtividade: +{furtividade}
                     </Button>
@@ -199,7 +226,9 @@ export function Skills({ characterSkills, fetchCharacter }) {
                         onClick={() => handleSkillRollOpen("iniciativa")} 
                         color="secondary" 
                         variant='outlined' 
-                        fullWidth 
+                        fullWidth
+                        
+                        size="small" 
                         sx={{ my: 0.4}}>
                             Iniciativa: +{iniciativa}
                     </Button>
@@ -207,7 +236,9 @@ export function Skills({ characterSkills, fetchCharacter }) {
                         onClick={() => handleSkillRollOpen("intimidacao")} 
                         color="secondary" 
                         variant='outlined' 
-                        fullWidth 
+                        fullWidth
+                        
+                        size="small" 
                         sx={{ my: 0.4}}>
                             Intimidação: +{intimidacao}
                     </Button>
@@ -215,7 +246,9 @@ export function Skills({ characterSkills, fetchCharacter }) {
                         onClick={() => handleSkillRollOpen("intuicao")} 
                         color="secondary" 
                         variant='outlined' 
-                        fullWidth 
+                        fullWidth
+                        
+                        size="small" 
                         sx={{ my: 0.4}}>
                             Intuição: +{intuicao}
                     </Button>
@@ -225,7 +258,9 @@ export function Skills({ characterSkills, fetchCharacter }) {
                         onClick={() => handleSkillRollOpen("investigacao")} 
                         color="secondary" 
                         variant='outlined' 
-                        fullWidth 
+                        fullWidth
+                        
+                        size="small" 
                         sx={{ my: 0.4}}>
                             Investigação: +{investigacao}
                     </Button>
@@ -233,7 +268,9 @@ export function Skills({ characterSkills, fetchCharacter }) {
                         onClick={() => handleSkillRollOpen("luta")} 
                         color="secondary" 
                         variant='outlined' 
-                        fullWidth 
+                        fullWidth
+                        
+                        size="small" 
                         sx={{ my: 0.4}}>
                             Luta: +{luta}
                     </Button>
@@ -241,7 +278,9 @@ export function Skills({ characterSkills, fetchCharacter }) {
                         onClick={() => handleSkillRollOpen("medicina")} 
                         color="secondary" 
                         variant='outlined' 
-                        fullWidth 
+                        fullWidth
+                        
+                        size="small" 
                         sx={{ my: 0.4}}>
                             Medicina: +{medicina}
                     </Button>
@@ -249,7 +288,9 @@ export function Skills({ characterSkills, fetchCharacter }) {
                         onClick={() => handleSkillRollOpen("ocultismo")} 
                         color="secondary" 
                         variant='outlined' 
-                        fullWidth 
+                        fullWidth
+                        
+                        size="small" 
                         sx={{ my: 0.4}}>
                             Ocultismo: +{ocultismo}
                     </Button>
@@ -257,7 +298,9 @@ export function Skills({ characterSkills, fetchCharacter }) {
                         onClick={() => handleSkillRollOpen("percepcao")} 
                         color="secondary" 
                         variant='outlined' 
-                        fullWidth 
+                        fullWidth
+                        
+                        size="small" 
                         sx={{ my: 0.4}}>
                             Percepção: +{percepcao}
                     </Button>
@@ -265,7 +308,9 @@ export function Skills({ characterSkills, fetchCharacter }) {
                         onClick={() => handleSkillRollOpen("pilotagem")} 
                         color="secondary" 
                         variant='outlined' 
-                        fullWidth 
+                        fullWidth
+                        
+                        size="small" 
                         sx={{ my: 0.4}}>
                             Pilotagem: +{pilotagem}
                     </Button>
@@ -273,7 +318,9 @@ export function Skills({ characterSkills, fetchCharacter }) {
                         onClick={() => handleSkillRollOpen("pontaria")} 
                         color="secondary" 
                         variant='outlined' 
-                        fullWidth 
+                        fullWidth
+                        
+                        size="small" 
                         sx={{ my: 0.4}}>
                             Pontaria: +{pontaria}
                     </Button>
@@ -281,7 +328,9 @@ export function Skills({ characterSkills, fetchCharacter }) {
                         onClick={() => handleSkillRollOpen("profissao")} 
                         color="secondary" 
                         variant='outlined' 
-                        fullWidth 
+                        fullWidth
+                        
+                        size="small" 
                         sx={{ my: 0.4}}>
                             Profissão: +{profissao}
                     </Button>
@@ -289,7 +338,9 @@ export function Skills({ characterSkills, fetchCharacter }) {
                         onClick={() => handleSkillRollOpen("reflexos")} 
                         color="secondary" 
                         variant='outlined' 
-                        fullWidth 
+                        fullWidth
+                        
+                        size="small" 
                         sx={{ my: 0.4}}>
                             Reflexos: +{reflexos}
                     </Button>
@@ -297,7 +348,9 @@ export function Skills({ characterSkills, fetchCharacter }) {
                         onClick={() => handleSkillRollOpen("religiao")} 
                         color="secondary" 
                         variant='outlined' 
-                        fullWidth 
+                        fullWidth
+                        
+                        size="small" 
                         sx={{ my: 0.4}}>
                             Religião: +{religiao}
                     </Button>
@@ -305,7 +358,9 @@ export function Skills({ characterSkills, fetchCharacter }) {
                         onClick={() => handleSkillRollOpen("sobrevivencia")} 
                         color="secondary" 
                         variant='outlined' 
-                        fullWidth 
+                        fullWidth
+                        
+                        size="small" 
                         sx={{ my: 0.4}}>
                             Sobrevivência: +{sobrevivencia}
                     </Button>
@@ -313,7 +368,9 @@ export function Skills({ characterSkills, fetchCharacter }) {
                         onClick={() => handleSkillRollOpen("tatica")} 
                         color="secondary" 
                         variant='outlined' 
-                        fullWidth 
+                        fullWidth
+                        
+                        size="small" 
                         sx={{ my: 0.4}}>
                             Tática: +{tatica}
                     </Button>
@@ -321,7 +378,9 @@ export function Skills({ characterSkills, fetchCharacter }) {
                         onClick={() => handleSkillRollOpen("tecnologia")} 
                         color="secondary" 
                         variant='outlined' 
-                        fullWidth 
+                        fullWidth
+                        
+                        size="small" 
                         sx={{ my: 0.4}}>
                             Tecnologia: +{tecnologia}
                     </Button>
@@ -329,7 +388,9 @@ export function Skills({ characterSkills, fetchCharacter }) {
                         onClick={() => handleSkillRollOpen("vontade")} 
                         color="secondary" 
                         variant='outlined' 
-                        fullWidth 
+                        fullWidth
+                        
+                        size="small" 
                         sx={{ my: 0.4}}>
                             Vontade: +{vontade}
                     </Button>
@@ -465,17 +526,23 @@ function EditSkillsDialog(props) {
     };
     
     const handleUpdateSkills = async () => {
-        setUpdateLoading(true);
-        await api.put(`/characters/${characterSkills.id}/skills`, {
-            acrobacia, adestramento, artes, atletismo, atualidades, ciencias, crime, diplomacia, enganacao, fortitude, furtividade, iniciativa, intimidacao, intuicao, investigacao, luta, medicina, ocultismo, percepcao, pilotagem, pontaria, profissao, reflexos, religiao, sobrevivencia, tatica, tecnologia, vontade, 
-        });
-        
-        fetchCharacter();
-        onClose();
-        setUpdateLoading(false);
-        enqueueSnackbar("Informações atualizadas.", { 
-            variant: "info"
-        });
+        try {
+            setUpdateLoading(true);
+            await api.put(`/characters/${characterSkills.id}/skills`, {
+                acrobacia, adestramento, artes, atletismo, atualidades, ciencias, crime, diplomacia, enganacao, fortitude, furtividade, iniciativa, intimidacao, intuicao, investigacao, luta, medicina, ocultismo, percepcao, pilotagem, pontaria, profissao, reflexos, religiao, sobrevivencia, tatica, tecnologia, vontade, 
+            });
+            
+            fetchCharacter();
+            onClose();
+            setUpdateLoading(false);
+            enqueueSnackbar("Perícias atualizadas.", { 
+                variant: "info"
+            });
+        } catch (err) {
+            enqueueSnackbar("Não foi possível atualizar as perícias.", { 
+                variant: "error"
+            });
+        }
     };
 
     return (

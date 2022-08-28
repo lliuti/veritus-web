@@ -1,0 +1,189 @@
+import AppBar from '@mui/material/AppBar';
+import Button from '@mui/material/Button';
+import Toolbar from '@mui/material/Toolbar';
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import MenuIcon from '@mui/icons-material/Menu';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import IconButton from '@mui/material/IconButton';
+import { useAuth } from "../contexts/useAuth";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { api } from "../services/api";
+import { useSnackbar } from 'notistack';
+
+export const Header = ({ variant }) => {
+    const [anchorNav, setAnchorNav] = useState(null);
+    
+    const navigate = useNavigate();    
+    const context = useAuth();
+    const { enqueueSnackbar } = useSnackbar();
+
+    const handleCreateCharacter = async () => {
+        try {
+            const response = await api.post("/characters/create");
+            navigate(`/personagens/${response.data.id}`);
+        } catch (err) {
+            enqueueSnackbar("Não foi possível criar um personagem.", { 
+                variant: "error"
+            });
+        }
+    }
+
+    const handleLogout = () => {
+        context.Logout();
+        navigate("/conta/entrar");
+    }
+
+    if (variant === "home") {
+        return (
+            <AppBar 
+                    position="static"
+                    elevation={3}
+                    color='secondary'
+                >
+                <Toolbar sx={{ flexWrap: 'wrap' }}>
+                    <IconButton
+                        size="large"
+                        aria-label="account of current user"
+                        aria-controls="menu-appbar"
+                        aria-haspopup="true"
+                        onClick={(event) => setAnchorNav(event.currentTarget)}
+                        color="inherit"
+                        sx={{
+                            display: { xs: 'flex', md: 'none' },
+                        }}
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <Menu
+                        id="menu-appbar"
+                        anchorEl={anchorNav}
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'left',
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'left',
+                        }}
+                        open={Boolean(anchorNav)}
+                        onClose={() => setAnchorNav(null)}
+                        sx={{
+                            display: { xs: 'block', md: 'none' },
+                        }}
+                        >
+                            <MenuItem onClick={() => { 
+                                setAnchorNav(null);
+                                navigate(`/conta/${context.userId}/perfil`)
+                            }}>
+                                <Typography textAlign="center">Perfil</Typography>
+                            </MenuItem>
+                            <MenuItem onClick={() => { 
+                                setAnchorNav(null);
+                                navigate("/mestre/dashboard")
+                            }}>
+                                <Typography textAlign="center">Área do Mestre</Typography>
+                            </MenuItem>
+                            <MenuItem onClick={() => { 
+                                setAnchorNav(null);
+                                handleCreateCharacter();
+                            }}>
+                                <Typography textAlign="center">Criar Personagem</Typography>
+                            </MenuItem>
+                    </Menu>
+                    <Typography component="h1" variant="h5" color="inherit" noWrap sx={{ flexGrow: 1 }}>
+                        Veritus
+                    </Typography>
+                    <Box sx={{ display: { xs: "none", md: "flex"} }}>
+                        <Link
+                            variant="button"
+                            color="inherit"
+                            onClick={() => navigate(`/conta/${context.userId}/perfil`)}
+                            sx={{ 
+                                my: 1, 
+                                mx: 3, 
+                                transition: "200ms all",
+                                textDecoration: "none", 
+                                ":hover": {
+                                    cursor: "pointer",
+                                    opacity: 0.90,
+                                }
+                            }}
+                        >
+                            Perfil
+                        </Link>
+                        <Link
+                            variant="button"
+                            color="inherit"
+                            onClick={() => navigate("/mestre/dashboard")}
+                            sx={{ 
+                                my: 1, 
+                                mx: 3, 
+                                transition: "200ms all",
+                                textDecoration: "none", 
+                                ":hover": {
+                                    cursor: "pointer",
+                                    opacity: 0.90,
+                                }
+                            }}
+                        >
+                            Área do Mestre
+                        </Link>
+                        <Link
+                            variant="button"
+                            color="inherit"
+                            onClick={handleCreateCharacter}
+                            sx={{ 
+                                my: 1, 
+                                mx: 3, 
+                                transition: "200ms all",
+                                textDecoration: "none", 
+                                ":hover": {
+                                    cursor: "pointer",
+                                    opacity: 0.90,
+                                }
+                            }}
+                        >
+                            Criar Personagem
+                        </Link>
+                    </Box>
+                    <Button onClick={handleLogout} variant="outlined" color="secondary" sx={{ my: 1, mx: 1.5 }}>
+                        Sair
+                    </Button>
+                </Toolbar>
+            </AppBar>
+        ) 
+    } else {
+        return (
+            <AppBar 
+                position="static"
+                elevation={3}
+                color='secondary'
+            >
+                <Toolbar sx={{ flexWrap: 'wrap' }}>
+                    <Link
+                        variant="button"
+                        color="inherit"
+                        onClick={() => navigate("/")}
+                        sx={{ 
+                            my: 1, 
+                            mx: 2, 
+                            transition: "200ms all",
+                            textDecoration: "none", 
+                            ":hover": {
+                                cursor: "pointer",
+                                opacity: 0.90,
+                            }
+                        }}
+                    >
+                        Voltar
+                    </Link>
+                </Toolbar>
+            </AppBar>
+        )
+    }
+}

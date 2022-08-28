@@ -7,13 +7,16 @@ export const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState("");
   const [admin, setAdmin] = useState(false);
+  const [userId, setUserId] = useState("");
   const [user, setUser] = useState("");
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
+    const storedUserId = localStorage.getItem("user@id");
 
     if (storedToken) {
       setToken(storedToken);
+      setUserId(storedUserId);
       api.defaults.headers.Authorization = `Bearer ${storedToken}`;
     }
 
@@ -28,14 +31,15 @@ export const AuthProvider = ({ children }) => {
       });
 
       setToken(response.data.token);
-      setUser(response.data.user);
 
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user@id", response.data.user.id);
       api.defaults.headers.Authorization = `Bearer ${response.data.token}`;
       
+      return;
+
     } catch (err) {
-      return false;
+      return err;
     }
   };
 
@@ -62,7 +66,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ signed: Boolean(token), admin, Login, Logout }}
+      value={{ signed: Boolean(token), admin, userId, Login, Logout }}
     >
       {children}
     </AuthContext.Provider>

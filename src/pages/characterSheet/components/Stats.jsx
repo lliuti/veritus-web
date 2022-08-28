@@ -139,16 +139,23 @@ function HpDialog(props) {
             newMaxHp = maxHpDialog + parseInt(increaseMaxHpValue);
         };
 
-        await api.put(`/characters/${characterId}/stats/hp`, {
-            current: newCurrentHp,
-            max: newMaxHp
-        });
-        
-        fetchCharacter();
-        onClose();
-        enqueueSnackbar("Pontos de Vida atualizados.", { 
-            variant: "info"
-        });
+        try {
+            await api.put(`/characters/${characterId}/stats/hp`, {
+                current: newCurrentHp,
+                max: newMaxHp
+            });
+            
+            fetchCharacter();
+            onClose();
+            enqueueSnackbar("Pontos de Vida atualizados.", { 
+                variant: "info"
+            });
+        } catch (err) {
+            enqueueSnackbar("Não foi possível atualizar a vida.", { 
+                variant: "error"
+            });
+        }
+
     };
     
     const handleClose = () => {
@@ -299,11 +306,18 @@ function SanDialog(props) {
             max: newMaxSp
         });
         
-        fetchCharacter();
-        onClose();
-        enqueueSnackbar("Pontos de Sanidade atualizados.", { 
-            variant: "info"
-        });
+        try {
+            fetchCharacter();
+            onClose();
+            enqueueSnackbar("Pontos de Sanidade atualizados.", { 
+                variant: "info"
+            });
+        } catch (err) {
+            enqueueSnackbar("Não foi possível atualizar a sanidade.", { 
+                variant: "error"
+            });
+        }
+
     };
 
     const handleClose = () => {
@@ -454,11 +468,18 @@ function EpDialog(props) {
             max: newMaxEp
         });
         
-        fetchCharacter();
-        onClose();
-        enqueueSnackbar("Pontos de Esforço atualizados.", { 
-            variant: "info"
-        });
+        try {
+            fetchCharacter();
+            onClose();
+            enqueueSnackbar("Pontos de Esforço atualizados.", { 
+                variant: "info"
+            });
+        } catch (err) {
+            enqueueSnackbar("Não foi possível atualizar o esforço.", { 
+                variant: "error"
+            });
+        }
+
     };
 
     const handleClose = () => {

@@ -22,15 +22,22 @@ export function Defenses({ characterDefenses, fetchCharacter }) {
     }
 
     const handleUpdateDefenses = async () => {
-        await api.put(`/characters/${characterDefenses.id}/defenses`, { 
-            passive,
-            dodging
-         });
+        try {
+            await api.put(`/characters/${characterDefenses.id}/defenses`, { 
+                passive,
+                dodging
+             });
+    
+            fetchCharacter();
+            enqueueSnackbar("Defesas atualizadas.", { 
+                variant: "info"
+            });
+        } catch (err) {
+            enqueueSnackbar("Não foi possível atualizar as defesas.", { 
+                variant: "error"
+            });
+        }
 
-        fetchCharacter();
-        enqueueSnackbar("Defesas atualizadas.", { 
-            variant: "info"
-        });
     }
 
     return (

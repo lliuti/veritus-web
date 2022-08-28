@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from "../../../services/api";
 import { useAuth } from "../../../contexts/useAuth";
+import { useSnackbar } from 'notistack';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -18,6 +19,8 @@ export const CreateAccount = () => {
     const [password, setPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
+    const { enqueueSnackbar } = useSnackbar();
+
     const navigate = useNavigate();
     const context = useAuth();
 
@@ -29,16 +32,23 @@ export const CreateAccount = () => {
             return;
         }
 
-        await api.post("/users/create", {
-            name,
-            username,
-            email,
-            password
-        });
+        try {
+            await api.post("/users/create", {
+                name,
+                username,
+                email,
+                password
+            });
+    
+            context.Login(username, password);
+    
+            navigate("/");
+        } catch (err) {
+            enqueueSnackbar("Não foi possível criar uma conta.", { 
+                variant: "error"
+            });
+        }
 
-        context.Login(username, password);
-
-        navigate("/");
         setIsLoading(false);
     }
 
@@ -130,7 +140,7 @@ export const CreateAccount = () => {
                             type="submit"
                             fullWidth
                             color="secondary"
-                            variant="contained"
+                            variant="outlined"
                             onClick={handleSubmit}
                         >
                             Cadastrar

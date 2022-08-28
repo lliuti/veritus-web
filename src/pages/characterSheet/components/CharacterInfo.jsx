@@ -5,6 +5,7 @@ import Select from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
+import Tooltip from '@mui/material/Tooltip';
 
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -15,9 +16,9 @@ export function CharacterInfo({ characterInfo, fetchCharacter }) {
     const [affinity, setAffinity] = useState('');
     const [background, setBackground] = useState('');
     const [characterClass, setCharacterClass] = useState('');
-    const [archetype, setArchetypeClass] = useState('');
+    const [archetype, setArchetype] = useState('');
     const [name, setName] = useState('');
-    const [nex, setNex] = useState('');
+    const [nex, setNex] = useState(0);
     const [movement, setMovement] = useState('');
 
     const [hpModByNex, setHpModByNex] = useState('');
@@ -35,12 +36,12 @@ export function CharacterInfo({ characterInfo, fetchCharacter }) {
 
     const fillCharacterInfo = () => {
         setCharacterClass(characterInfo.characterClass);
-        setArchetypeClass(characterInfo.archetype);
+        setArchetype(characterInfo.archetype);
         setBackground(characterInfo.background);
         setAffinity(characterInfo.affinity);
         setRank(characterInfo.rank);
         setMovement(characterInfo.movement);
-        setNex(characterInfo.nex);
+        setNex(parseInt(characterInfo.nex));
         setName(characterInfo.name);
         setHpModByNex(characterInfo.hpModByNex);
         setEpModByNex(characterInfo.epModByNex);
@@ -50,39 +51,57 @@ export function CharacterInfo({ characterInfo, fetchCharacter }) {
         setSpMod(characterInfo.spMod);
     }
 
-
-    const handleRankChange = (event) => {
-        setRank(event.target.value);
-    };
-
-    const handleAffinityChange = (event) => {
-        setAffinity(event.target.value);
-    };
-    
-    const handleBackgroundChange = (event) => {
-        setBackground(event.target.value);
-    };
-   
-    const handleClassChange = (event) => {
-        setCharacterClass(event.target.value);
-    };
-    
-    const handleArchetypeChange = (event) => {
-        setArchetypeClass(event.target.value);
-    };
-
     const handleUpdateCharacterInfo = async () => {
-        await api.put(`/characters/${characterInfo.id}/info`, { rank, affinity, background, characterClass, archetype, name, nex, movement });
-
-        fetchCharacter();
-        enqueueSnackbar("Informações atualizadas.", { 
-            variant: "info"
-        });
+        try {
+            await api.put(`/characters/${characterInfo.id}/info`, { rank, affinity, background, characterClass, archetype, name, nex: nex.toString(), movement });
+    
+            fetchCharacter();
+            enqueueSnackbar("Informações atualizadas.", { 
+                variant: "info"
+            });
+        } catch (err) {
+            enqueueSnackbar("Não foi possível atualizar as informações.", { 
+                variant: "error"
+            });
+        }
     };
+
+    const handleUpdateCharacterModifiers = async () => {
+        try {
+            await api.put(`/characters/${characterInfo.id}/modifiers`, {
+                hpModByNex,
+                epModByNex,
+                spModByNex,
+                hpMod,
+                epMod,
+                spMod
+            });
+    
+            fetchCharacter();
+            enqueueSnackbar("Modificadores atualizados.", { 
+                variant: "info"
+            });
+        } catch (err) {
+            enqueueSnackbar("Não foi possível atualizar os modificadores.", { 
+                variant: "error"
+            });
+        }
+
+    }
+
+    const handleNexChange = (event) => {
+        if ((nex == 95 || nex == "95") && event.target.value == "100") {
+            setNex("99");
+        } else if ((nex == 99 || nex == "99") && event.target.value == "100") {
+            setNex("99");
+        } else {
+            setNex(event.target.value)
+        }
+    }
 
     return (
-        <Grid item xs={12} sm={6} md={12}>
-            <Typography component="h1" variant="h5" color="inherit">Informacões</Typography>
+        <Grid item xs={12} sm={6} md={12} sx={{ mt: 3}}>
+            <Typography component="h1" variant="h5" color="inherit">Informações</Typography>
             <Grid container spacing={1}>
                 <Grid item xs={6} md={1.714285714285714} sm={3}>
                     <TextField
@@ -108,7 +127,7 @@ export function CharacterInfo({ characterInfo, fetchCharacter }) {
                             color="secondary"
                             fullWidth
                             label="Patente"
-                            onChange={handleRankChange}
+                            onChange={(event) => setRank(event.target.value)}
                             onBlur={handleUpdateCharacterInfo}
                         >
                             <MenuItem value={"Recruta"}>Recruta</MenuItem>
@@ -126,11 +145,12 @@ export function CharacterInfo({ characterInfo, fetchCharacter }) {
                         label="NEX %"
                         name="nex"
                         type="number"
+                        inputProps={{ min: "0", max: "100", step: "5" }}
                         fullWidth
                         variant="filled"
                         color='secondary'
-                        value={nex || ''}
-                        onChange={(event) => setNex(event.target.value)}
+                        value={nex || 0}
+                        onChange={handleNexChange}
                         onBlur={handleUpdateCharacterInfo}
                     />
                 </Grid>
@@ -143,7 +163,7 @@ export function CharacterInfo({ characterInfo, fetchCharacter }) {
                             value={affinity || ''}
                             fullWidth
                             label="Afinidade"
-                            onChange={handleAffinityChange}
+                            onChange={(event) => setAffinity(event.target.value)}
                             onBlur={handleUpdateCharacterInfo}
                             color="secondary"
                         >
@@ -156,46 +176,67 @@ export function CharacterInfo({ characterInfo, fetchCharacter }) {
                     </FormControl>
                 </Grid>
                 <Grid item md={1.714285714285714} sm={3} xs={6}>
-                    <TextField
-                        margin="normal"
-                        id="hpModifierByNex"
-                        label="Modif. PV p/ NEX"
-                        name="hpModifierByNex"
-                        variant="filled"
-                        fullWidth
-                        disabled
-                        color='secondary'
-                        value={hpModByNex || ''}
-                        onChange={(event) => setHpModByNex(event.target.value)}
-                    />
+                    <Tooltip 
+                        title='O valor preenchido nesse campo será calculado para cada NEX acima de 0% (ou seja, de 5% em diante).' 
+                        placement="top"
+                    >
+                        <TextField
+                            type="number"
+                            inputProps={{ min: "0", step: "1" }}
+                            margin="normal"
+                            id="hpModifierByNex"
+                            label="Modif. PV p/ NEX"
+                            name="hpModifierByNex"
+                            variant="filled"
+                            fullWidth
+                            color='secondary'
+                            value={hpModByNex || ''}
+                            onChange={(event) => setHpModByNex(event.target.value)}
+                            onBlur={handleUpdateCharacterModifiers}
+                        />
+                    </Tooltip>
                 </Grid>
                 <Grid item md={1.714285714285714} sm={3} xs={6}>
-                    <TextField
-                        margin="normal"
-                        id="epModifierByNex"
-                        label="Modif. PE p/ NEX"
-                        name="epModifierByNex"
-                        variant="filled"
-                        disabled
-                        fullWidth
-                        color='secondary'
-                        value={epModByNex || ''}
-                        onChange={(event) => setEpModByNex(event.target.value)}
-                    />
+                    <Tooltip 
+                        title='O valor preenchido nesse campo será calculado para cada NEX acima de 0% (ou seja, de 5% em diante).' 
+                        placement="top"
+                    >    
+                        <TextField
+                            type="number"
+                            inputProps={{ min: "0", step: "1" }}
+                            margin="normal"
+                            id="epModifierByNex"
+                            label="Modif. PE p/ NEX"
+                            name="epModifierByNex"
+                            variant="filled"
+                            fullWidth
+                            color='secondary'
+                            value={epModByNex || ''}
+                            onChange={(event) => setEpModByNex(event.target.value)}
+                            onBlur={handleUpdateCharacterModifiers}
+                        />
+                    </Tooltip>
                 </Grid>
                 <Grid item md={1.714285714285714} sm={3} xs={12}>
-                    <TextField
-                        margin="normal"
-                        id="sanModifierByNex"
-                        label="Modif. PS p/ NEX"
-                        name="sanModifierByNex"
-                        variant="filled"
-                        disabled
-                        fullWidth
-                        color='secondary'
-                        value={spModByNex || ''}
-                        onChange={(event) => setSpModByNex(event.target.value)}
-                    />
+                    <Tooltip 
+                        title='O valor preenchido nesse campo será calculado para cada NEX acima de 0% (ou seja, de 5% em diante).' 
+                        placement="top"
+                    >
+                        <TextField
+                            type="number"
+                            inputProps={{ min: "0", step: "1" }}
+                            margin="normal"
+                            id="sanModifierByNex"
+                            label="Modif. PS p/ NEX"
+                            name="sanModifierByNex"
+                            variant="filled"
+                            fullWidth
+                            color='secondary'
+                            value={spModByNex || ''}
+                            onChange={(event) => setSpModByNex(event.target.value)}
+                            onBlur={handleUpdateCharacterModifiers}
+                        />
+                    </Tooltip>
                 </Grid>
             </Grid>
             <Grid container spacing={1}>
@@ -208,7 +249,7 @@ export function CharacterInfo({ characterInfo, fetchCharacter }) {
                             value={background || ''}
                             label="Origem"
                             fullWidth
-                            onChange={handleBackgroundChange}
+                            onChange={(event) => setBackground(event.target.value)}
                             onBlur={handleUpdateCharacterInfo}
                             color="secondary"
                         >
@@ -250,7 +291,7 @@ export function CharacterInfo({ characterInfo, fetchCharacter }) {
                             value={characterClass || ''}
                             label="Classe"
                             fullWidth
-                            onChange={handleClassChange}
+                            onChange={(event) => setCharacterClass(event.target.value)}
                             onBlur={handleUpdateCharacterInfo}
                             color="secondary"
                         >
@@ -272,7 +313,7 @@ export function CharacterInfo({ characterInfo, fetchCharacter }) {
                                             value={archetype || ''}
                                             label="Trilha"
                                             fullWidth
-                                            onChange={handleArchetypeChange}
+                                            onChange={(event) => setArchetype(event.target.value)}
                                             onBlur={handleUpdateCharacterInfo}
                                             color="secondary"
                                         >
@@ -291,7 +332,7 @@ export function CharacterInfo({ characterInfo, fetchCharacter }) {
                                             value={archetype || ''}
                                             label="Trilha"
                                             fullWidth
-                                            onChange={handleArchetypeChange}
+                                            onChange={(event) => setArchetype(event.target.value)}
                                             onBlur={handleUpdateCharacterInfo}
                                             color="secondary"
                                         >
@@ -310,7 +351,7 @@ export function CharacterInfo({ characterInfo, fetchCharacter }) {
                                             value={archetype || ''}
                                             label="Trilha"
                                             fullWidth
-                                            onChange={handleArchetypeChange}
+                                            onChange={(event) => setArchetype(event.target.value)}
                                             onBlur={handleUpdateCharacterInfo}
                                             color="secondary"
                                         >
@@ -347,10 +388,11 @@ export function CharacterInfo({ characterInfo, fetchCharacter }) {
                         name="hpModifier"
                         fullWidth
                         variant="filled"
-                        disabled
                         color='secondary'
+                        disabled
                         value={hpMod || ''}
                         onChange={(event) => setHpMod(event.target.value)}
+                        onBlur={handleUpdateCharacterModifiers}
                     />
                 </Grid>
                 <Grid item md={1.714285714285714} sm={3} xs={6}>
@@ -361,10 +403,11 @@ export function CharacterInfo({ characterInfo, fetchCharacter }) {
                         name="epModifier"
                         variant="filled"
                         fullWidth
-                        disabled
                         color='secondary'
                         value={epMod || ''}
+                        disabled
                         onChange={(event) => setEpMod(event.target.value)}
+                        onBlur={handleUpdateCharacterModifiers}
                     />
                 </Grid>
                 <Grid item md={1.714285714285714} sm={3} xs={12}>
@@ -375,10 +418,11 @@ export function CharacterInfo({ characterInfo, fetchCharacter }) {
                         name="sanModifier"
                         variant="filled"
                         fullWidth
-                        disabled
                         color='secondary'
                         value={spMod || ''}
+                        disabled
                         onChange={(event) => setSpMod(event.target.value)}
+                        onBlur={handleUpdateCharacterModifiers}
                     />
                 </Grid>
             </Grid>
