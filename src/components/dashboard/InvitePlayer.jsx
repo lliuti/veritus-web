@@ -45,12 +45,6 @@ export const InvitePlayer = () => {
             const response = await api.post(`/parties/${party}/invite`, {
                 username: playerUsername
             });
-
-            if (response && response.code == "ERR_BAD_REQUEST") {
-                enqueueSnackbar("Não foi possivel convidar esse usuário.", { 
-                    variant: "error"
-                });
-            }
             
             enqueueSnackbar("Convite enviado.", { 
                 variant: "info"

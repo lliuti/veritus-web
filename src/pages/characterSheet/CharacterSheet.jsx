@@ -88,6 +88,7 @@ export function CharacterSheet() {
                 id: response.data.id,
                 resistances: response.data.characterNotes.resistances,
                 quickNotes: response.data.characterNotes.quickNotes,
+                text: response.data.characterNotes.text,
             }
     
             const skills = {
@@ -155,7 +156,7 @@ export function CharacterSheet() {
     return (
         <>
             <Header variant="sheet"/>
-            <Container maxWidth="xl" sx={{ my: 5}}>
+            <Container maxWidth="xl" sx={{ mt: 5, mb: 10 }}>
                 <ActiveParty characterSettings={characterSettings} fetchCharacter={fetchCharacter}/>
                 <CharacterInfo characterInfo={characterInfo} fetchCharacter={fetchCharacter}/>
                 <Grid container spacing={{ xs: 1, md: 3}}>
@@ -168,9 +169,9 @@ export function CharacterSheet() {
                     <Skills characterSkills={characterSkills} fetchCharacter={fetchCharacter}/>
                     <Equipment characterEquipment={characterEquipment} fetchCharacter={fetchCharacter}/>
                 </Grid>
-                {/* <Grid container>
-                    <Tiptap/>
-                </Grid> */}
+                <Grid container>
+                    <Tiptap characterNotes={characterNotes}/>
+                </Grid>
             </Container>
             <Backdrop
                 sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}

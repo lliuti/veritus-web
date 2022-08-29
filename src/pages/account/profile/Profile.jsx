@@ -64,6 +64,8 @@ export const Profile = () => {
                 }
             });
 
+            console.log(pendingInvites.data);
+
             const acceptedInvites = await api.get("/parties/list/invited", {
                 params: {
                     status: "accepted"
@@ -271,7 +273,7 @@ export const Profile = () => {
                                         Resumo: {invite.party.description}
                                     </Typography>
                                     <Typography sx={{ mb: 1 }} color="text.secondary">
-                                        Mestre: @lliuti
+                                        Mestre: @{invite.party.user[0].username}
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
@@ -309,7 +311,7 @@ export const Profile = () => {
                                         Resumo: {invite.party.description}
                                     </Typography>
                                     <Typography sx={{ mb: 1 }} color="text.secondary">
-                                        Mestre: @lliuti
+                                        Mestre: @{invite.party.user[0].username}
                                     </Typography>
                                 </CardContent>
                                 <CardActions>

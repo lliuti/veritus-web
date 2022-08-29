@@ -29,15 +29,18 @@ export const CreateAccount = () => {
 
         if (name == "" || username == "" || email == "" || password == "") {
             setIsLoading(false);
+            enqueueSnackbar("Preencha os campos corretamente.", { 
+                variant: "error"
+            });
             return;
         }
 
         try {
             await api.post("/users/create", {
-                name,
-                username,
-                email,
-                password
+                name: name.trim(),
+                username: username.trim(),
+                email: email.trim(),
+                password: password.trim()
             });
     
             context.Login(username, password);
