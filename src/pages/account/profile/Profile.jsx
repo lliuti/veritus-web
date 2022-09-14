@@ -64,8 +64,6 @@ export const Profile = () => {
                 }
             });
 
-            console.log(pendingInvites.data);
-
             const acceptedInvites = await api.get("/parties/list/invited", {
                 params: {
                     status: "accepted"

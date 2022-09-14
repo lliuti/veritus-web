@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-export function Skills({ characterSkills, fetchCharacter }) {
+export function Skills({ characterSkills, fetchCharacter, openDialog }) {
     const [editSkillsOpen, setEditSkillsOpen] = useState(false);
     const [skillRollOpen, setSkillRollOpen] = useState(false);
     const [acrobacia, setAcrobacia] = useState(""); 
@@ -396,7 +396,7 @@ export function Skills({ characterSkills, fetchCharacter }) {
                     </Button>
                 </Grid>
                 <Button onClick={handleEditSkillsOpen} color="inherit" variant='text' fullWidth sx={{ my: 0.4}}>Editar Perícias</Button>
-                <EditSkillsDialog open={editSkillsOpen} onClose={handleEditSkillsClose} characterSkills={characterSkills} fetchCharacter={fetchCharacter}/>
+                <EditSkillsDialog open={editSkillsOpen} onClose={handleEditSkillsClose} characterSkills={characterSkills} fetchCharacter={fetchCharacter} openDialog={openDialog}/>
                 <SkillRollDialog open={skillRollOpen} onClose={handleSkillRollClose} characterId={characterSkills.id} skillRollDialogInfo={skillRollDialogInfo}/>
             </Grid>
 
@@ -422,7 +422,7 @@ function SkillRollDialog(props) {
                             variant="body1" 
                             color="inherit"
                         >
-                            Teste: {skillRollDialogInfo.diceAmount == 0 ? "-1" : skillRollDialogInfo.diceAmount}d20+{skillRollDialogInfo.skillModifier}
+                            Teste: {skillRollDialogInfo.diceAmount == 0 ? "-1" : skillRollDialogInfo.diceAmount}d20{skillRollDialogInfo.skillModifier !== 0 ? `+${skillRollDialogInfo.skillModifier}` : ""}
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
@@ -456,7 +456,7 @@ function SkillRollDialog(props) {
 }
 
 function EditSkillsDialog(props) {
-    const { onClose, open, characterSkills, fetchCharacter } = props;
+    const { onClose, open, characterSkills, fetchCharacter, openDialog } = props;
 
     const [acrobacia, setAcrobacia] = useState(""); 
     const [adestramento, setAdestramento] = useState(""); 
@@ -527,14 +527,14 @@ function EditSkillsDialog(props) {
     
     const handleUpdateSkills = async () => {
         try {
-            setUpdateLoading(true);
+            // setUpdateLoading(true);
+            onClose();
+            openDialog();
             await api.put(`/characters/${characterSkills.id}/skills`, {
                 acrobacia, adestramento, artes, atletismo, atualidades, ciencias, crime, diplomacia, enganacao, fortitude, furtividade, iniciativa, intimidacao, intuicao, investigacao, luta, medicina, ocultismo, percepcao, pilotagem, pontaria, profissao, reflexos, religiao, sobrevivencia, tatica, tecnologia, vontade, 
             });
-            
             fetchCharacter();
-            onClose();
-            setUpdateLoading(false);
+            // setUpdateLoading(false);
             enqueueSnackbar("Perícias atualizadas.", { 
                 variant: "info"
             });
@@ -1063,7 +1063,7 @@ function EditSkillsDialog(props) {
                             variant='text' 
                             endIcon={<SaveAsIcon/>} 
                             fullWidth
-                            loading={updateLoading}
+                            // loading={updateLoading}
                         >
                                 Atualizar Perícia
                         </LoadingButton>

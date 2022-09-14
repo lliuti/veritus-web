@@ -21,11 +21,57 @@ export function InventoryTable({ characterEquipment, fetchCharacter }) {
     const [items, setItems] = useState([]);
     const [itemToEdit, setItemToEdit] = useState({});
 
+    const [weightCapacity, setWeightCapacity] = useState(0);
+    const [weight, setWeight] = useState(0);
+    const [itemsCatZero, setItemsCatZero] = useState(0);
+    const [itemsCatOne, setItemsCatOne] = useState(0);
+    const [itemsCatTwo, setItemsCatTwo] = useState(0);
+    const [itemsCatThree, setItemsCatThree] = useState(0);
+    const [itemsCatFour, setItemsCatFour] = useState(0);
+
     const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
         setItems(characterEquipment.inventory);
+        calculateWeightAndCategories();
     }, [characterEquipment]);
+    
+    const calculateWeightAndCategories = () => {
+        let itemsCatZero = 0;
+        let itemsCatOne = 0;
+        let itemsCatTwo = 0;
+        let itemsCatThree = 0;
+        let itemsCatFour = 0;
+        let totalWeight = 0;
+        for (let i = 0; i < characterEquipment.inventory.length; i++) {
+            totalWeight += parseInt(characterEquipment.inventory[i].weight);
+            switch (characterEquipment.inventory[i].category) {
+                case "I":
+                    itemsCatOne++;
+                    break;
+                case "II":
+                    itemsCatTwo++;
+                    break;
+                case "III":
+                    itemsCatThree++;
+                    break;
+                case "IV":
+                    itemsCatFour++;
+                    break;
+                case "0":
+                    itemsCatZero++;
+                    break;
+            } 
+        }
+
+        setWeight(totalWeight);
+        setWeightCapacity(characterEquipment.weightCapacity);
+        setItemsCatZero(itemsCatZero);
+        setItemsCatOne(itemsCatOne);
+        setItemsCatTwo(itemsCatTwo);
+        setItemsCatThree(itemsCatThree);
+        setItemsCatFour(itemsCatFour);
+    }
 
     const handleOpenAddItemDialog = () => setAddItemDialogOpen(true);
     const handleCloseAddItemDialog = () => {
@@ -63,7 +109,9 @@ export function InventoryTable({ characterEquipment, fetchCharacter }) {
                             id="panel1a-header"
                             >
                                 <Typography sx={{ mr: 2 }}>{item.item}</Typography>
-                                <Typography sx={{ display: { xs: 'none', sm: 'block' } }} color="text.secondary">{item.description}</Typography>
+                                <Typography sx={{ display: { xs: 'none', sm: 'block' } }} color="text.secondary">
+                                    {item.description.trim() !== "" ? item.description : `Categoria ${item.category}, Espaço ${item.weight}`}
+                                </Typography>
                             </AccordionSummary>
                             <AccordionDetails>
                                 <Grid container spacing={2}>
@@ -106,6 +154,44 @@ export function InventoryTable({ characterEquipment, fetchCharacter }) {
                         </Accordion>
                     ))
                 }
+                <Accordion>
+                    <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                    >
+                        <Typography sx={{ mr: 2 }}>Carga</Typography>
+                        <Typography color="text.secondary">{weight}/{weightCapacity}</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <Grid container spacing={2}>
+                            <Grid item xs={6} sm={3}>
+                                <Box sx={{ mb: 2, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+                                    <Typography color="text.secondary">Itens Cat. I</Typography>
+                                    <Typography>{itemsCatOne}</Typography>
+                                </Box>
+                            </Grid>
+                            <Grid item xs={6} sm={3}>
+                                <Box sx={{ mb: 2, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+                                    <Typography color="text.secondary">Itens Cat. II</Typography>
+                                    <Typography>{itemsCatTwo}</Typography>
+                                </Box>
+                            </Grid>
+                            <Grid item xs={6} sm={3}>
+                                <Box sx={{ mb: 2, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+                                    <Typography color="text.secondary">Itens Cat. III</Typography>
+                                    <Typography>{itemsCatThree}</Typography>
+                                </Box>
+                            </Grid>
+                            <Grid item xs={6} sm={3}>
+                                <Box sx={{ mb: 2, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+                                    <Typography color="text.secondary">Itens Cat. IV</Typography>
+                                    <Typography>{itemsCatFour}</Typography>
+                                </Box>
+                            </Grid>
+                        </Grid>
+                    </AccordionDetails>
+                </Accordion>
                 <Button 
                     onClick={() => setAddItemDialogOpen(true)} 
                     color="inherit" 

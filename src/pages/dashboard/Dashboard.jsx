@@ -136,7 +136,7 @@ export function Dashboard() {
                                         <Grid item xs={12}>
                                             <LoadingButton 
                                                 onClick={handleDeleteParty} 
-                                                loading={deletePartyLoading}
+                                                // loading={deletePartyLoading}
                                                 size="small" 
                                                 color="error" 
                                                 variant="text"

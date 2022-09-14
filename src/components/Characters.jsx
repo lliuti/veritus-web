@@ -12,10 +12,13 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import LoadingButton from '@mui/lab/LoadingButton';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export function Characters() {
     const [characters, setCharacters] = useState([]);
     const [deleteCharacterLoading, setDeleteCharacterLoading] = useState(false);
+    const [openBackdrop, setOpenBackdrop] = useState(false);
 
     const navigate = useNavigate();
     const context = useAuth();
@@ -27,6 +30,7 @@ export function Characters() {
     }, []);
 
     const fetchMyCharacters = async () => {
+        setOpenBackdrop(true);
         try {
             const response = await api.get("/characters/list");
             setCharacters(response.data);
@@ -34,6 +38,7 @@ export function Characters() {
             context.Logout();
             navigate("/conta/entrar");
         }
+        setOpenBackdrop(false);
     };
 
     const handleDeleteCharacter = async (id) => {
@@ -95,6 +100,12 @@ export function Characters() {
                     </Grid>
                 ))
             }
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={openBackdrop}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
         </Grid>
     )
 }

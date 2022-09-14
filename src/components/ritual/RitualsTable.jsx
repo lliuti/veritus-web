@@ -70,7 +70,7 @@ export const RitualsTable = ({ characterEquipment, fetchCharacter }) => {
                             sx={{ display: { xs: 'none', sm: 'block' } }} 
                             color="text.secondary"
                         >
-                            {ritual.briefDescription}
+                            {ritual.briefDescription.trim() !== "" ? ritual.briefDescription : `${ritual.element}, ${ritual.circle}° círculo`}
                         </Typography>
                     </AccordionSummary>
                     <AccordionDetails>

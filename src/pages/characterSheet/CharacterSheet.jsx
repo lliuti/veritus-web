@@ -38,7 +38,12 @@ export function CharacterSheet() {
         fetchCharacter();
     }, [id]);
 
+    const fetchCharacterDialog = () => {
+        setOpenBackdrop(true);
+    }
+
     const fetchCharacter = async () => {
+
         try {
             const response = await api.get(`/characters/${id}/sheet`);
             const info = {
@@ -122,13 +127,24 @@ export function CharacterSheet() {
                 tecnologia: response.data.characterSkills.tecnologia,
                 vontade: response.data.characterSkills.vontade,
             };
-    
+
+            let weightCapacity = 0;
+
+            if (parseInt(response.data.nex) >= 10 && response.data.archetype === "Técnico") {
+                weightCapacity = (parseInt(response.data.characterAttributes.str) + parseInt(response.data.characterAttributes.int)) * 5;
+            } else if (parseInt(response.data.characterAttributes.str) < 1 && response.data.archetype !== "Técnico") {
+                weightCapacity = 2;   
+            } else {
+                weightCapacity = response.data.characterAttributes.str * 5;
+            }
+
             const equipment = {
                 id: response.data.id,
                 attacks: response.data.characterAttacks,
                 inventory: response.data.characterItems,
                 powers: response.data.characterPowers,
                 rituals: response.data.characterRituals,
+                weightCapacity,
             }
     
             const settings = {
@@ -145,12 +161,13 @@ export function CharacterSheet() {
             setCharacterSkills(skills);
             setCharacterEquipment(equipment);
             setCharacterSettings(settings);
-            setOpenBackdrop(false);
         } catch (err) {
             enqueueSnackbar("Não foi possível carregar a ficha.", { 
                 variant: "error"
             });
         }
+
+        setOpenBackdrop(false);
     };
 
     return (
@@ -161,12 +178,12 @@ export function CharacterSheet() {
                 <CharacterInfo characterInfo={characterInfo} fetchCharacter={fetchCharacter}/>
                 <Grid container spacing={{ xs: 1, md: 3}}>
                     <Stats characterStatus={characterStatus} fetchCharacter={fetchCharacter}/>
-                    <Attributes characterAttributes={characterAttributes} fetchCharacter={fetchCharacter}/>
+                    <Attributes characterAttributes={characterAttributes} fetchCharacter={fetchCharacter} openDialog={fetchCharacterDialog}/>
                     <Defenses characterDefenses={characterDefenses} fetchCharacter={fetchCharacter}/>
                     <Notes characterNotes={characterNotes} fetchCharacter={fetchCharacter}/>
                 </Grid>
                 <Grid container spacing={{ xs: 1, md: 3}}>
-                    <Skills characterSkills={characterSkills} fetchCharacter={fetchCharacter}/>
+                    <Skills characterSkills={characterSkills} fetchCharacter={fetchCharacter} openDialog={fetchCharacterDialog}/>
                     <Equipment characterEquipment={characterEquipment} fetchCharacter={fetchCharacter}/>
                 </Grid>
                 <Grid container>

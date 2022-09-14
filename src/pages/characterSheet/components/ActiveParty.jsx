@@ -46,7 +46,7 @@ export const ActiveParty = ({ characterSettings, fetchCharacter }) => {
                 activeParty,
             }); 
     
-            fetchCharacter();
+            // fetchCharacter();
             enqueueSnackbar("Mesa ativa atualizada.", { 
                 variant: "info"
             });
@@ -99,7 +99,7 @@ export const ActiveParty = ({ characterSettings, fetchCharacter }) => {
             : <></>}
             <Grid item xs={12} sm={6}>
                 <LoadingButton 
-                    loading={loadingRecalculate}
+                    // loading={loadingRecalculate}
                     onClick={handleRecalculate} 
                     color="secondary" 
                     variant='outlined' 

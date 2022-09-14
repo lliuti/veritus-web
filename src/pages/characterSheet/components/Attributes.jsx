@@ -10,7 +10,7 @@ import { useState, useEffect } from 'react';
 import { api } from '../../../services/api';
 import { useSnackbar } from "notistack";
 
-export function Attributes({ characterAttributes, fetchCharacter }) {
+export function Attributes({ characterAttributes, fetchCharacter, openDialog }) {
     const [attributeRollOpen, setAttributeRollOpen] = useState(false);
     const [editAttributesOpen, setEditAttributesOpen] = useState(false);
     const [attributeRollDialogInfo, setAttributeRollDialogInfo] = useState([]);
@@ -79,7 +79,7 @@ export function Attributes({ characterAttributes, fetchCharacter }) {
                 <AttributeRollDialog open={attributeRollOpen} onClose={handleAttributeRollClose} attributeRollDialogInfo={attributeRollDialogInfo}/>
                 <Grid item xs={6}>
                     <Button onClick={handleEditAttributesOpen} color="inherit" variant='text' size='medium' fullWidth>Editar</Button>
-                    <EditAttributesDialog open={editAttributesOpen} onClose={handleEditAttributesClose} characterAttributes={characterAttributes} fetchCharacter={fetchCharacter}/>
+                    <EditAttributesDialog open={editAttributesOpen} onClose={handleEditAttributesClose} characterAttributes={characterAttributes} fetchCharacter={fetchCharacter} openDialog={openDialog}/>
                 </Grid>
             </Grid>
         </Grid>
@@ -87,7 +87,7 @@ export function Attributes({ characterAttributes, fetchCharacter }) {
 }
 
 function EditAttributesDialog(props) {
-    const { onClose, open, characterAttributes, fetchCharacter } = props;
+    const { onClose, open, characterAttributes, fetchCharacter, openDialog } = props;
 
     const [str, setStr] = useState("0");
     const [vig, setVig] = useState("0");
@@ -110,13 +110,12 @@ function EditAttributesDialog(props) {
     };
 
     const handleUpdateAttributes = async () => {
+        // setUpdateLoading(true);
         try {
-            setUpdateLoading(true);
-            await api.put(`/characters/${characterAttributes.id}/attributes`, { str,vig,dex,cha,int });
-            
-            fetchCharacter();
             onClose();
-            setUpdateLoading(false);
+            openDialog();
+            await api.put(`/characters/${characterAttributes.id}/attributes`, { str,vig,dex,cha,int });
+            fetchCharacter();
             enqueueSnackbar("Atributos atualizados.", { 
                 variant: "info"
             });
@@ -125,6 +124,7 @@ function EditAttributesDialog(props) {
                 variant: "error"
             });
         }
+        // setUpdateLoading(false);
     };
 
     return (
@@ -206,7 +206,7 @@ function EditAttributesDialog(props) {
                             variant='text' 
                             endIcon={<SaveAsIcon/>} 
                             fullWidth
-                            loading={updateLoading}
+                            // loading={updateLoading}
                         >
                             Atualizar Atributos
                         </LoadingButton>
