@@ -20,9 +20,9 @@ export const AddItemDialog = (props) => {
     const { onClose, open, fetchCharacter, characterId, itemToEdit } = props;
     
     const [item, setItem] = useState("");
-    const [weight, setWeight] = useState("");
+    const [weight, setWeight] = useState("0");
     const [description, setDescription] = useState("");
-    const [category, setCategory] = useState("");
+    const [category, setCategory] = useState("0");
     const [buttonFunction, setButtonFunction] = useState("create");
 
     const { enqueueSnackbar } = useSnackbar();

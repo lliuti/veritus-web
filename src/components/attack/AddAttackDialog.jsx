@@ -21,12 +21,12 @@ export const AddAttackDialog = (props) => {
     const [attack, setAttack] = useState("");
     const [test, setTest] = useState("");
     const [damage, setDamage] = useState("");
-    const [damageType, setDamageType] = useState("");
-    const [category, setCategory] = useState("");
-    const [margin, setMargin] = useState("");
-    const [multiplier, setMultiplier] = useState("");
-    const [range, setRange] = useState("");
-    const [weight, setWeight] = useState("");
+    const [damageType, setDamageType] = useState("B");
+    const [category, setCategory] = useState("0");
+    const [margin, setMargin] = useState("-");
+    const [multiplier, setMultiplier] = useState("-");
+    const [range, setRange] = useState("-");
+    const [weight, setWeight] = useState("0");
     const [description, setDescription] = useState("");
     const [buttonFunction, setButtonFunction] = useState("create");
 

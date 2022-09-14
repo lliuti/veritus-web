@@ -20,7 +20,7 @@ export const AddPowerDialog = (props) => {
     const { onClose, open, fetchCharacter, characterId, powerToEdit } = props;
     
     const [name, setName] = useState("");
-    const [powerType, setPowerType] = useState("");
+    const [powerType, setPowerType] = useState("Poder de Origem");
     // const [powerOrigin, setPowerOrigin] = useState("");
     const [description, setDescription] = useState("");
     const [nex, setNex] = useState(0);

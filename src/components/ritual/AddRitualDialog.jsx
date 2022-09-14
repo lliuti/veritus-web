@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 import Box from '@mui/material/Box';
+import Tooltip from '@mui/material/Tooltip';
 
 import Dialog from '@mui/material/Dialog';
 import TextField from '@mui/material/TextField';
@@ -21,9 +22,9 @@ export const AddRitualDialog = (props) => {
     
     const [buttonFunction, setButtonFunction] = useState("create");
     const [name, setName] = useState("");
-    const [element, setElement] = useState("");
-    const [circle, setCircle] = useState("");
-    const [execution, setExecution] = useState("");
+    const [element, setElement] = useState("Conhecimento");
+    const [circle, setCircle] = useState("1");
+    const [execution, setExecution] = useState("Padrão");
     const [range, setRange] = useState("");
     const [target, setTarget] = useState("");
     const [duration, setDuration] = useState("");
@@ -153,11 +154,11 @@ export const AddRitualDialog = (props) => {
                                 label="Elemento"
                                 onChange={(event) => setElement(event.target.value)}
                             >
-                                <MenuItem value="Medo">Medo</MenuItem>
-                                <MenuItem value="Morte">Morte</MenuItem>
-                                <MenuItem value="Sangue">Sangue</MenuItem>
                                 <MenuItem value="Conhecimento">Conhecimento</MenuItem>
                                 <MenuItem value="Energia">Energia</MenuItem>
+                                <MenuItem value="Morte">Morte</MenuItem>
+                                <MenuItem value="Sangue">Sangue</MenuItem>
+                                <MenuItem value="Medo">Medo</MenuItem>
                             </Select>
                         </FormControl>
                     </Grid>
@@ -180,16 +181,21 @@ export const AddRitualDialog = (props) => {
                         </FormControl>
                     </Grid>
                     <Grid item xs={12} sm={6} md={12}>
-                        <TextField 
-                            id="brief-description" 
-                            label="Descrição Resumida" 
-                            variant="filled" 
-                            color="secondary" 
-                            size="regular" 
-                            fullWidth
-                            value={briefDescription}
-                            onChange={(event) => setBriefDescription(event.target.value)}
-                        />
+                        <Tooltip 
+                            title='Resumo do ritual, como os da página 122 do Livro de Regras.' 
+                            placement="top-start"
+                        >
+                            <TextField 
+                                id="brief-description" 
+                                label="Resumo" 
+                                variant="filled" 
+                                color="secondary" 
+                                size="regular" 
+                                fullWidth
+                                value={briefDescription}
+                                onChange={(event) => setBriefDescription(event.target.value)}
+                            />
+                        </Tooltip>
                     </Grid>
                     <Grid item xs={12} sm={6} md={2.4}>
                         <TextField 
@@ -252,46 +258,62 @@ export const AddRitualDialog = (props) => {
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField 
-                            id="description" 
-                            label="Descrição extensa" 
-                            variant="filled" 
-                            color="secondary" 
-                            size="regular" 
-                            multiline
-                            rows={3}
-                            fullWidth
-                            value={description}
-                            onChange={(event) => setDescription(event.target.value)}
-                        />
+                        <Tooltip 
+                            title='Descrição completa do ritual, como os da página 124 do Livro de Regras.' 
+                            placement="top-start"
+                        >
+                            <TextField 
+                                id="description" 
+                                label="Descrição extensa" 
+                                variant="filled" 
+                                color="secondary" 
+                                size="regular" 
+                                multiline
+                                rows={3}
+                                fullWidth
+                                value={description}
+                                onChange={(event) => setDescription(event.target.value)}
+                            />
+                        </Tooltip>
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField 
-                            id="ascended" 
-                            label="Discente" 
-                            variant="filled" 
-                            color="secondary" 
-                            size="regular" 
-                            multiline
-                            rows={2}
-                            fullWidth
-                            value={ascended}
-                            onChange={(event) => setAscended(event.target.value)}
-                        />
+                        <Tooltip
+                            title='Efeito discente, por exemplo "(+2 PE): muda a duração para 1 dia."'
+                            placement='top-start'
+                        >
+                            <TextField 
+                                id="ascended" 
+                                label="Discente" 
+                                variant="filled" 
+                                color="secondary" 
+                                size="regular" 
+                                multiline
+                                rows={2}
+                                fullWidth
+                                value={ascended}
+                                onChange={(event) => setAscended(event.target.value)}
+                            />
+                        </Tooltip>
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField 
-                            id="awoken" 
-                            label="Verdadeiro" 
-                            variant="filled" 
-                            color="secondary" 
-                            size="regular" 
-                            multiline
-                            rows={2}
-                            fullWidth
-                            value={awoken}
-                            onChange={(event) => setAwoken(event.target.value)}
-                        />
+                        <Tooltip
+                            title='Efeito verdadeiro, por exemplo "(+5 PE): muda o alcance para curto e o 
+                            alvo para pessoas ou animais escolhidos."'
+                            placement='top-start'
+                        >
+                            <TextField 
+                                id="awoken" 
+                                label="Verdadeiro" 
+                                variant="filled" 
+                                color="secondary" 
+                                size="regular" 
+                                multiline
+                                rows={2}
+                                fullWidth
+                                value={awoken}
+                                onChange={(event) => setAwoken(event.target.value)}
+                            />
+                        </Tooltip>
                     </Grid>
                     <Grid item xs={12} md={12}>
                         <Button onClick={handleRitual} color="secondary" variant='text' endIcon={<SaveAsIcon/>} size="large" fullWidth>{buttonFunction == "create" ? "Adicionar" : "Atualizar"}</Button>
