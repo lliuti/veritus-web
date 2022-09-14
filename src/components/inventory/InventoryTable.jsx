@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { api } from '../../services/api';
 import { AddItemDialog } from './AddItemDialog';
 import { useSnackbar } from 'notistack';
+import { Bull } from "../../components/Bull";
 
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
@@ -110,7 +111,19 @@ export function InventoryTable({ characterEquipment, fetchCharacter }) {
                             >
                                 <Typography sx={{ mr: 2 }}>{item.item}</Typography>
                                 <Typography sx={{ display: { xs: 'none', sm: 'block' } }} color="text.secondary">
-                                    {item.description.trim() !== "" ? item.description : `Categoria ${item.category}, Espaço ${item.weight}`}
+                                    {(() => {
+                                        if (item.description.trim() !== "") {
+                                            return item.description
+                                        } else {
+                                            return (
+                                                <>
+                                                    Categoria {item.category} &nbsp;
+                                                    <Bull/> &nbsp;
+                                                    Espaço {item.weight}
+                                                </>
+                                            )
+                                        }
+                                    })()}
                                 </Typography>
                             </AccordionSummary>
                             <AccordionDetails>
