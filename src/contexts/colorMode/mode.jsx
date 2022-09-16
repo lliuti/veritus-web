@@ -1,22 +1,29 @@
-import { useState, createContext, useMemo } from "react";
+import { useState, createContext, useMemo, useEffect } from "react";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { blueGrey, brown } from "@mui/material/colors";
 
 export const ColorModeContext = createContext({
     toggleColorMode: () => {},
-    mode: "light"
+    mode: "dark"
 });
 
 export const ToggleColorMode = ({ children }) => {
-    const [mode, setMode] = useState('light');
+    const [mode, setMode] = useState("dark");
+
+    useEffect(() => {
+        const storedMode = localStorage.getItem("mode");
+        setMode(storedMode);
+    }, [])
+
     const colorMode = useMemo(
         () => 
             ({
                 toggleColorMode: () => {
                     setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
                 },
+                mode
             }),
-        [],
+        [mode],
     );
 
     const theme = useMemo(

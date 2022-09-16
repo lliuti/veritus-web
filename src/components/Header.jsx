@@ -154,8 +154,11 @@ export const Header = ({ variant }) => {
                         >
                             Criar Personagem
                         </Button>
-                        <Button onClick={colorMode.toggleColorMode} variant="text" color="inherit" size="small">
-                            { colorMode.mode == "light" ? <LightModeIcon fontSize="small"/> : <NightlightIcon fontSize="small"/> }
+                        <Button onClick={() => {
+                            localStorage.setItem("mode", colorMode.mode == "light" ? "dark" : "light");
+                            colorMode.toggleColorMode();
+                        }} variant="text" color="inherit" size="small">
+                            { colorMode.mode == "dark" ? <LightModeIcon fontSize="small"/> : <NightlightIcon fontSize="small"/> }
                         </Button>
                     </Box>
                     <Button onClick={handleLogout} variant="outlined" color="inherit" sx={{ my: 1, mx: 1 }}>

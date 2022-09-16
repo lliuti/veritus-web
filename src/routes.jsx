@@ -45,13 +45,6 @@ const ProtectedMain = () => {
 
 const ProtectedDashboard = () => {
   const context = useAuth();
-  // if (context.signed && !context.admin) {
-  //   return <ProtectedMain/>;
-  // } else if (context.signed && context.admin) {
-  //   return <Dashboard/>;
-  // } else {
-  //   return <Login />;
-  // }
   if (context.signed) {
     return <Dashboard/>;
   } else {
