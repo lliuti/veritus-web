@@ -10,9 +10,12 @@ import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import { useAuth } from "../contexts/useAuth";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { api } from "../services/api";
 import { useSnackbar } from 'notistack';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import NightlightIcon from '@mui/icons-material/Nightlight';
+import { ColorModeContext } from '../contexts/colorMode/mode'
 
 export const Header = ({ variant }) => {
     const [anchorNav, setAnchorNav] = useState(null);
@@ -20,6 +23,7 @@ export const Header = ({ variant }) => {
     const navigate = useNavigate();    
     const context = useAuth();
     const { enqueueSnackbar } = useSnackbar();
+    const colorMode = useContext(ColorModeContext);
 
     const handleCreateCharacter = async () => {
         try {
@@ -98,14 +102,14 @@ export const Header = ({ variant }) => {
                     <Typography component="h1" variant="h5" color="inherit" noWrap sx={{ flexGrow: 1 }}>
                         Veritus
                     </Typography>
-                    <Box sx={{ display: { xs: "none", md: "flex"} }}>
-                        <Link
+                    <Box sx={{ display: { xs: "none", md: "flex"}, mr: { md: 1 } }}>
+                        <Button
                             variant="button"
                             color="inherit"
                             onClick={() => navigate(`/conta/${context.userId}/perfil`)}
                             sx={{ 
                                 my: 1, 
-                                mx: 3, 
+                                mx: 1, 
                                 transition: "200ms all",
                                 textDecoration: "none", 
                                 ":hover": {
@@ -115,14 +119,14 @@ export const Header = ({ variant }) => {
                             }}
                         >
                             Perfil
-                        </Link>
-                        <Link
+                        </Button>
+                        <Button
                             variant="button"
                             color="inherit"
                             onClick={() => navigate("/mestre/dashboard")}
                             sx={{ 
                                 my: 1, 
-                                mx: 3, 
+                                mx: 1, 
                                 transition: "200ms all",
                                 textDecoration: "none", 
                                 ":hover": {
@@ -132,14 +136,14 @@ export const Header = ({ variant }) => {
                             }}
                         >
                             Área do Mestre
-                        </Link>
-                        <Link
+                        </Button>
+                        <Button
                             variant="button"
                             color="inherit"
                             onClick={handleCreateCharacter}
                             sx={{ 
                                 my: 1, 
-                                mx: 3, 
+                                mx: 1, 
                                 transition: "200ms all",
                                 textDecoration: "none", 
                                 ":hover": {
@@ -149,9 +153,12 @@ export const Header = ({ variant }) => {
                             }}
                         >
                             Criar Personagem
-                        </Link>
+                        </Button>
+                        <Button onClick={colorMode.toggleColorMode} variant="text" color="inherit" size="small">
+                            { colorMode.mode == "light" ? <LightModeIcon fontSize="small"/> : <NightlightIcon fontSize="small"/> }
+                        </Button>
                     </Box>
-                    <Button onClick={handleLogout} variant="outlined" color="secondary" sx={{ my: 1, mx: 1.5 }}>
+                    <Button onClick={handleLogout} variant="outlined" color="inherit" sx={{ my: 1, mx: 1 }}>
                         Sair
                     </Button>
                 </Toolbar>

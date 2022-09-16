@@ -258,7 +258,7 @@ export const Profile = () => {
                         </Grid>
                     : <></>}
                     {acceptedInvites?.map((invite) => (
-                        <Grid item xs={6} md={4}>
+                        <Grid item xs={6} md={4} key={invite.id}>
                             <Card>
                                 <CardContent>
                                     <Typography variant="h5" component="div" sx={{ mb: 1 }}>

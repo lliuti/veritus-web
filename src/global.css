@@ -3,10 +3,10 @@ body {
     background-image: radial-gradient(rgb(121, 85, 72, 0.25) 0.65px, rgb(255, 255, 251, 0.25) 0.65px);
     background-size: 13px 13px; */
 
-    background-color: #121212;
     /* opacity: 1; */
-    background-image: radial-gradient(#090909 1.3px, #121212 1.3px);
-    background-size: 26px 26px;
+    /* background-color: #121212; */
+    /* background-image: radial-gradient(#090909 1.3px, #121212 1.3px);
+    background-size: 26px 26px; */
 }
 
 ::-webkit-scrollbar {

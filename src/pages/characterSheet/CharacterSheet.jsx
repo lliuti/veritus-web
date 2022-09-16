@@ -186,9 +186,9 @@ export function CharacterSheet() {
                     <Skills characterSkills={characterSkills} fetchCharacter={fetchCharacter} openDialog={fetchCharacterDialog}/>
                     <Equipment characterEquipment={characterEquipment} fetchCharacter={fetchCharacter}/>
                 </Grid>
-                <Grid container>
+                {/* <Grid container>
                     <Tiptap characterNotes={characterNotes}/>
-                </Grid>
+                </Grid> */}
             </Container>
             <Backdrop
                 sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}

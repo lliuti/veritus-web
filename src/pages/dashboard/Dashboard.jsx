@@ -8,6 +8,8 @@ import { Header } from "../../components/Header";
 import { Bull } from "../../components/Bull";
 import { useSnackbar } from 'notistack';
 
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import Grid from '@mui/material/Grid';
@@ -16,9 +18,7 @@ import Button from '@mui/material/Button';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
+import Paper from '@mui/material/Paper';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -100,17 +100,24 @@ export function Dashboard() {
     return (
         <>
             <Header variant="dashboard"/>
-            <Container component="main" sx={{ mt: 5}}>
+            <Container component="main" maxWidth="xl" sx={{ mt: 5}}>
                 <Box sx={{ width: '100%' }}>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                        <Tabs value={dashboardTabValue} onChange={(event, newValue) => setDashboardTabValue(newValue)} aria-label="dashboard tabs">
+                        <Tabs 
+                            value={dashboardTabValue} 
+                            onChange={(event, newValue) => setDashboardTabValue(newValue)}
+                            aria-label="dashboard tabs"
+                            scrollButtons
+                            allowScrollButtonsMobile
+                            variant="scrollable"
+                        >
                             <Tab label="Dashboard" {...a11yProps(0)} />
                             <Tab label="Criar uma nova mesa" {...a11yProps(1)} />
                             <Tab label="Convidar jogador para mesa" {...a11yProps(2)} />
                         </Tabs>
                     </Box>
                     <TabPanel value={dashboardTabValue} index={0}>
-                        <Grid container spacing={2}>
+                        <Grid container spacing={1}>
                             {parties.length > 0 ? 
                                 <>
                                     <Grid item xs={12}>
@@ -140,6 +147,8 @@ export function Dashboard() {
                                                 size="small" 
                                                 color="error" 
                                                 variant="text"
+                                                startIcon={<DeleteForeverIcon/>}
+                                                sx={{ alignItems: "center"}}
                                             >
                                                 Deletar mesa
                                             </LoadingButton>
@@ -156,42 +165,47 @@ export function Dashboard() {
                                     
                                 
                             {sheets?.map((sheet) => (
-                                <Grid item md={3} key={sheet.id}>
-                                    <Card>
-                                        <CardContent>
-                                            <Typography variant="h5" component="p" sx={{ mb: 1 }}>
-                                                {sheet.name}
-                                            </Typography>
-                                            <Typography variant="body" component="p" sx={{ mb: 1 }} color="text.secondary">
-                                                {sheet.characterClass} <Bull/> {sheet.archetype}
-                                            </Typography>
-                                            <Grid container sx={{ mb: 1 }}>
-                                                <Grid item md={4}>
-                                                    <Typography variant="body" component="p" color="error" sx={{ mb: 1 }}>
-                                                        {sheet.characterStatus.currentHp} / {sheet.characterStatus.maxHp}
-                                                    </Typography>
-                                                </Grid>
-                                                <Grid item md={4}>
-                                                    <Typography variant="body" component="p" color="primary" sx={{ mb: 1 }}>
-                                                        {sheet.characterStatus.currentSp} / {sheet.characterStatus.maxSp}
-                                                    </Typography>
-                                                </Grid>
-                                                <Grid item md={4}>
-                                                    <Typography variant="body" component="p" color="orange" sx={{ mb: 1 }}>
-                                                        {sheet.characterStatus.currentEp} / {sheet.characterStatus.maxEp}
-                                                    </Typography>
-                                                </Grid>
+                                <Grid item xs={12} sm={6} md={3} key={sheet.id}>
+                                    <Paper elevation={3} sx={{ p: 2}}>
+                                        <Grid container rowSpacing={1.5}>
+                                            <Grid item xs={12}>
+                                                <Typography variant="h5" component="p" sx={{ textAlign: "center"}}>
+                                                    {sheet.name}
+                                                </Typography>
                                             </Grid>
-                                            <Typography color="text.secondary">
-                                                {sheet.background} <Bull/> {sheet.nex}%
-                                            </Typography>
-                                        </CardContent>
-                                        <CardActions>
-                                            <Button onClick={() => navigate(`/personagens/${sheet.id}`)} size="small" color="secondary" variant="outlined">
-                                                Visualizar
-                                            </Button>
-                                        </CardActions>
-                                    </Card>
+                                            <Grid item xs={12}>
+                                                <Typography color="text.secondary" fontSize={14} sx={{ textAlign: "center"}}>
+                                                    {sheet.background} <Bull/> {sheet.nex}%
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={12}>
+                                                <Typography variant="body" component="p" fontSize={14} color="text.secondary" sx={{ textAlign: "center"}}>
+                                                    {sheet.characterClass} <Bull/> {sheet.archetype}
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={12}>
+                                                <Typography variant="body" component="p" color="error" sx={{ textAlign: "center"}}>
+                                                    PV {sheet.characterStatus.currentHp}/{sheet.characterStatus.maxHp}
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={12}>
+                                                <Typography variant="body" component="p" color="primary" sx={{ textAlign: "center"}}>
+                                                    PS {sheet.characterStatus.currentSp}/{sheet.characterStatus.maxSp}
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={12}>
+                                                <Typography variant="body" component="p" color="orange" sx={{ textAlign: "center"}}>
+                                                    PE {sheet.characterStatus.currentEp}/{sheet.characterStatus.maxEp}
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={12}>
+                                                <Button fullWidth onClick={() => navigate(`/personagens/${sheet.id}`)} size="large" color="secondary" variant="outlined" sx={{ alignItems: "center"}}>
+                                                    <VisibilityIcon sx={{ mr: 1 }}/>
+                                                    Visualizar
+                                                </Button>
+                                            </Grid>
+                                        </Grid>
+                                    </Paper>
                                 </Grid>
                             ))}
                         </Grid>
