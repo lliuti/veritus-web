@@ -12,7 +12,11 @@ export const ToggleColorMode = ({ children }) => {
 
     useEffect(() => {
         const storedMode = localStorage.getItem("mode");
-        setMode(storedMode);
+        if (!storedMode) {
+            setMode("dark");
+        } else {
+            setMode(storedMode);
+        }
     }, [])
 
     const colorMode = useMemo(
