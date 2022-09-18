@@ -3,6 +3,7 @@ import { useSnackbar } from 'notistack';
 import { api } from '../../services/api';
 
 import Grid from '@mui/material/Grid';
+import LoadingButton from '@mui/lab/LoadingButton';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -21,6 +22,7 @@ export const AddAttackDialog = (props) => {
     const [attack, setAttack] = useState("");
     const [test, setTest] = useState("");
     const [damage, setDamage] = useState("");
+    const [criticalDamage, setCriticalDamage] = useState("");
     const [damageType, setDamageType] = useState("B");
     const [category, setCategory] = useState("0");
     const [margin, setMargin] = useState("-");
@@ -29,6 +31,7 @@ export const AddAttackDialog = (props) => {
     const [weight, setWeight] = useState("0");
     const [description, setDescription] = useState("");
     const [buttonFunction, setButtonFunction] = useState("create");
+    const [addAttackLoading, setAddAttackLoading] = useState(false);
 
     const { enqueueSnackbar } = useSnackbar();
 
@@ -43,6 +46,7 @@ export const AddAttackDialog = (props) => {
             setAttack(attackToEdit.attack);
             setTest(attackToEdit.test);
             setDamage(attackToEdit.damage);
+            setCriticalDamage(attackToEdit.criticalDamage);
             setDamageType(attackToEdit.damageType);
             setCategory(attackToEdit.category);
             setMargin(attackToEdit.margin);
@@ -56,17 +60,20 @@ export const AddAttackDialog = (props) => {
     }, [attackToEdit])
 
     const handleAttack = async () => {
+        setAddAttackLoading(true);
         if (!attack) {
             enqueueSnackbar("Digite pelo menos um nome para o ataque.", { 
                 variant: "error"
             });
+            setAddAttackLoading(false);
             return;
         }
 
-        if (!test || !damage) {
-            enqueueSnackbar("Todo ataque precisa de um valor para Teste e Dano.", { 
+        if (!damage) {
+            enqueueSnackbar("Todo ataque precisa de um valor Dano.", { 
                 variant: "error"
             });
+            setAddAttackLoading(false);
             return;
         }
 
@@ -76,6 +83,7 @@ export const AddAttackDialog = (props) => {
                     attack,
                     test: test.normalize('NFD').replace(/[\u0300-\u036f]/g, ""),
                     damage: damage.normalize('NFD').replace(/[\u0300-\u036f]/g, ""),
+                    criticalDamage: criticalDamage.normalize('NFD').replace(/[\u0300-\u036f]/g, ""),
                     damageType,
                     category,
                     margin,
@@ -100,6 +108,7 @@ export const AddAttackDialog = (props) => {
                     attack,
                     test: test.normalize('NFD').replace(/[\u0300-\u036f]/g, ""),
                     damage: damage.normalize('NFD').replace(/[\u0300-\u036f]/g, ""),
+                    criticalDamage: criticalDamage.normalize('NFD').replace(/[\u0300-\u036f]/g, ""),
                     damageType,
                     category,
                     margin,
@@ -126,6 +135,7 @@ export const AddAttackDialog = (props) => {
         setAttack("");
         setTest("");
         setDamage("");
+        setCriticalDamage("");
         setDamageType("");
         setCategory("");
         setMargin("");
@@ -135,8 +145,9 @@ export const AddAttackDialog = (props) => {
         setDescription("");
 
         fetchCharacter();
-        onClose();
         setButtonFunction("create");
+        setAddAttackLoading(false);
+        onClose();
     }   
 
     return (
@@ -147,14 +158,14 @@ export const AddAttackDialog = (props) => {
                     <Grid item xs={12} md={3}>
                         <TextField id="attack" label="Ataque / Arma" variant="filled" color="secondary" size="regular" fullWidth value={attack} onChange={(event) => setAttack(event.target.value)}/>
                     </Grid>
-                    <Grid item xs={12} md={3}>
+                    {/* <Grid item xs={12} md={3}>
                         <Tooltip 
                             title='Exemplo de teste: "3d20+5". Evite espaços e acentos.' 
                             placement="top"
                         >
                             <TextField id="test" label="Teste" variant="filled" color="secondary" size="regular" fullWidth value={test} onChange={(event) => setTest(event.target.value)}/>
                         </Tooltip>
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={12}  md={3}>
                         <Tooltip 
                             // title='Exemplo de teste dinâmico: "2d6+[AGI]". Exemplo de teste simples: "2d6+3".' 
@@ -162,6 +173,23 @@ export const AddAttackDialog = (props) => {
                             placement="top"
                         >
                             <TextField id="damage" label="Dano" variant="filled" color="secondary" size="regular" fullWidth value={damage} onChange={(event) => setDamage(event.target.value)}/>
+                        </Tooltip>
+                    </Grid>
+                    <Grid item xs={12} md={3}>
+                        <Tooltip 
+                            title='Exemplo de teste: "6d10+8+1d2". Evite espaços e acentos.'
+                            placement="top"
+                        >
+                            <TextField 
+                                id="criticalDamage" 
+                                label="Dano Crítico" 
+                                variant="filled" 
+                                color="secondary" 
+                                size="regular" 
+                                fullWidth 
+                                value={criticalDamage} 
+                                onChange={(event) => setCriticalDamage(event.target.value)}
+                            />
                         </Tooltip>
                     </Grid>
                     <Grid item xs={12}  md={3}>
@@ -323,16 +351,17 @@ export const AddAttackDialog = (props) => {
                         </Grid>
                     : <></>}
                     <Grid item xs={12}  md={12}>
-                        <Button 
+                        <LoadingButton 
                             color="secondary" 
                             variant='text' 
                             endIcon={<SaveAsIcon/>} 
                             size="large" 
                             fullWidth
                             onClick={handleAttack}
+                            loading={addAttackLoading}
                         >
                             {buttonFunction == "create" ? "Adicionar" : "Atualizar"}
-                        </Button>
+                        </LoadingButton>
                     </Grid>
                 </Grid>
             </Box>

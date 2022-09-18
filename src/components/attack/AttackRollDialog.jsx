@@ -23,7 +23,7 @@ export const AttackRollDialog = (props) => {
                             variant="body1" 
                             color="inherit"
                         >
-                            Teste: {attackRollInfo.diceAmount == 0 ? "-1" : attackRollInfo.diceAmount}d20 + {attackRollInfo.testModifier}
+                            Dados: {attackRollInfo.diceAmount == 0 ? "-1" : attackRollInfo.diceAmount}d20 + {attackRollInfo.testModifier}
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>

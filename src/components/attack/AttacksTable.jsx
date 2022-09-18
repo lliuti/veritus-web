@@ -85,10 +85,11 @@ export function AttacksTable({ characterEquipment, fetchCharacter }) {
         }
     }
 
-    const handleDamageRoll = async (attack) => {
+    const handleDamageRoll = async (attack, type) => {
         try {
             const response = await api.post(`/characters/${characterEquipment.id}/roll/damage`, {
-                attack
+                attack,
+                type
             });
             setDamageRollInfo(response.data);
             setDamageRollDialogOpen(true);
@@ -119,16 +120,22 @@ export function AttacksTable({ characterEquipment, fetchCharacter }) {
                         </AccordionSummary>
                         <AccordionDetails>
                             <Grid container spacing={2}>
-                                <Grid item xs={6} sm={4} md={4} lg={3}>
+                                {/* <Grid item xs={6} sm={4} md={4} lg={3}>
                                     <Box sx={{ mb: 2, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
                                         <Typography color="text.secondary">Teste</Typography>
                                         <Button onClick={() => handleAttackTest(attack)} color="secondary" variant='outlined' size="small" sx={{ textTransform: "lowercase" }}>{attack.test}</Button>
                                     </Box>
-                                </Grid>
+                                </Grid> */}
                                 <Grid item xs={6} sm={4} md={4} lg={3}>
                                     <Box sx={{ mb: 2, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
                                         <Typography color="text.secondary">Dano</Typography>
-                                        <Button onClick={() => handleDamageRoll(attack)} color="secondary" variant='outlined' size="small" sx={{ textTransform: "lowercase" }}>{attack.damage}</Button>
+                                        <Button onClick={() => handleDamageRoll(attack, "damage")} color="secondary" variant='outlined' size="small" sx={{ textTransform: "lowercase" }}>{attack.damage}</Button>
+                                    </Box>
+                                </Grid>
+                                <Grid item xs={6} sm={4} md={4} lg={3}>
+                                    <Box sx={{ mb: 2, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+                                        <Typography color="text.secondary">Dano Crítico</Typography>
+                                        <Button onClick={() => handleDamageRoll(attack, "criticalDamage")} color="secondary" variant='outlined' size="small" sx={{ textTransform: "lowercase" }}>{attack.criticalDamage}</Button>
                                     </Box>
                                 </Grid>
                                 <Grid item xs={6} sm={4} md={4} lg={3}>

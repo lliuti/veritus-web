@@ -24,7 +24,7 @@ export const DamageRollDialog = (props) => {
                             color="inherit"
                         >
                             {/* Teste: {damageRollInfo.diceAmount == 0 ? "-1" : damageRollInfo.diceAmount}d20 + {damageRollInfo.testModifier} */}
-                            Teste: {damageRollInfo.damage}
+                            Dados: {damageRollInfo.damage}
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
