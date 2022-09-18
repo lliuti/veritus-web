@@ -46,6 +46,7 @@ export function Skills({ characterSkills, fetchCharacter, openDialog }) {
     const [tecnologia, setTecnologia] = useState(""); 
     const [vontade, setVontade] = useState(""); 
     const [skillRollDialogInfo, setSkillRollDialogInfo] = useState([]);
+    const [skillRollEnabled, setSkillRollEnabled] = useState(false);
     
     const { enqueueSnackbar } = useSnackbar();
 
@@ -93,6 +94,7 @@ export function Skills({ characterSkills, fetchCharacter, openDialog }) {
     };
     
     const handleSkillRollOpen = async (skill) => {
+        setSkillRollEnabled(true);
         try {
             const response = await api.post(`/characters/${characterSkills.id}/roll/skill`, { skill });
             setSkillRollDialogInfo(response.data);
@@ -102,6 +104,7 @@ export function Skills({ characterSkills, fetchCharacter, openDialog }) {
                 variant: "error"
             });
         }
+        setSkillRollEnabled(false);
     };
     
     const handleSkillRollClose = () => {
@@ -115,6 +118,7 @@ export function Skills({ characterSkills, fetchCharacter, openDialog }) {
                 <Grid item xs={6}>
                     <Button 
                         onClick={() => handleSkillRollOpen("acrobacia")} 
+                        disabled={skillRollEnabled}
                         color="secondary" 
                         variant='outlined' 
                         fullWidth
@@ -124,6 +128,7 @@ export function Skills({ characterSkills, fetchCharacter, openDialog }) {
                     </Button>
                     <Button 
                         onClick={() => handleSkillRollOpen("adestramento")} 
+                        disabled={skillRollEnabled}
                         color="secondary" 
                         variant='outlined' 
                         fullWidth
@@ -134,6 +139,7 @@ export function Skills({ characterSkills, fetchCharacter, openDialog }) {
                     </Button>
                     <Button 
                         onClick={() => handleSkillRollOpen("artes")} 
+                        disabled={skillRollEnabled}
                         color="secondary" 
                         variant='outlined' 
                         fullWidth
@@ -144,6 +150,7 @@ export function Skills({ characterSkills, fetchCharacter, openDialog }) {
                     </Button>
                     <Button 
                         onClick={() => handleSkillRollOpen("atletismo")} 
+                        disabled={skillRollEnabled}
                         color="secondary" 
                         variant='outlined' 
                         fullWidth
@@ -154,6 +161,7 @@ export function Skills({ characterSkills, fetchCharacter, openDialog }) {
                     </Button>
                     <Button 
                         onClick={() => handleSkillRollOpen("atualidades")} 
+                        disabled={skillRollEnabled}
                         color="secondary" 
                         variant='outlined' 
                         fullWidth
@@ -164,6 +172,7 @@ export function Skills({ characterSkills, fetchCharacter, openDialog }) {
                     </Button>
                     <Button 
                         onClick={() => handleSkillRollOpen("ciencias")} 
+                        disabled={skillRollEnabled}
                         color="secondary" 
                         variant='outlined' 
                         fullWidth
@@ -174,6 +183,7 @@ export function Skills({ characterSkills, fetchCharacter, openDialog }) {
                     </Button>
                     <Button 
                         onClick={() => handleSkillRollOpen("crime")} 
+                        disabled={skillRollEnabled}
                         color="secondary" 
                         variant='outlined' 
                         fullWidth
@@ -184,6 +194,7 @@ export function Skills({ characterSkills, fetchCharacter, openDialog }) {
                     </Button>
                     <Button 
                         onClick={() => handleSkillRollOpen("diplomacia")} 
+                        disabled={skillRollEnabled}
                         color="secondary" 
                         variant='outlined' 
                         fullWidth
@@ -194,6 +205,7 @@ export function Skills({ characterSkills, fetchCharacter, openDialog }) {
                     </Button>
                     <Button 
                         onClick={() => handleSkillRollOpen("enganacao")} 
+                        disabled={skillRollEnabled}
                         color="secondary" 
                         variant='outlined' 
                         fullWidth
@@ -204,6 +216,7 @@ export function Skills({ characterSkills, fetchCharacter, openDialog }) {
                     </Button>
                     <Button 
                         onClick={() => handleSkillRollOpen("fortitude")} 
+                        disabled={skillRollEnabled}
                         color="secondary" 
                         variant='outlined' 
                         fullWidth
@@ -214,6 +227,7 @@ export function Skills({ characterSkills, fetchCharacter, openDialog }) {
                     </Button>
                     <Button 
                         onClick={() => handleSkillRollOpen("furtividade")} 
+                        disabled={skillRollEnabled}
                         color="secondary" 
                         variant='outlined' 
                         fullWidth
@@ -224,6 +238,7 @@ export function Skills({ characterSkills, fetchCharacter, openDialog }) {
                     </Button>
                     <Button 
                         onClick={() => handleSkillRollOpen("iniciativa")} 
+                        disabled={skillRollEnabled}
                         color="secondary" 
                         variant='outlined' 
                         fullWidth
@@ -234,6 +249,7 @@ export function Skills({ characterSkills, fetchCharacter, openDialog }) {
                     </Button>
                     <Button 
                         onClick={() => handleSkillRollOpen("intimidacao")} 
+                        disabled={skillRollEnabled}
                         color="secondary" 
                         variant='outlined' 
                         fullWidth
@@ -244,6 +260,7 @@ export function Skills({ characterSkills, fetchCharacter, openDialog }) {
                     </Button>
                     <Button 
                         onClick={() => handleSkillRollOpen("intuicao")} 
+                        disabled={skillRollEnabled}
                         color="secondary" 
                         variant='outlined' 
                         fullWidth
@@ -256,6 +273,7 @@ export function Skills({ characterSkills, fetchCharacter, openDialog }) {
                 <Grid item xs={6}>
                     <Button
                         onClick={() => handleSkillRollOpen("investigacao")} 
+                        disabled={skillRollEnabled}
                         color="secondary" 
                         variant='outlined' 
                         fullWidth
@@ -266,6 +284,7 @@ export function Skills({ characterSkills, fetchCharacter, openDialog }) {
                     </Button>
                     <Button
                         onClick={() => handleSkillRollOpen("luta")} 
+                        disabled={skillRollEnabled}
                         color="secondary" 
                         variant='outlined' 
                         fullWidth
@@ -276,6 +295,7 @@ export function Skills({ characterSkills, fetchCharacter, openDialog }) {
                     </Button>
                     <Button
                         onClick={() => handleSkillRollOpen("medicina")} 
+                        disabled={skillRollEnabled}
                         color="secondary" 
                         variant='outlined' 
                         fullWidth
@@ -286,6 +306,7 @@ export function Skills({ characterSkills, fetchCharacter, openDialog }) {
                     </Button>
                     <Button
                         onClick={() => handleSkillRollOpen("ocultismo")} 
+                        disabled={skillRollEnabled}
                         color="secondary" 
                         variant='outlined' 
                         fullWidth
@@ -296,6 +317,7 @@ export function Skills({ characterSkills, fetchCharacter, openDialog }) {
                     </Button>
                     <Button
                         onClick={() => handleSkillRollOpen("percepcao")} 
+                        disabled={skillRollEnabled}
                         color="secondary" 
                         variant='outlined' 
                         fullWidth
@@ -306,6 +328,7 @@ export function Skills({ characterSkills, fetchCharacter, openDialog }) {
                     </Button>
                     <Button
                         onClick={() => handleSkillRollOpen("pilotagem")} 
+                        disabled={skillRollEnabled}
                         color="secondary" 
                         variant='outlined' 
                         fullWidth
@@ -316,6 +339,7 @@ export function Skills({ characterSkills, fetchCharacter, openDialog }) {
                     </Button>
                     <Button
                         onClick={() => handleSkillRollOpen("pontaria")} 
+                        disabled={skillRollEnabled}
                         color="secondary" 
                         variant='outlined' 
                         fullWidth
@@ -326,6 +350,7 @@ export function Skills({ characterSkills, fetchCharacter, openDialog }) {
                     </Button>
                     <Button
                         onClick={() => handleSkillRollOpen("profissao")} 
+                        disabled={skillRollEnabled}
                         color="secondary" 
                         variant='outlined' 
                         fullWidth
@@ -336,6 +361,7 @@ export function Skills({ characterSkills, fetchCharacter, openDialog }) {
                     </Button>
                     <Button
                         onClick={() => handleSkillRollOpen("reflexos")} 
+                        disabled={skillRollEnabled}
                         color="secondary" 
                         variant='outlined' 
                         fullWidth
@@ -346,6 +372,7 @@ export function Skills({ characterSkills, fetchCharacter, openDialog }) {
                     </Button>
                     <Button
                         onClick={() => handleSkillRollOpen("religiao")} 
+                        disabled={skillRollEnabled}
                         color="secondary" 
                         variant='outlined' 
                         fullWidth
@@ -356,6 +383,7 @@ export function Skills({ characterSkills, fetchCharacter, openDialog }) {
                     </Button>
                     <Button
                         onClick={() => handleSkillRollOpen("sobrevivencia")} 
+                        disabled={skillRollEnabled}
                         color="secondary" 
                         variant='outlined' 
                         fullWidth
@@ -366,6 +394,7 @@ export function Skills({ characterSkills, fetchCharacter, openDialog }) {
                     </Button>
                     <Button
                         onClick={() => handleSkillRollOpen("tatica")} 
+                        disabled={skillRollEnabled}
                         color="secondary" 
                         variant='outlined' 
                         fullWidth
@@ -376,6 +405,7 @@ export function Skills({ characterSkills, fetchCharacter, openDialog }) {
                     </Button>
                     <Button
                         onClick={() => handleSkillRollOpen("tecnologia")} 
+                        disabled={skillRollEnabled}
                         color="secondary" 
                         variant='outlined' 
                         fullWidth
@@ -386,6 +416,7 @@ export function Skills({ characterSkills, fetchCharacter, openDialog }) {
                     </Button>
                     <Button
                         onClick={() => handleSkillRollOpen("vontade")} 
+                        disabled={skillRollEnabled}
                         color="secondary" 
                         variant='outlined' 
                         fullWidth

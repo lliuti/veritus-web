@@ -19,6 +19,13 @@ export function Attributes({ characterAttributes, fetchCharacter, openDialog }) 
     const [dex, setDex] = useState("0");
     const [cha, setCha] = useState("0");
     const [int, setInt] = useState("0");
+    const [attributeRollEnabled, setAttributeRollEnabled] = useState(false);
+    const [strRollLoading, setStrRollLoading] = useState(false);
+    const [vigRollLoading, setVigRollLoading] = useState(false);
+    const [dexRollLoading, setDexRollLoading] = useState(false);
+    const [intRollLoading, setIntRollLoading] = useState(false);
+    const [chaRollLoading, setChaRollLoading] = useState(false);
+
     const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
@@ -42,6 +49,7 @@ export function Attributes({ characterAttributes, fetchCharacter, openDialog }) 
     };
 
     const handleAttributeRollOpen = async (attribute) => {
+        setAttributeRollEnabled(true);
         try {
             const response = await api.post(`/characters/${characterAttributes.id}/roll/attribute`, { attribute });
             setAttributeRollDialogInfo(response.data);
@@ -51,6 +59,13 @@ export function Attributes({ characterAttributes, fetchCharacter, openDialog }) 
                 variant: "error"
             });
         }
+
+        setStrRollLoading(false);
+        setVigRollLoading(false);
+        setDexRollLoading(false);
+        setChaRollLoading(false);
+        setIntRollLoading(false);
+        setAttributeRollEnabled(false);
     }
     
     const handleAttributeRollClose= () => {
@@ -62,19 +77,69 @@ export function Attributes({ characterAttributes, fetchCharacter, openDialog }) 
             <Typography component="h1" variant="h5" color="inherit" sx={{ mb: 1}}>Atributos</Typography>
             <Grid container spacing={1}>
                 <Grid item xs={6}>
-                    <Button onClick={() => handleAttributeRollOpen("str")} color="secondary" variant='outlined' size='medium' fullWidth>FOR: {str}</Button>
+                    <LoadingButton 
+                        onClick={() => {
+                            handleAttributeRollOpen("str")
+                            setStrRollLoading(true);
+                        }} 
+                        loading={strRollLoading}
+                        disabled={attributeRollEnabled}
+                        color="secondary" 
+                        variant='outlined' 
+                        size='medium' fullWidth>FOR: {str}
+                    </LoadingButton>
                 </Grid>
                 <Grid item xs={6}>
-                    <Button onClick={() => handleAttributeRollOpen("vig")} color="secondary" variant='outlined' size='medium' fullWidth>VIG: {vig}</Button>
+                    <LoadingButton 
+                        onClick={() => {
+                            handleAttributeRollOpen("vig")
+                            setVigRollLoading(true);
+                        }} 
+                        loading={vigRollLoading}
+                        disabled={attributeRollEnabled}
+                        color="secondary" 
+                        variant='outlined' 
+                        size='medium' fullWidth>VIG: {vig}
+                    </LoadingButton>
                 </Grid>
                 <Grid item xs={6}>
-                    <Button onClick={() => handleAttributeRollOpen("dex")} color="secondary" variant='outlined' size='medium' fullWidth>AGI: {dex}</Button>
+                    <LoadingButton 
+                        onClick={() => {
+                            handleAttributeRollOpen("dex")
+                            setDexRollLoading(true);
+                        }} 
+                        loading={dexRollLoading}
+                        disabled={attributeRollEnabled}
+                        color="secondary" 
+                        variant='outlined' 
+                        size='medium' fullWidth>AGI: {dex}
+                    </LoadingButton>
                 </Grid>
                 <Grid item xs={6}>
-                    <Button onClick={() => handleAttributeRollOpen("int")} color="secondary" variant='outlined' size='medium' fullWidth>INT: {int}</Button>
+                    <LoadingButton 
+                        onClick={() => {
+                            handleAttributeRollOpen("int")
+                            setIntRollLoading(true);
+                        }} 
+                        loading={intRollLoading}
+                        disabled={attributeRollEnabled}
+                        color="secondary" 
+                        variant='outlined' 
+                        size='medium' fullWidth>INT: {int}
+                    </LoadingButton>
                 </Grid>
                 <Grid item xs={6}>
-                    <Button onClick={() => handleAttributeRollOpen("cha")} color="secondary" variant='outlined' size='medium' fullWidth>PRE: {cha}</Button>
+                    <LoadingButton 
+                        onClick={() => {
+                            handleAttributeRollOpen("cha")
+                            setChaRollLoading(true);
+                        }} 
+                        loading={chaRollLoading}
+                        disabled={attributeRollEnabled}
+                        color="secondary" 
+                        variant='outlined' 
+                        size='medium' fullWidth>PRE: {cha}
+                    </LoadingButton>
                 </Grid>
                 <AttributeRollDialog open={attributeRollOpen} onClose={handleAttributeRollClose} attributeRollDialogInfo={attributeRollDialogInfo}/>
                 <Grid item xs={6}>

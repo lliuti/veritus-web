@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSnackbar } from 'notistack';
 import { api } from '../../services/api';
+import { ritualsJSON } from "../../rituals.js";
 
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
@@ -22,9 +23,9 @@ export const AddRitualDialog = (props) => {
     
     const [buttonFunction, setButtonFunction] = useState("create");
     const [name, setName] = useState("");
-    const [element, setElement] = useState("Conhecimento");
-    const [circle, setCircle] = useState("1");
-    const [execution, setExecution] = useState("Padrão");
+    const [element, setElement] = useState("");
+    const [circle, setCircle] = useState("");
+    const [execution, setExecution] = useState("");
     const [range, setRange] = useState("");
     const [target, setTarget] = useState("");
     const [duration, setDuration] = useState("");
@@ -33,6 +34,8 @@ export const AddRitualDialog = (props) => {
     const [briefDescription, setBriefDescription] = useState("");
     const [ascended, setAscended] = useState("");
     const [awoken, setAwoken] = useState("");
+
+    const [storedRitual, setStoredRitual] = useState([]);
 
     const { enqueueSnackbar } = useSnackbar();
 
@@ -108,7 +111,6 @@ export const AddRitualDialog = (props) => {
             });
         }
 
-
         setName("")
         setElement("")
         setCircle("")
@@ -126,11 +128,48 @@ export const AddRitualDialog = (props) => {
         setButtonFunction("create");
     }   
 
+    const handleStoredRitualChange = (event) => {
+        setStoredRitual(event.target.value);
+        const ritual = ritualsJSON.find(r => r.name == event.target.value);
+        setName(ritual.name)
+        setElement(ritual.element)
+        setCircle(ritual.circle)
+        setExecution(ritual.execution)
+        setRange(ritual.range)
+        setTarget(ritual.target)
+        setDuration(ritual.duration)
+        setResistance(ritual.resistance)
+        setDescription(ritual.description)
+        setBriefDescription(ritual.briefDescription)
+        setAscended(ritual.ascended)
+        setAwoken(ritual.awoken)
+    }
+
     return (
         <Dialog onClose={handleClose} open={open} fullWidth maxWidth='lg'>
             <Typography component="h1" variant="h5" color="inherit" sx={{ paddingLeft: 2, paddingTop: 2}}>Adicionar Ritual</Typography>
             <Box component="div" sx={{ p: 2 }}>
                 <Grid container sx={{ alignItems: 'center' }} spacing={1}>
+                    <Grid item xs={12}>
+                        <FormControl variant="filled" fullWidth>
+                            <InputLabel id="pre-existing" color="secondary">Selecionar ritual cadastrado</InputLabel>
+                            <Select
+                                labelId="element-value-select-label"
+                                id="element-value-select"
+                                value={storedRitual}
+                                color="secondary"
+                                label="Selecionar ritual cadastrado"
+                                onChange={handleStoredRitualChange}
+                            >
+                                <MenuItem disabled value="">
+                                    <em>Selecione um dos rituais abaixo</em>
+                                </MenuItem>
+                                {ritualsJSON.map((ritual) => (
+                                    <MenuItem key={ritual.name} value={ritual.name}>{ritual.name}</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </Grid>
                     <Grid item xs={12} sm={6} md={4}>
                         <TextField 
                             id="name" 
