@@ -9,6 +9,7 @@ import SaveAsIcon from '@mui/icons-material/SaveAs';
 import { useState, useEffect } from 'react';
 import { api } from '../../../services/api';
 import { useSnackbar } from "notistack";
+import Tooltip from '@mui/material/Tooltip';
 
 export function Attributes({ characterAttributes, fetchCharacter, openDialog }) {
     const [attributeRollOpen, setAttributeRollOpen] = useState(false);
@@ -160,6 +161,8 @@ function EditAttributesDialog(props) {
     const [cha, setCha] = useState("0");
     const [int, setInt] = useState("0");
     const [updateLoading, setUpdateLoading] = useState(false);
+    const [usedPoints, setUsedPoints] = useState(0);
+    const [remainingPoints, setRemainingPoints] = useState(0);
     const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
@@ -168,11 +171,34 @@ function EditAttributesDialog(props) {
         setDex(characterAttributes.dex);
         setCha(characterAttributes.cha);
         setInt(characterAttributes.int);
+
+        calculateAttributePoints();
     }, [characterAttributes]);
 
     const handleClose = () => {
         onClose();
     };
+
+    const calculateAttributePoints = () => {
+        let usedPoints = 0;
+        let remainingPoints = 0;
+        
+        let totalPoints = parseInt(str) + parseInt(vig) + parseInt(dex) + parseInt(cha) + parseInt(int);
+
+        if (parseInt(characterAttributes.nex) < 20) {
+            remainingPoints = 4;
+        } else if (parseInt(characterAttributes.nex) < 50) {
+            remainingPoints = 5;
+        } else if (parseInt(characterAttributes.nex) < 80) {
+            remainingPoints = 6;
+        } else if (parseInt(characterAttributes.nex) < 95) {
+            remainingPoints = 7;
+        }
+        usedPoints = totalPoints - 5
+
+        setUsedPoints(usedPoints);
+        setRemainingPoints(remainingPoints);
+    }
 
     const handleUpdateAttributes = async () => {
         // setUpdateLoading(true);
@@ -194,10 +220,26 @@ function EditAttributesDialog(props) {
 
     return (
         <Dialog onClose={handleClose} open={open} fullWidth maxWidth='sm'>
-            <Typography component="h1" variant="h5" color="inherit" sx={{ paddingLeft: 2, paddingTop: 2}}>Editar Atributos</Typography>
             <Box component="div" sx={{ p: 2 }}>
                 <Grid container sx={{ alignItems: 'center' }} spacing={1}>
-                    <Grid item xs={6}>
+                    <Grid item xs={12}>
+                        <Typography component="h1" variant="h5" color="inherit">Editar Atributos</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Tooltip 
+                            title='Pontos a serem distribuídos baseados na % de NEX.' 
+                            placement="top-start"
+                        >
+                            <Typography 
+                                component="p" 
+                                variant="body1" 
+                                color="text.secondary"
+                            >
+                                Pontos distribuídos {usedPoints}/{remainingPoints}
+                            </Typography>
+                        </Tooltip>
+                    </Grid>
+                    <Grid item xs={12}>
                         <TextField 
                             id="str-value" 
                             label="Força" 
@@ -206,7 +248,11 @@ function EditAttributesDialog(props) {
                             size="regular" 
                             type="number" 
                             value={str}
-                            onChange={(event) => setStr(event.target.value)}
+                            onChange={(event) => {
+                                setStr(event.target.value);
+                                // calculateAttributePoints();
+                            }}
+                            onBlur={calculateAttributePoints}
                             fullWidth
                         />
                     </Grid>
@@ -219,7 +265,11 @@ function EditAttributesDialog(props) {
                             size="regular" 
                             type="number" 
                             value={vig}
-                            onChange={(event) => setVig(event.target.value)}
+                            onChange={(event) => {
+                                setVig(event.target.value);
+                                // calculateAttributePoints();
+                            }}
+                            onBlur={calculateAttributePoints}
                             fullWidth
                         />
                     </Grid>
@@ -232,7 +282,11 @@ function EditAttributesDialog(props) {
                             size="regular" 
                             type="number" 
                             value={dex}
-                            onChange={(event) => setDex(event.target.value)}
+                            onChange={(event) => {
+                                setDex(event.target.value);
+                                // calculateAttributePoints();
+                            }}
+                            onBlur={calculateAttributePoints}
                             fullWidth
                         />
                     </Grid>
@@ -245,7 +299,11 @@ function EditAttributesDialog(props) {
                             size="regular"
                             type="number" 
                             value={int}
-                            onChange={(event) => setInt(event.target.value)}
+                            onChange={(event) => {
+                                setInt(event.target.value);
+                                // calculateAttributePoints();
+                            }}
+                            onBlur={calculateAttributePoints}
                             fullWidth
                         />
                     </Grid>
@@ -258,7 +316,11 @@ function EditAttributesDialog(props) {
                             size="regular" 
                             type="number" 
                             value={cha}
-                            onChange={(event) => setCha(event.target.value)}
+                            onChange={(event) => {
+                                setCha(event.target.value);
+                                // calculateAttributePoints();
+                            }}
+                            onBlur={calculateAttributePoints}
                             fullWidth
                         />
                     </Grid>

@@ -60,16 +60,18 @@ export const ActiveParty = ({ characterSettings, fetchCharacter }) => {
     }
     
     const handleRecalculate = async () => {
+        setLoadingRecalculate(true);
         try {
-            setLoadingRecalculate(true);
             await api.post(`/characters/${characterSettings.id}/recalculate`);
             fetchCharacter();
+            enqueueSnackbar("Estatísticas recalculadas.", { 
+                variant: "info"
+            });
         } catch (err) {
             enqueueSnackbar("Não foi possivel recalcular estatísticas.", { 
                 variant: "error"
             });
         }
-
         setLoadingRecalculate(false);
     }
 
@@ -99,7 +101,7 @@ export const ActiveParty = ({ characterSettings, fetchCharacter }) => {
             : <></>}
             <Grid item xs={12} sm={6}>
                 <LoadingButton 
-                    // loading={loadingRecalculate}
+                    loading={loadingRecalculate}
                     onClick={handleRecalculate} 
                     color="secondary" 
                     variant='outlined' 

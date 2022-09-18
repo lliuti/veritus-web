@@ -4,6 +4,7 @@ import { api } from '../../services/api';
 
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
+import LoadingButton from '@mui/lab/LoadingButton';
 import Typography from '@mui/material/Typography';
 
 import Box from '@mui/material/Box';
@@ -21,10 +22,10 @@ export const AddPowerDialog = (props) => {
     
     const [name, setName] = useState("");
     const [powerType, setPowerType] = useState("Poder de Origem");
-    // const [powerOrigin, setPowerOrigin] = useState("");
     const [description, setDescription] = useState("");
     const [nex, setNex] = useState(0);
     const [buttonFunction, setButtonFunction] = useState("create");
+    const [addPowerLoading, setAddPowerLoading] = useState(false);
 
     const { enqueueSnackbar } = useSnackbar();
 
@@ -46,10 +47,12 @@ export const AddPowerDialog = (props) => {
 
 
     const handlePower = async () => {
+        setAddPowerLoading(true);
         if (!name) {
             enqueueSnackbar("Digite pelo menos um nome para o poder/habilidade.", { 
                 variant: "error"
             });
+            setAddPowerLoading(false);
             return;
         }
 
@@ -100,6 +103,7 @@ export const AddPowerDialog = (props) => {
         fetchCharacter();
         onClose();
         setButtonFunction("create");
+        setAddPowerLoading(false);
     }   
 
     const handleNexChange = (event) => {
@@ -175,7 +179,17 @@ export const AddPowerDialog = (props) => {
                         />
                     </Grid>
                     <Grid item xs={12} md={12}>
-                        <Button onClick={handlePower} color="secondary" variant='text' endIcon={<SaveAsIcon/>} size="large" fullWidth>{buttonFunction == "create" ? "Adicionar" : "Atualizar"}</Button>
+                        <LoadingButton 
+                            onClick={handlePower} 
+                            color="secondary" 
+                            variant='text' 
+                            endIcon={<SaveAsIcon/>} 
+                            size="large" 
+                            fullWidth
+                            loading={addPowerLoading}
+                        >
+                                {buttonFunction == "create" ? "Adicionar" : "Atualizar"}
+                        </LoadingButton>
                     </Grid>
                 </Grid>
             </Box>

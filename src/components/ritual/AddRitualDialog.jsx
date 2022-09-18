@@ -5,6 +5,7 @@ import { ritualsJSON } from "../../rituals.js";
 
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
+import LoadingButton from '@mui/lab/LoadingButton';
 import Typography from '@mui/material/Typography';
 
 import Box from '@mui/material/Box';
@@ -34,6 +35,7 @@ export const AddRitualDialog = (props) => {
     const [briefDescription, setBriefDescription] = useState("");
     const [ascended, setAscended] = useState("");
     const [awoken, setAwoken] = useState("");
+    const [addRitualLoading, setAddRitualLoading] = useState(false);
 
     const [storedRitual, setStoredRitual] = useState([]);
 
@@ -64,10 +66,12 @@ export const AddRitualDialog = (props) => {
 
 
     const handleRitual = async () => {
+        setAddRitualLoading(true);
         if (!name || !element || !circle) {
             enqueueSnackbar("Todo ritual precisa de um Nome, Elemento e Círculo.", { 
                 variant: "error"
             });
+            setAddRitualLoading(false);
             return;
         }
 
@@ -126,6 +130,7 @@ export const AddRitualDialog = (props) => {
         fetchCharacter();
         onClose();
         setButtonFunction("create");
+        setAddRitualLoading(false);
     }   
 
     const handleStoredRitualChange = (event) => {
@@ -355,7 +360,15 @@ export const AddRitualDialog = (props) => {
                         </Tooltip>
                     </Grid>
                     <Grid item xs={12} md={12}>
-                        <Button onClick={handleRitual} color="secondary" variant='text' endIcon={<SaveAsIcon/>} size="large" fullWidth>{buttonFunction == "create" ? "Adicionar" : "Atualizar"}</Button>
+                        <LoadingButton 
+                            onClick={handleRitual} 
+                            color="secondary" variant='text' endIcon={<SaveAsIcon/>} 
+                            size="large" 
+                            fullWidth
+                            loading={addRitualLoading}
+                        >
+                            {buttonFunction == "create" ? "Adicionar" : "Atualizar"}
+                        </LoadingButton>
                     </Grid>
                 </Grid>
             </Box>

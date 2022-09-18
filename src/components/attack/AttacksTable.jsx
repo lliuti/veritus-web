@@ -27,6 +27,7 @@ export function AttacksTable({ characterEquipment, fetchCharacter }) {
     const [attackRollDialogOpen, setAttackRollDialogOpen] = useState(false);
     const [damageRollDialogOpen, setDamageRollDialogOpen] = useState(false);
     const [attackToEdit, setAttackToEdit] = useState({});
+    const [deleteAttackDisabled, setDeleteAttackDisabled] = useState(false);
 
     const { enqueueSnackbar } = useSnackbar();
 
@@ -47,6 +48,7 @@ export function AttacksTable({ characterEquipment, fetchCharacter }) {
     }
 
     const handleDeleteAttack = async (attackId) => {
+        setDeleteAttackDisabled(true);
         try {
             await api.delete(`/characters/${characterEquipment.id}/attacks/${attackId}`);
             fetchCharacter();
@@ -58,6 +60,7 @@ export function AttacksTable({ characterEquipment, fetchCharacter }) {
                 variant: "error"
             });
         }
+        setDeleteAttackDisabled(false)
     }
 
     const handleAttackTest = async (attack) => {
@@ -163,7 +166,7 @@ export function AttacksTable({ characterEquipment, fetchCharacter }) {
                                 <Grid item xs={6} sm={4} md={4} lg={3}>
                                     <Box sx={{ mb: 2, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
                                         <Typography color="text.secondary">Deletar</Typography>
-                                        <IconButton onClick={() => handleDeleteAttack(attack.id)} aria-label="delete" color="error" size="small">
+                                        <IconButton disabled={deleteAttackDisabled} onClick={() => handleDeleteAttack(attack.id)} aria-label="delete" color="error" size="small">
                                             <DeleteForeverIcon color="error"/>
                                         </IconButton>
                                     </Box>

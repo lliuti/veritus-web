@@ -81,6 +81,7 @@ export function CharacterSheet() {
                 dex: response.data.characterAttributes.dex,
                 int: response.data.characterAttributes.int,
                 cha: response.data.characterAttributes.cha,
+                nex: response.data.nex,
             };
     
             const defenses = {
@@ -145,6 +146,7 @@ export function CharacterSheet() {
                 powers: response.data.characterPowers,
                 rituals: response.data.characterRituals,
                 weightCapacity,
+                rank: response.data.rank,
             }
     
             const settings = {

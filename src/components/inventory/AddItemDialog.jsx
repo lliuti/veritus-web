@@ -4,6 +4,7 @@ import { api } from '../../services/api';
 
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
+import LoadingButton from '@mui/lab/LoadingButton';
 import Typography from '@mui/material/Typography';
 
 import Box from '@mui/material/Box';
@@ -24,6 +25,7 @@ export const AddItemDialog = (props) => {
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("0");
     const [buttonFunction, setButtonFunction] = useState("create");
+    const [addItemLoading, setAddItemLoading] = useState(false);
 
     const { enqueueSnackbar } = useSnackbar();
 
@@ -44,10 +46,12 @@ export const AddItemDialog = (props) => {
 
 
     const handleItem = async () => {
+        setAddItemLoading(true);
         if (!item) {
             enqueueSnackbar("Digite pelo menos um nome para o item.", { 
                 variant: "error"
             });
+            setAddItemLoading(false);
             return;
         }
 
@@ -94,6 +98,7 @@ export const AddItemDialog = (props) => {
         fetchCharacter();
         onClose();
         setButtonFunction("create");
+        setAddItemLoading(false);
     }   
 
     return (
@@ -165,7 +170,16 @@ export const AddItemDialog = (props) => {
                         </FormControl>
                     </Grid>
                     <Grid item xs={12} md={12}>
-                        <Button onClick={handleItem} color="secondary" variant='text' endIcon={<SaveAsIcon/>} size="large" fullWidth>{buttonFunction == "create" ? "Adicionar" : "Atualizar"}</Button>
+                        <LoadingButton 
+                            onClick={handleItem} 
+                            color="secondary" 
+                            variant='text' 
+                            endIcon={<SaveAsIcon/>} 
+                            loading={addItemLoading}
+                            size="large" 
+                            fullWidth>
+                                {buttonFunction == "create" ? "Adicionar" : "Atualizar"}
+                        </LoadingButton>
                     </Grid>
                 </Grid>
             </Box>

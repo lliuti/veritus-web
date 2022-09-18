@@ -24,6 +24,7 @@ export const PowersTable = ({ characterEquipment, fetchCharacter }) => {
     const [addPowerDialogOpen, setAddPowerDialogOpen] = useState(false);
     const [powers, setPowers] = useState([]);
     const [powerToEdit, setPowerToEdit] = useState({});
+    const [deletePowerDisabled, setDeletePowerDisabled] = useState(false);
 
     const { enqueueSnackbar } = useSnackbar();
 
@@ -43,6 +44,7 @@ export const PowersTable = ({ characterEquipment, fetchCharacter }) => {
     }
 
     const handleDeletePower = async (powerId) => {
+        setDeletePowerDisabled(true);
         try {
             await api.delete(`/characters/${characterEquipment.id}/power/${powerId}`);
             fetchCharacter();
@@ -54,6 +56,7 @@ export const PowersTable = ({ characterEquipment, fetchCharacter }) => {
                 variant: "error"
             });
         }
+        setDeletePowerDisabled(false);
     }
 
     return (
@@ -108,6 +111,7 @@ export const PowersTable = ({ characterEquipment, fetchCharacter }) => {
                                         aria-label="delete" 
                                         color="error" 
                                         size="small"
+                                        disabled={deletePowerDisabled}
                                     >
                                         <DeleteForeverIcon color="error"/>
                                     </IconButton>

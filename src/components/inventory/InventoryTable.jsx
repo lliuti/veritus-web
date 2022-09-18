@@ -21,6 +21,7 @@ export function InventoryTable({ characterEquipment, fetchCharacter }) {
     const [addItemDialogOpen, setAddItemDialogOpen] = useState(false);
     const [items, setItems] = useState([]);
     const [itemToEdit, setItemToEdit] = useState({});
+    const [deleteItemDisabled, setDeleteItemDisabled] = useState(false);
 
     const [weightCapacity, setWeightCapacity] = useState(0);
     const [weight, setWeight] = useState(0);
@@ -86,6 +87,7 @@ export function InventoryTable({ characterEquipment, fetchCharacter }) {
     }
 
     const handleDeleteItem = async (itemId) => {
+        setDeleteItemDisabled(true);
         try {
             await api.delete(`/characters/${characterEquipment.id}/inventory/${itemId}`);
             fetchCharacter();
@@ -97,129 +99,202 @@ export function InventoryTable({ characterEquipment, fetchCharacter }) {
                 variant: "error"
             });
         }
+        setDeleteItemDisabled(false);
     }
 
     return (
         <Container component="div">
-            {
-                items?.map((item) => (
-                        <Accordion key={item.id}>
-                            <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls="panel1a-content"
-                            id="panel1a-header"
-                            >
-                                <Typography sx={{ mr: 2 }}>{item.item}</Typography>
-                                <Typography sx={{ display: { xs: 'none', sm: 'block' } }} color="text.secondary">
+            <Accordion>
+                <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+                >
+                    <Typography sx={{ mr: 2 }}>Carga</Typography>
+                    <Typography color="text.secondary">{weight}/{weightCapacity}</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                    <Grid container spacing={2}>
+                        <Grid item xs={6} sm={3}>
+                            <Box sx={{ mb: 2, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+                                <Typography color="text.secondary">Itens Cat. I</Typography>
+                                <Typography>
+                                    {itemsCatOne}/
                                     {(() => {
-                                        if (item.description.trim() !== "") {
-                                            return item.description
-                                        } else {
-                                            return (
-                                                <>
-                                                    Categoria {item.category} &nbsp;
-                                                    <Bull/> &nbsp;
-                                                    Espaço {item.weight}
-                                                </>
-                                            )
+                                        switch (characterEquipment.rank) {
+                                            case "Recruta":
+                                                return "2"
+                                                break;
+                                            default:
+                                                return "3"
+                                            break;
                                         }
                                     })()}
                                 </Typography>
-                            </AccordionSummary>
-                            <AccordionDetails>
-                                <Grid container spacing={2}>
-                                    <Grid item xs={12} sm={12}>
-                                        <Box sx={{ mb: 2, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                                            <Typography color="text.secondary">Descrição</Typography>
-                                            <Typography>{item.description}</Typography>
-                                        </Box>
-                                    </Grid>
-                                    <Grid item xs={6} sm={3}>
-                                        <Box sx={{ mb: 2, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                                            <Typography color="text.secondary">Categoria</Typography>
-                                            <Typography>{item.category}</Typography>
-                                        </Box>
-                                    </Grid>
-                                    <Grid item xs={6} sm={3}>
-                                        <Box sx={{ mb: 2, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                                            <Typography color="text.secondary">Espaço</Typography>
-                                            <Typography>{item.weight}</Typography>
-                                        </Box>
-                                    </Grid>
-                                    <Grid item xs={6} sm={3}>
-                                        <Box sx={{ mb: 2, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                                            <Typography color="text.secondary">Editar</Typography>
-                                            <IconButton onClick={() => handleEditItem(item)} aria-label="delete" color="warning" size="small">
-                                                <EditIcon color="warning"/>
-                                            </IconButton>
-                                        </Box>
-                                    </Grid>
-                                    <Grid item xs={6} sm={3}>
-                                        <Box sx={{ mb: 2, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                                            <Typography color="text.secondary">Deletar</Typography>
-                                            <IconButton onClick={() => handleDeleteItem(item.id)} aria-label="delete" color="error" size="small">
-                                                <DeleteForeverIcon color="error"/>
-                                            </IconButton>
-                                        </Box>
-                                    </Grid>
-                                </Grid>
-                            </AccordionDetails>
-                        </Accordion>
-                    ))
-                }
-                <Accordion>
-                    <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                    >
-                        <Typography sx={{ mr: 2 }}>Carga</Typography>
-                        <Typography color="text.secondary">{weight}/{weightCapacity}</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <Grid container spacing={2}>
-                            <Grid item xs={6} sm={3}>
-                                <Box sx={{ mb: 2, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                                    <Typography color="text.secondary">Itens Cat. I</Typography>
-                                    <Typography>{itemsCatOne}</Typography>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={6} sm={3}>
-                                <Box sx={{ mb: 2, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                                    <Typography color="text.secondary">Itens Cat. II</Typography>
-                                    <Typography>{itemsCatTwo}</Typography>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={6} sm={3}>
-                                <Box sx={{ mb: 2, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                                    <Typography color="text.secondary">Itens Cat. III</Typography>
-                                    <Typography>{itemsCatThree}</Typography>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={6} sm={3}>
-                                <Box sx={{ mb: 2, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                                    <Typography color="text.secondary">Itens Cat. IV</Typography>
-                                    <Typography>{itemsCatFour}</Typography>
-                                </Box>
-                            </Grid>
+                            </Box>
                         </Grid>
-                    </AccordionDetails>
-                </Accordion>
-                <Button 
-                    onClick={() => setAddItemDialogOpen(true)} 
-                    color="inherit" 
-                    variant='text' 
-                    fullWidth sx={{ mt: 1}}
-                >
-                    Adicionar Item
-                </Button>
-                <AddItemDialog 
-                    onClose={handleCloseAddItemDialog}
-                    open={addItemDialogOpen}
-                    characterId={characterEquipment.id} 
-                    fetchCharacter={fetchCharacter}
-                    itemToEdit={itemToEdit}
-                />
+                        <Grid item xs={6} sm={3}>
+                            <Box sx={{ mb: 2, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+                                <Typography color="text.secondary">Itens Cat. II</Typography>
+                                <Typography>
+                                    {itemsCatTwo}/
+                                    {(() => {
+                                        switch (characterEquipment.rank) {
+                                            case "Recruta":
+                                                return "-"
+                                                break;
+                                            case "Operador":
+                                                return "1"
+                                                break;
+                                            case "Agente especial":
+                                                return "2"
+                                                break;
+                                            default:
+                                                return "3"
+                                                break;
+                                        }
+                                    })()}
+                                </Typography>
+                            </Box>
+                        </Grid>
+                        <Grid item xs={6} sm={3}>
+                            <Box sx={{ mb: 2, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+                                <Typography color="text.secondary">Itens Cat. III</Typography>
+                                <Typography>
+                                    {itemsCatThree}/
+                                    {(() => {
+                                        switch (characterEquipment.rank) {
+                                            case "Recruta":
+                                                return "-"
+                                                break;
+                                            case "Operador":
+                                                return "-"
+                                                break;
+                                            case "Agente especial":
+                                                return "1"
+                                                break;
+                                            case "Oficial de operações":
+                                                return "2"
+                                                break;
+                                            case "Agente de elite":
+                                                return "3"
+                                                break;
+                                        }
+                                    })()}
+                                </Typography>
+                            </Box>
+                        </Grid>
+                        <Grid item xs={6} sm={3}>
+                            <Box sx={{ mb: 2, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+                                <Typography color="text.secondary">Itens Cat. IV</Typography>
+                                <Typography>
+                                    {itemsCatFour}/
+                                    {(() => {
+                                        switch (characterEquipment.rank) {
+                                            case "Recruta":
+                                                return "-"
+                                                break;
+                                            case "Operador":
+                                                return "-"
+                                                break;
+                                            case "Agente especial":
+                                                return "-"
+                                                break;
+                                            case "Oficial de operações":
+                                                return "1"
+                                                break;
+                                            case "Agente de elite":
+                                                return "2"
+                                                break;
+                                        }
+                                    })()}
+                                </Typography>
+                            </Box>
+                        </Grid>
+                    </Grid>
+                </AccordionDetails>
+            </Accordion>
+            {
+                items?.map((item) => (
+                    <Accordion key={item.id}>
+                        <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel1a-content"
+                        id="panel1a-header"
+                        >
+                            <Typography sx={{ mr: 2 }}>{item.item}</Typography>
+                            <Typography sx={{ display: { xs: 'none', sm: 'block' } }} color="text.secondary">
+                                {(() => {
+                                    if (item.description.trim() !== "" && item.description.trim().length < 30) {
+                                        return item.description
+                                    } else {
+                                        return (
+                                            <>
+                                                Categoria {item.category} &nbsp;
+                                                <Bull/> &nbsp;
+                                                Espaço {item.weight}
+                                            </>
+                                        )
+                                    }
+                                })()}
+                            </Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12} sm={12}>
+                                    <Box sx={{ mb: 2, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+                                        <Typography color="text.secondary">Descrição</Typography>
+                                        <Typography>{item.description}</Typography>
+                                    </Box>
+                                </Grid>
+                                <Grid item xs={6} sm={3}>
+                                    <Box sx={{ mb: 2, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+                                        <Typography color="text.secondary">Categoria</Typography>
+                                        <Typography>{item.category}</Typography>
+                                    </Box>
+                                </Grid>
+                                <Grid item xs={6} sm={3}>
+                                    <Box sx={{ mb: 2, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+                                        <Typography color="text.secondary">Espaço</Typography>
+                                        <Typography>{item.weight}</Typography>
+                                    </Box>
+                                </Grid>
+                                <Grid item xs={6} sm={3}>
+                                    <Box sx={{ mb: 2, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+                                        <Typography color="text.secondary">Editar</Typography>
+                                        <IconButton onClick={() => handleEditItem(item)} aria-label="delete" color="warning" size="small">
+                                            <EditIcon color="warning"/>
+                                        </IconButton>
+                                    </Box>
+                                </Grid>
+                                <Grid item xs={6} sm={3}>
+                                    <Box sx={{ mb: 2, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+                                        <Typography color="text.secondary">Deletar</Typography>
+                                        <IconButton disabled={deleteItemDisabled} onClick={() => handleDeleteItem(item.id)} aria-label="delete" color="error" size="small">
+                                            <DeleteForeverIcon color="error"/>
+                                        </IconButton>
+                                    </Box>
+                                </Grid>
+                            </Grid>
+                        </AccordionDetails>
+                    </Accordion>
+                ))
+            }
+            <Button 
+                onClick={() => setAddItemDialogOpen(true)} 
+                color="inherit" 
+                variant='text' 
+                fullWidth sx={{ mt: 1}}
+            >
+                Adicionar Item
+            </Button>
+            <AddItemDialog 
+                onClose={handleCloseAddItemDialog}
+                open={addItemDialogOpen}
+                characterId={characterEquipment.id} 
+                fetchCharacter={fetchCharacter}
+                itemToEdit={itemToEdit}
+            />
         </Container>
     )
 }
