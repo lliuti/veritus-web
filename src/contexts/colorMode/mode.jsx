@@ -1,6 +1,6 @@
 import { useState, createContext, useMemo, useEffect } from "react";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { blueGrey, brown } from "@mui/material/colors";
+import { blueGrey, brown, deepOrange, deepPurple, indigo, purple, teal } from "@mui/material/colors";
 
 export const ColorModeContext = createContext({
     toggleColorMode: () => {},
@@ -43,7 +43,12 @@ export const ToggleColorMode = ({ children }) => {
                     }
                 : {
                     secondary: {
-                        main: brown[500]
+                        // main: brown[500]
+                        // main: purple[400],
+                        // main: deepPurple[400],
+                        // main: teal[400],
+                        // main: deepOrange[500],
+                        main: indigo[500],
                     }
                 }),
             },
