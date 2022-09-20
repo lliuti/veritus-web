@@ -7,6 +7,8 @@ import { InvitePlayer } from "../../components/dashboard/InvitePlayer";
 import { Header } from "../../components/Header";
 import { Bull } from "../../components/Bull";
 import { useSnackbar } from 'notistack';
+import { GiRollingDices } from "react-icons/gi";
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
@@ -27,14 +29,18 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
+import Drawer from '@mui/material/Drawer';
+
 export function Dashboard() {
     const [sheets, setSheets] = useState([]);
-    const [data, setData] = useState();
+    // const [data, setData] = useState();
+    const [rollsLog, setRollsLog] = useState([]);
     const [party, setParty] = useState("");
     const [parties, setParties] = useState([]);
     const [dashboardTabValue, setDashboardTabValue] = useState(0);
     const [openBackdrop, setOpenBackdrop] = useState(false);
     const [deletePartyLoading, setDeletePartyLoading] = useState(false);
+    const [bottomDrawerOpen, setBottomDrawerOpen] = useState(false);
     const navigate = useNavigate(); 
     const { enqueueSnackbar } = useSnackbar();
 
@@ -43,11 +49,25 @@ export function Dashboard() {
 
     useEffect(() => {
         fetchParties();
-    }, [data]);
+    }, []);
 
-    socket.on("statChange", (data) => {
-        setData(data);
-    });
+    useEffect(() => {
+        socket.on("statChange", (data) => {
+            fetchPartyCharacters();
+        });
+    
+        socket.on("roll", (data) => {
+            if (data.activeParty == party) {
+                setRollsLog(rollsLog => [...rollsLog, data]);
+            }
+        });
+
+        return () => {
+            socket.off('statChange');
+            socket.off('roll');
+        };
+    }, [party])
+
 
     const fetchParties = async () => {
         try {
@@ -152,6 +172,9 @@ export function Dashboard() {
                                             >
                                                 Deletar mesa
                                             </LoadingButton>
+                                            <Button startIcon={<GiRollingDices/>} onClick={() => setBottomDrawerOpen(true)} size="small" color="inherit" sx={{ ml: 2 }}>
+                                                Dados
+                                            </Button>
                                         </Grid>
                                     : <></>}
                                 </>
@@ -162,8 +185,7 @@ export function Dashboard() {
                                     </Typography>
                                 </Grid>
                             }
-                                    
-                                
+
                             {sheets?.map((sheet) => (
                                 <Grid item xs={12} sm={6} md={3} key={sheet.id}>
                                     <Paper elevation={3} sx={{ p: 2}}>
@@ -217,6 +239,130 @@ export function Dashboard() {
                         <InvitePlayer/>
                     </TabPanel>
                 </Box>
+                <Drawer
+                    anchor={"bottom"}
+                    open={bottomDrawerOpen}
+                    onClose={() => setBottomDrawerOpen(false)}
+                >
+                    <Box sx={{ py: 3, px: 8, maxHeight: "440px", overflowY: "auto" }}>
+                        <Grid container spacing={3}>
+                            {rollsLog.length < 1 && (
+                                <Grid item xs={12}>
+                                    <Typography 
+                                    sx={{ textTransform: "uppercase" }} 
+                                    component="h3" 
+                                    variant="h6" 
+                                    color="inherit"
+                                    >
+                                        Nenhum teste ou rolagem recebido.
+                                    </Typography>
+                                </Grid>
+                            )}
+                            {rollsLog.slice(0).reverse().map((roll, index) => (
+                                <Grid item xs={12} key={index}>
+                                    <Typography 
+                                        sx={{ textTransform: "uppercase" }} 
+                                        component="h3" 
+                                        variant="h6" 
+                                        color={index === 0 ? "secondary" : "inherit"}
+                                    >
+                                        {roll.name}: 
+                                    </Typography>
+                                    
+                                        {(() => {
+                                            if (roll.type == "skill") {
+                                                return (
+                                                    <>
+                                                        <Typography 
+                                                            sx={{ textTransform: "uppercase" }} 
+                                                            component="p" 
+                                                            variant="body1" 
+                                                            color="text.secondary"
+                                                        >
+                                                            Teste de {roll.skill} com {roll.attributeName}
+                                                        </Typography>
+                                                        <Typography 
+                                                            sx={{ textTransform: "uppercase" }} 
+                                                            component="p" 
+                                                            variant="body1" 
+                                                            color="inherit"
+                                                        >
+                                                            {roll.diceAmount == 0 ? "-1" : roll.diceAmount}
+                                                            d20
+                                                            {roll.skillModifier !== 0 ? `+${roll.skillModifier}` : ""} 
+                                                            &nbsp; 
+                                                            <Bull/>
+                                                            &nbsp;  
+                                                            [{roll.diceRolls.trim()}]
+                                                            &nbsp; 
+                                                            &rarr;
+                                                            &nbsp; 
+                                                            <strong>{roll.testResult}</strong>
+                                                        </Typography>
+                                                    </>
+                                                )
+                                            } else if (roll.type == "attribute") {
+                                                return (
+                                                    <>
+                                                        <Typography 
+                                                            sx={{ textTransform: "uppercase" }} 
+                                                            component="p" 
+                                                            variant="body1" 
+                                                            color="text.secondary"
+                                                        >
+                                                            Teste de {roll.attributeName}
+                                                        </Typography>
+                                                        <Typography 
+                                                            sx={{ textTransform: "uppercase" }} 
+                                                            component="p" 
+                                                            variant="body1" 
+                                                            color="inherit"
+                                                        >
+                                                            {roll.diceAmount == 0 ? "-1" : roll.diceAmount}
+                                                            d20
+                                                            &nbsp; 
+                                                            <Bull/>
+                                                            &nbsp;  
+                                                            [{roll.diceRolls.trim()}]
+                                                            &nbsp; 
+                                                            &rarr;
+                                                            &nbsp; 
+                                                            <strong>{roll.testResult}</strong>
+                                                        </Typography>
+                                                    </>
+                                                )
+                                            } else {
+                                                return (
+                                                    <>
+                                                        <Typography 
+                                                            sx={{ textTransform: "uppercase" }} 
+                                                            component="p" 
+                                                            variant="body1" 
+                                                            color="text.secondary"
+                                                        >
+                                                            Rolagem de dano com {roll.attack}
+                                                        </Typography>
+                                                        <Typography 
+                                                            sx={{ textTransform: "uppercase" }} 
+                                                            component="p" 
+                                                            variant="body1" 
+                                                            color="inherit"
+                                                        > 
+                                                            [{roll.diceRolls.trim()}]
+                                                            &nbsp; 
+                                                            &rarr;
+                                                            &nbsp; 
+                                                            <strong>{roll.testResult}</strong>
+                                                        </Typography>
+                                                    </>
+                                                )
+                                            }
+                                        })()}
+                                </Grid>
+                            ))}
+                        </Grid>
+                    </Box>
+                </Drawer>
             </Container>
             <Backdrop
                 sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}

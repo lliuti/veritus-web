@@ -62,7 +62,7 @@ export const Login = () => {
                 <Typography component="h3" variant="subtitle1" sx={{ mb: 2}}>
                     Faça Login para acessar a plataforma    
                 </Typography>
-                <Grid container spacing={2}>
+                <Grid container spacing={2} sx={{ mb: 3 }}>
                     <Grid item xs={12} md={6}>
                         <TextField
                             margin="normal"
@@ -90,7 +90,7 @@ export const Login = () => {
                             onChange={(event) => setPassword(event.target.value)}
                         />
                     </Grid>
-                    <Grid item md={6}>
+                    <Grid item xs={6}>
                         <Button
                             type="submit"
                             fullWidth
@@ -101,7 +101,7 @@ export const Login = () => {
                             Cadastrar
                         </Button>
                     </Grid>
-                    <Grid item md={6}>
+                    <Grid item xs={6}>
                         <LoadingButton
                             loading={isLoading}
                             fullWidth
