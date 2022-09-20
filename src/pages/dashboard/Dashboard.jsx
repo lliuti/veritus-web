@@ -254,7 +254,7 @@ export function Dashboard() {
                                     variant="h6" 
                                     color="inherit"
                                     >
-                                        Nenhum teste ou rolagem recebido.
+                                        Nenhum teste foi realizado.
                                     </Typography>
                                 </Grid>
                             )}
