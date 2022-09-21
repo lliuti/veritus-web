@@ -4,6 +4,7 @@ import { api } from '../../../services/api';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
+import LoadingButton from '@mui/lab/LoadingButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import BatteryCharging90Icon from '@mui/icons-material/BatteryCharging90';
@@ -73,6 +74,8 @@ export function Stats({ characterStatus, fetchCharacter }) {
                 maxHp={maxHp} 
                 fetchCharacter={fetchCharacter}
                 characterId={characterStatus.id}
+                setCurrentHp={setCurrentHp}
+                setMaxHp={setMaxHp}
             />
 
             <Button onClick={handleSanClickOpen} color="secondary" variant='outlined' endIcon={<EmojiEmotionsIcon/>} fullWidth sx={{ my: 0.4 }}>
@@ -85,6 +88,8 @@ export function Stats({ characterStatus, fetchCharacter }) {
                 maxSp={maxSp} 
                 fetchCharacter={fetchCharacter}
                 characterId={characterStatus.id}
+                setCurrentSp={setCurrentSp}
+                setMaxSp={setMaxSp}
             />
 
             <Button onClick={handleEpClickOpen} color="secondary" variant='outlined' endIcon={<BatteryCharging90Icon/>} fullWidth sx={{ my: 0.4 }}>
@@ -97,13 +102,15 @@ export function Stats({ characterStatus, fetchCharacter }) {
                 maxEp={maxEp} 
                 fetchCharacter={fetchCharacter}
                 characterId={characterStatus.id}
+                setCurrentEp={setCurrentEp}
+                setMaxEp={setMaxEp}
             />
         </Grid>
     )
 }
 
 function HpDialog(props) {
-    const { onClose, open, currentHp, maxHp, fetchCharacter, characterId } = props;
+    const { onClose, open, currentHp, maxHp, characterId, setCurrentHp, setMaxHp } = props;
 
     const [currentHpDialog, setCurrentHpDialog] = useState(0);
     const [maxHpDialog, setMaxHpDialog] = useState(0);
@@ -111,6 +118,7 @@ function HpDialog(props) {
     const [subtractMaxHpValue, setSubtractMaxHpValue] = useState(0);
     const [increaseCurrentHpValue, setIncreaseCurrentHpValue] = useState(0);
     const [increaseMaxHpValue, setIncreaseMaxHpValue] = useState(0);
+    const [updateStatusLoading, setUpdateStatusLoading] = useState(false);
     
     const { enqueueSnackbar } = useSnackbar();
 
@@ -124,6 +132,7 @@ function HpDialog(props) {
     }, [currentHp, maxHp])
 
     const handleHpUpdate = async () => {
+        setUpdateStatusLoading(true);
         let newCurrentHp = currentHpDialog;
         let newMaxHp = maxHpDialog;
 
@@ -145,7 +154,9 @@ function HpDialog(props) {
                 max: newMaxHp
             });
             
-            fetchCharacter();
+            setCurrentHp(newCurrentHp);
+            setMaxHp(newMaxHp);
+
             onClose();
             enqueueSnackbar("Pontos de Vida atualizados.", { 
                 variant: "info"
@@ -156,6 +167,7 @@ function HpDialog(props) {
             });
         }
 
+        setUpdateStatusLoading(false);
     };
     
     const handleClose = () => {
@@ -256,7 +268,7 @@ function HpDialog(props) {
                 </Grid>
                 <Grid container sx={{ alignItems: 'end'}}>
                     <Grid item xs={12}>
-                        <Button onClick={handleHpUpdate} color="error" variant='text' endIcon={<SaveAsIcon/>} fullWidth>Atualizar Vida</Button>
+                        <LoadingButton loading={updateStatusLoading} onClick={handleHpUpdate} color="error" variant='text' endIcon={<SaveAsIcon/>} fullWidth>Atualizar Vida</LoadingButton>
                     </Grid>
                 </Grid>
             </Box>
@@ -265,7 +277,7 @@ function HpDialog(props) {
 }
 
 function SanDialog(props) {
-    const { onClose, open, currentSp, maxSp, fetchCharacter, characterId } = props;
+    const { onClose, open, currentSp, maxSp, characterId, setCurrentSp, setMaxSp } = props;
 
     const [currentSpDialog, setCurrentSpDialog] = useState(0);
     const [maxSpDialog, setMaxSpDialog] = useState(0);
@@ -273,6 +285,7 @@ function SanDialog(props) {
     const [subtractMaxSpValue, setSubtractMaxSpValue] = useState(0);
     const [increaseCurrentSpValue, setIncreaseCurrentSpValue] = useState(0);
     const [increaseMaxSpValue, setIncreaseMaxSpValue] = useState(0);
+    const [updateStatusLoading, setUpdateStatusLoading] = useState(false);
 
     const { enqueueSnackbar } = useSnackbar();
 
@@ -286,6 +299,7 @@ function SanDialog(props) {
     }, [currentSp, maxSp])
 
     const handleSpUpdate = async () => {
+        setUpdateStatusLoading(true);
         let newCurrentSp = currentSpDialog;
         let newMaxSp = maxSpDialog;
 
@@ -301,13 +315,16 @@ function SanDialog(props) {
             newMaxSp = maxSpDialog + parseInt(increaseMaxSpValue);
         };
 
-        await api.put(`/characters/${characterId}/stats/sp`, {
-            current: newCurrentSp,
-            max: newMaxSp
-        });
         
         try {
-            fetchCharacter();
+            await api.put(`/characters/${characterId}/stats/sp`, {
+                current: newCurrentSp,
+                max: newMaxSp
+            });
+
+            setCurrentSp(newCurrentSp);
+            setMaxSp(newMaxSp);
+
             onClose();
             enqueueSnackbar("Pontos de Sanidade atualizados.", { 
                 variant: "info"
@@ -318,6 +335,7 @@ function SanDialog(props) {
             });
         }
 
+        setUpdateStatusLoading(false);
     };
 
     const handleClose = () => {
@@ -418,7 +436,7 @@ function SanDialog(props) {
                 </Grid>
                 <Grid container sx={{ alignItems: 'end'}}>
                     <Grid item xs={12}>
-                        <Button onClick={handleSpUpdate} color="primary" variant='text' endIcon={<SaveAsIcon/>} fullWidth>Atualizar Sanidade</Button>
+                        <LoadingButton loading={updateStatusLoading} onClick={handleSpUpdate} color="primary" variant='text' endIcon={<SaveAsIcon/>} fullWidth>Atualizar Sanidade</LoadingButton>
                     </Grid>
                 </Grid>
             </Box>
@@ -427,7 +445,7 @@ function SanDialog(props) {
 }
 
 function EpDialog(props) {
-    const { onClose, open, currentEp, maxEp, fetchCharacter, characterId } = props;
+    const { onClose, open, currentEp, maxEp, characterId, setCurrentEp, setMaxEp } = props;
 
     const [currentEpDialog, setCurrentEpDialog] = useState(0);
     const [maxEpDialog, setMaxEpDialog] = useState(0);
@@ -435,6 +453,7 @@ function EpDialog(props) {
     const [subtractMaxEpValue, setSubtractMaxEpValue] = useState(0);
     const [increaseCurrentEpValue, setIncreaseCurrentEpValue] = useState(0);
     const [increaseMaxEpValue, setIncreaseMaxEpValue] = useState(0);
+    const [updateStatusLoading, setUpdateStatusLoading] = useState(false);
     
     const { enqueueSnackbar } = useSnackbar();
 
@@ -448,6 +467,7 @@ function EpDialog(props) {
     }, [currentEp, maxEp])
 
     const handleEpUpdate = async () => {
+        setUpdateStatusLoading(true);
         let newCurrentEp = currentEpDialog;
         let newMaxEp = maxEpDialog;
 
@@ -463,13 +483,16 @@ function EpDialog(props) {
             newMaxEp = maxEpDialog + parseInt(increaseMaxEpValue);
         };
 
-        await api.put(`/characters/${characterId}/stats/ep`, {
-            current: newCurrentEp,
-            max: newMaxEp
-        });
         
         try {
-            fetchCharacter();
+            await api.put(`/characters/${characterId}/stats/ep`, {
+                current: newCurrentEp,
+                max: newMaxEp
+            });
+
+            setCurrentEp(newCurrentEp);
+            setMaxEp(newMaxEp);
+            
             onClose();
             enqueueSnackbar("Pontos de Esforço atualizados.", { 
                 variant: "info"
@@ -480,6 +503,7 @@ function EpDialog(props) {
             });
         }
 
+        setUpdateStatusLoading(false);
     };
 
     const handleClose = () => {
@@ -580,7 +604,7 @@ function EpDialog(props) {
                 </Grid>
                 <Grid container sx={{ alignItems: 'end'}}>
                     <Grid item xs={12}>
-                        <Button onClick={handleEpUpdate} color="warning" variant='text' endIcon={<SaveAsIcon/>} fullWidth>Atualizar Esforço</Button>
+                        <LoadingButton loading={updateStatusLoading} onClick={handleEpUpdate} color="warning" variant='text' endIcon={<SaveAsIcon/>} fullWidth>Atualizar Esforço</LoadingButton>
                     </Grid>
                 </Grid>
             </Box>
