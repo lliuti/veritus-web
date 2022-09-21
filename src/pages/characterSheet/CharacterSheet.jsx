@@ -29,12 +29,10 @@ export function CharacterSheet() {
     const [characterEquipment, setCharacterEquipment] = useState([]);
     const [characterSettings, setCharacterSettings] = useState([]);
 
-    const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
     const { id } = useParams();
 
     useEffect(() => {
-        setOpenBackdrop(true);
         fetchCharacter();
     }, [id]);
 
@@ -43,7 +41,7 @@ export function CharacterSheet() {
     }
 
     const fetchCharacter = async () => {
-
+        setOpenBackdrop(true);
         try {
             const response = await api.get(`/characters/${id}/sheet`);
             const info = {
@@ -73,7 +71,6 @@ export function CharacterSheet() {
                 maxEp: response.data.characterStatus.maxEp,
                 maxSp: response.data.characterStatus.maxSp,
             };
-    
             const attributes = {
                 id: response.data.id,
                 str: response.data.characterAttributes.str,
@@ -83,20 +80,17 @@ export function CharacterSheet() {
                 cha: response.data.characterAttributes.cha,
                 nex: response.data.nex,
             };
-    
             const defenses = {
                 id: response.data.id,
                 dodging: response.data.characterDefenses.dodging,
                 passive: response.data.characterDefenses.passive,
             };
-    
             const notes = {
                 id: response.data.id,
                 resistances: response.data.characterNotes.resistances,
                 quickNotes: response.data.characterNotes.quickNotes,
                 text: response.data.characterNotes.text,
             }
-    
             const skills = {
                 id: response.data.id,
                 acrobacia: response.data.characterSkills.acrobacia,
@@ -128,7 +122,6 @@ export function CharacterSheet() {
                 tecnologia: response.data.characterSkills.tecnologia,
                 vontade: response.data.characterSkills.vontade,
             };
-
             let weightCapacity = 0;
 
             if (parseInt(response.data.nex) >= 10 && response.data.archetype === "Técnico") {
@@ -148,7 +141,6 @@ export function CharacterSheet() {
                 weightCapacity,
                 rank: response.data.rank,
             }
-    
             const settings = {
                 id: response.data.id,
                 activeParty: response.data.activeParty,
@@ -168,7 +160,6 @@ export function CharacterSheet() {
                 variant: "error"
             });
         }
-
         setOpenBackdrop(false);
     };
 
