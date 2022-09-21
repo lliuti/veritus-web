@@ -10,6 +10,7 @@ import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
+import LoadingButton from '@mui/lab/LoadingButton';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Accordion from '@mui/material/Accordion';
@@ -28,6 +29,8 @@ export function AttacksTable({ characterEquipment, fetchCharacter }) {
     const [damageRollDialogOpen, setDamageRollDialogOpen] = useState(false);
     const [attackToEdit, setAttackToEdit] = useState({});
     const [deleteAttackDisabled, setDeleteAttackDisabled] = useState(false);
+    const [criticalDamageLoading, setCriticalDamageLoading] = useState(false);
+    const [damageLoading, setDamageLoading] = useState(false);
 
     const { enqueueSnackbar } = useSnackbar();
 
@@ -63,29 +66,9 @@ export function AttacksTable({ characterEquipment, fetchCharacter }) {
         setDeleteAttackDisabled(false)
     }
 
-    const handleAttackTest = async (attack) => {
-        if (!attack.test) {
-            enqueueSnackbar("Não foi possível realizar o teste de ataque.", { 
-                variant: "error"
-            });
-
-            return;
-        }
-
-        try {
-            const response = await api.post(`/characters/${characterEquipment.id}/roll/attack`, {
-                attack
-            });
-            setAttackRollInfo(response.data);
-            setAttackRollDialogOpen(true);
-        } catch (err) {
-            enqueueSnackbar("Não foi possível realizar o teste de ataque.", { 
-                variant: "error"
-            });
-        }
-    }
-
     const handleDamageRoll = async (attack, type) => {
+        type == "damage" ? setDamageLoading(true) : setCriticalDamageLoading(true);
+
         try {
             const response = await api.post(`/characters/${characterEquipment.id}/roll/damage`, {
                 attack,
@@ -98,6 +81,8 @@ export function AttacksTable({ characterEquipment, fetchCharacter }) {
                 variant: "error"
             });
         }
+
+        type == "damage" ? setDamageLoading(false) : setCriticalDamageLoading(false);
     }
 
     return (
@@ -115,27 +100,23 @@ export function AttacksTable({ characterEquipment, fetchCharacter }) {
                                 sx={{ display: { xs: 'none', sm: 'block' } }} 
                                 color="text.secondary"
                             >       
-                                {attack.test} <Bull/> {attack.damage}
+                                {/* {attack.test} 
+                                <Bull/>  */}
+                                {attack.damage}
                             </Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                             <Grid container spacing={2}>
-                                {/* <Grid item xs={6} sm={4} md={4} lg={3}>
-                                    <Box sx={{ mb: 2, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                                        <Typography color="text.secondary">Teste</Typography>
-                                        <Button onClick={() => handleAttackTest(attack)} color="secondary" variant='outlined' size="small" sx={{ textTransform: "lowercase" }}>{attack.test}</Button>
-                                    </Box>
-                                </Grid> */}
                                 <Grid item xs={6} sm={4} md={4} lg={3}>
                                     <Box sx={{ mb: 2, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
                                         <Typography color="text.secondary">Dano</Typography>
-                                        <Button onClick={() => handleDamageRoll(attack, "damage")} color="secondary" variant='outlined' size="small" sx={{ textTransform: "lowercase" }}>{attack.damage}</Button>
+                                        <LoadingButton loading={damageLoading} onClick={() => handleDamageRoll(attack, "damage")} color="secondary" variant='outlined' size="small" sx={{ textTransform: "lowercase" }}>{attack.damage}</LoadingButton>
                                     </Box>
                                 </Grid>
                                 <Grid item xs={6} sm={4} md={4} lg={3}>
                                     <Box sx={{ mb: 2, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
                                         <Typography color="text.secondary">Dano Crítico</Typography>
-                                        <Button onClick={() => handleDamageRoll(attack, "criticalDamage")} color="secondary" variant='outlined' size="small" sx={{ textTransform: "lowercase" }}>{attack.criticalDamage}</Button>
+                                        <LoadingButton loading={criticalDamageLoading} onClick={() => handleDamageRoll(attack, "criticalDamage")} color="secondary" variant='outlined' size="small" sx={{ textTransform: "lowercase" }}>{attack.criticalDamage}</LoadingButton>
                                     </Box>
                                 </Grid>
                                 <Grid item xs={6} sm={4} md={4} lg={3}>
