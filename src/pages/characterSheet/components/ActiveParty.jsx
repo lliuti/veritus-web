@@ -44,9 +44,7 @@ export const ActiveParty = ({ characterSettings, fetchCharacter }) => {
         try {
             await api.put(`/characters/${characterSettings.id}/info`, {
                 activeParty,
-            }); 
-    
-            // fetchCharacter();
+            });
             enqueueSnackbar("Mesa ativa atualizada.", { 
                 variant: "info"
             });
