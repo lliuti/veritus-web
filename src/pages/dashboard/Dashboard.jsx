@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
@@ -221,10 +221,19 @@ export function Dashboard() {
                                                 </Typography>
                                             </Grid>
                                             <Grid item xs={12}>
-                                                <Button fullWidth onClick={() => navigate(`/personagens/${sheet.id}`)} size="large" color="secondary" variant="outlined" sx={{ alignItems: "center"}}>
-                                                    <VisibilityIcon sx={{ mr: 1 }}/>
-                                                    Visualizar
-                                                </Button>
+                                                <Link style={{ textDecoration: "none" }} target={"_blank"} to={`/personagens/${sheet.id}`}>
+                                                    <Button 
+                                                        fullWidth 
+                                                        // onClick={() => navigate(`/personagens/${sheet.id}`)} 
+                                                        size="large" 
+                                                        color="secondary" 
+                                                        variant="outlined" 
+                                                        sx={{ alignItems: "center"}}
+                                                    >
+                                                        <VisibilityIcon sx={{ mr: 1 }}/>
+                                                        Visualizar
+                                                    </Button>
+                                                </Link>
                                             </Grid>
                                         </Grid>
                                     </Paper>
