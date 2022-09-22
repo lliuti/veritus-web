@@ -52,7 +52,7 @@ export function Dashboard() {
     }, []);
 
     useEffect(() => {
-        socket.on("statChange", (data) => {
+        socket.on("statChange", () => {
             fetchPartyCharacters();
         });
     
