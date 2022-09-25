@@ -580,8 +580,8 @@ function EditSkillsDialog(props) {
         <Dialog onClose={handleClose} open={open} fullWidth maxWidth='lg'>
             <Typography component="h1" variant="h5" color="inherit" sx={{ paddingLeft: 2, paddingTop: 2}}>Editar Perícias</Typography>
             <Box component="div" sx={{ p: 2 }}>
-                <Grid container sx={{ alignItems: 'center' }} spacing={1}>
-                    <Grid item xs={6} md={3}>
+                <Grid container spacing={{ xs: 0.5, sm: 1}}>
+                    <Grid item xs={6} sm={3}>
                         <FormControl variant="filled" fullWidth sx={{ mt: 1}}>
                             <InputLabel id="acrobacia-select-label" color="secondary">Acrobacia</InputLabel>
                             <Select
@@ -598,8 +598,6 @@ function EditSkillsDialog(props) {
                                 <MenuItem value={"15"}>Expert: +15</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid>
-                    <Grid item xs={6} md={3}>
                         <FormControl variant="filled" fullWidth sx={{ mt: 1}}>
                             <InputLabel id="adestramento-select-label" color="secondary">Adestramento</InputLabel>
                             <Select
@@ -616,8 +614,6 @@ function EditSkillsDialog(props) {
                                 <MenuItem value={"15"}>Expert: +15</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid>
-                    <Grid item xs={6} md={3}>
                         <FormControl variant="filled" fullWidth sx={{ mt: 1}}>
                             <InputLabel id="artes-select-label" color="secondary">Artes</InputLabel>
                             <Select
@@ -634,8 +630,6 @@ function EditSkillsDialog(props) {
                                 <MenuItem value={"15"}>Expert: +15</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid>
-                    <Grid item xs={6} md={3}>
                         <FormControl variant="filled" fullWidth sx={{ mt: 1}}>
                             <InputLabel id="atletismo-select-label" color="secondary">Atletismo</InputLabel>
                             <Select
@@ -652,8 +646,6 @@ function EditSkillsDialog(props) {
                                 <MenuItem value={"15"}>Expert: +15</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid>
-                    <Grid item xs={6} md={3}>
                         <FormControl variant="filled" fullWidth sx={{ mt: 1}}>
                             <InputLabel id="atualidades-select-label" color="secondary">Atualidades</InputLabel>
                             <Select
@@ -670,8 +662,6 @@ function EditSkillsDialog(props) {
                                 <MenuItem value={"15"}>Expert: +15</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid>
-                    <Grid item xs={6} md={3}>
                         <FormControl variant="filled" fullWidth sx={{ mt: 1}}>
                             <InputLabel id="ciencias-select-label" color="secondary">Ciencias</InputLabel>
                             <Select
@@ -688,8 +678,6 @@ function EditSkillsDialog(props) {
                                 <MenuItem value={"15"}>Expert: +15</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid>
-                    <Grid item xs={6} md={3}>
                         <FormControl variant="filled" fullWidth sx={{ mt: 1}}>
                             <InputLabel id="crime-select-label" color="secondary">Crime</InputLabel>
                             <Select
@@ -707,7 +695,7 @@ function EditSkillsDialog(props) {
                             </Select>
                         </FormControl>
                     </Grid>
-                    <Grid item xs={6} md={3}>
+                    <Grid item xs={6} sm={3}>
                         <FormControl variant="filled" fullWidth sx={{ mt: 1}}>
                             <InputLabel id="diplomacia-select-label" color="secondary">Diplomacia</InputLabel>
                             <Select
@@ -724,8 +712,6 @@ function EditSkillsDialog(props) {
                                 <MenuItem value={"15"}>Expert: +15</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid>
-                    <Grid item xs={6} md={3}>
                         <FormControl variant="filled" fullWidth sx={{ mt: 1}}>
                             <InputLabel id="enganacao-select-label" color="secondary">Enganação</InputLabel>
                             <Select
@@ -742,8 +728,6 @@ function EditSkillsDialog(props) {
                                 <MenuItem value={"15"}>Expert: +15</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid>
-                    <Grid item xs={6} md={3}>
                         <FormControl variant="filled" fullWidth sx={{ mt: 1}}>
                             <InputLabel id="fortitude-select-label" color="secondary">Fortitude</InputLabel>
                             <Select
@@ -760,8 +744,6 @@ function EditSkillsDialog(props) {
                                 <MenuItem value={"15"}>Expert: +15</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid>
-                    <Grid item xs={6} md={3}>
                         <FormControl variant="filled" fullWidth sx={{ mt: 1}}>
                             <InputLabel id="furtividade-select-label" color="secondary">Furtividade</InputLabel>
                             <Select
@@ -778,8 +760,6 @@ function EditSkillsDialog(props) {
                                 <MenuItem value={"15"}>Expert: +15</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid>
-                    <Grid item xs={6} md={3}>
                         <FormControl variant="filled" fullWidth sx={{ mt: 1}}>
                             <InputLabel id="iniciativa-select-label" color="secondary">Iniciativa</InputLabel>
                             <Select
@@ -796,8 +776,6 @@ function EditSkillsDialog(props) {
                                 <MenuItem value={"15"}>Expert: +15</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid>
-                    <Grid item xs={6} md={3}>
                         <FormControl variant="filled" fullWidth sx={{ mt: 1}}>
                             <InputLabel id="intimidacao-select-label" color="secondary">Intimidação</InputLabel>
                             <Select
@@ -814,8 +792,6 @@ function EditSkillsDialog(props) {
                                 <MenuItem value={"15"}>Expert: +15</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid>
-                    <Grid item xs={6} md={3}>
                         <FormControl variant="filled" fullWidth sx={{ mt: 1}}>
                             <InputLabel id="intuicao-select-label" color="secondary">Intuição</InputLabel>
                             <Select
@@ -833,7 +809,7 @@ function EditSkillsDialog(props) {
                             </Select>
                         </FormControl>
                     </Grid>
-                    <Grid item xs={6} md={3}>
+                    <Grid item xs={6} sm={3}>
                         <FormControl variant="filled" fullWidth sx={{ mt: 1}}>
                             <InputLabel id="investigacao-select-label" color="secondary">Investigação</InputLabel>
                             <Select
@@ -850,8 +826,6 @@ function EditSkillsDialog(props) {
                                 <MenuItem value={"15"}>Expert: +15</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid>
-                    <Grid item xs={6} md={3}>
                         <FormControl variant="filled" fullWidth sx={{ mt: 1}}>
                             <InputLabel id="luta-select-label" color="secondary">Luta</InputLabel>
                             <Select
@@ -868,8 +842,6 @@ function EditSkillsDialog(props) {
                                 <MenuItem value={"15"}>Expert: +15</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid>
-                    <Grid item xs={6} md={3}>
                         <FormControl variant="filled" fullWidth sx={{ mt: 1}}>
                             <InputLabel id="medicina-select-label" color="secondary">Medicina</InputLabel>
                             <Select
@@ -886,8 +858,6 @@ function EditSkillsDialog(props) {
                                 <MenuItem value={"15"}>Expert: +15</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid>
-                    <Grid item xs={6} md={3}>
                         <FormControl variant="filled" fullWidth sx={{ mt: 1}}>
                             <InputLabel id="ocultismo-select-label" color="secondary">Ocultismo</InputLabel>
                             <Select
@@ -904,8 +874,6 @@ function EditSkillsDialog(props) {
                                 <MenuItem value={"15"}>Expert: +15</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid>
-                    <Grid item xs={6} md={3}>
                         <FormControl variant="filled" fullWidth sx={{ mt: 1}}>
                             <InputLabel id="percepcao-select-label" color="secondary">Percepção</InputLabel>
                             <Select
@@ -922,8 +890,6 @@ function EditSkillsDialog(props) {
                                 <MenuItem value={"15"}>Expert: +15</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid>
-                    <Grid item xs={6} md={3}>
                         <FormControl variant="filled" fullWidth sx={{ mt: 1}}>
                             <InputLabel id="pilotagem-select-label" color="secondary">Pilotagem</InputLabel>
                             <Select
@@ -940,8 +906,6 @@ function EditSkillsDialog(props) {
                                 <MenuItem value={"15"}>Expert: +15</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid>
-                    <Grid item xs={6} md={3}>
                         <FormControl variant="filled" fullWidth sx={{ mt: 1}}>
                             <InputLabel id="pontaria-select-label" color="secondary">Pontaria</InputLabel>
                             <Select
@@ -959,7 +923,7 @@ function EditSkillsDialog(props) {
                             </Select>
                         </FormControl>
                     </Grid>
-                    <Grid item xs={6} md={3}>
+                    <Grid item xs={6} sm={3}>
                         <FormControl variant="filled" fullWidth sx={{ mt: 1}}>
                             <InputLabel id="profissao-select-label" color="secondary">Profissão</InputLabel>
                             <Select
@@ -976,8 +940,6 @@ function EditSkillsDialog(props) {
                                 <MenuItem value={"15"}>Expert: +15</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid>
-                    <Grid item xs={6} md={3}>
                         <FormControl variant="filled" fullWidth sx={{ mt: 1}}>
                             <InputLabel id="reflexos-select-label" color="secondary">Reflexos</InputLabel>
                             <Select
@@ -994,8 +956,6 @@ function EditSkillsDialog(props) {
                                 <MenuItem value={"15"}>Expert: +15</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid>
-                    <Grid item xs={6} md={3}>
                         <FormControl variant="filled" fullWidth sx={{ mt: 1}}>
                             <InputLabel id="religiao-select-label" color="secondary">Religião</InputLabel>
                             <Select
@@ -1012,8 +972,6 @@ function EditSkillsDialog(props) {
                                 <MenuItem value={"15"}>Expert: +15</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid>
-                    <Grid item xs={6} md={3}>
                         <FormControl variant="filled" fullWidth sx={{ mt: 1}}>
                             <InputLabel id="sobrevivencia-select-label" color="secondary">Sobrevivencia</InputLabel>
                             <Select
@@ -1030,8 +988,6 @@ function EditSkillsDialog(props) {
                                 <MenuItem value={"15"}>Expert: +15</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid>
-                    <Grid item xs={6} md={3}>
                         <FormControl variant="filled" fullWidth sx={{ mt: 1}}>
                             <InputLabel id="tatica-select-label" color="secondary">Tática</InputLabel>
                             <Select
@@ -1048,8 +1004,6 @@ function EditSkillsDialog(props) {
                                 <MenuItem value={"15"}>Expert: +15</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid>
-                    <Grid item xs={6} md={3}>
                         <FormControl variant="filled" fullWidth sx={{ mt: 1}}>
                             <InputLabel id="tecnologia-select-label" color="secondary">Tecnologia</InputLabel>
                             <Select
@@ -1066,8 +1020,6 @@ function EditSkillsDialog(props) {
                                 <MenuItem value={"15"}>Expert: +15</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid>
-                    <Grid item xs={6} md={3}>
                         <FormControl variant="filled" fullWidth sx={{ mt: 1}}>
                             <InputLabel id="vontade-select-label" color="secondary">Vontade</InputLabel>
                             <Select
@@ -1087,7 +1039,7 @@ function EditSkillsDialog(props) {
                     </Grid>
                 </Grid>
                 <Grid container sx={{ alignItems: 'end', mt: 1}}>
-                    <Grid item md={12}>
+                    <Grid item xs={12}>
                         <LoadingButton 
                             onClick={handleUpdateSkills} 
                             color="secondary" 
