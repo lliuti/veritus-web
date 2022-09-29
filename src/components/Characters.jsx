@@ -4,6 +4,7 @@ import { api } from '../services/api';
 import { useAuth } from "../contexts/useAuth";
 import { Bull } from "../components/Bull";
 import { useSnackbar } from 'notistack';
+import { DeleteCharacterDialog } from "../components/DeleteCharacterDialog";
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -19,6 +20,10 @@ export function Characters() {
     const [characters, setCharacters] = useState([]);
     const [deleteCharacterLoading, setDeleteCharacterLoading] = useState(false);
     const [openBackdrop, setOpenBackdrop] = useState(false);
+    const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+
+    const [characterId, setCharacterId] = useState("");
+    const [characterName, setCharacterName] = useState("");
 
     const navigate = useNavigate();
     const context = useAuth();
@@ -41,20 +46,10 @@ export function Characters() {
         setOpenBackdrop(false);
     };
 
-    const handleDeleteCharacter = async (id) => {
-        try {
-            setDeleteCharacterLoading(true);
-            await api.delete(`/characters/${id}`)
-            fetchMyCharacters();
-            setDeleteCharacterLoading(false);
-            enqueueSnackbar("Personagem deletado.", { 
-                variant: "info"
-            });
-        } catch (err) {
-            enqueueSnackbar("Não foi possível deletar o personagem.", { 
-                variant: "error"
-            });
-        }
+    const handleDeleteCharacter = async (id, name) => {
+        setCharacterId(id);
+        setCharacterName(name);
+        setDeleteDialogOpen(true);
     }
 
     return (
@@ -79,7 +74,7 @@ export function Characters() {
                             </CardContent>
                             <CardActions sx={{ justifyContent: 'flex-start' }}>
                                 <LoadingButton 
-                                    onClick={() => handleDeleteCharacter(character.id)} 
+                                    onClick={() => handleDeleteCharacter(character.id, character.name)} 
                                     size="small" 
                                     color="error" 
                                     variant="text"
@@ -87,6 +82,13 @@ export function Characters() {
                                 >
                                     Deletar
                                 </LoadingButton>
+                                <DeleteCharacterDialog 
+                                    characterId={characterId}
+                                    characterName={characterName}
+                                    onClose={() => setDeleteDialogOpen(false)}
+                                    open={deleteDialogOpen}
+                                    fetchMyCharacters={fetchMyCharacters}
+                                />
                                 <Button 
                                     onClick={() => navigate(`/personagens/${character.id}`)} 
                                     size="small" 
