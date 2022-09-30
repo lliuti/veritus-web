@@ -9,6 +9,8 @@ import { Equipment } from "./components/Equipment";
 import { Notes } from "./components/Notes";
 import { ActiveParty } from "./components/ActiveParty";
 import { Tiptap } from "../../components/Tiptap";
+import Fab from '@mui/material/Fab';
+import { CustomRollDialog } from "../../components/CustomRollDialog";
 import { Header } from "../../components/Header";
 import { api } from "../../services/api";
 import { useSnackbar } from 'notistack';
@@ -16,6 +18,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import { FaDiceD20 } from "react-icons/fa";
 
 export function CharacterSheet() {
     const [openBackdrop, setOpenBackdrop] = useState(false);
@@ -28,6 +31,7 @@ export function CharacterSheet() {
     const [characterSkills, setCharacterSkills] = useState([]);
     const [characterEquipment, setCharacterEquipment] = useState([]);
     const [characterSettings, setCharacterSettings] = useState([]);
+    const [customRollDialogOpen, setCustomRollDialogOpen] = useState(false);
 
     const { enqueueSnackbar } = useSnackbar();
     const { id } = useParams();
@@ -186,9 +190,17 @@ export function CharacterSheet() {
             <Backdrop
                 sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                 open={openBackdrop}
-            >
+                >
                 <CircularProgress color="inherit" />
             </Backdrop>
+            <CustomRollDialog
+                onClose={() => setCustomRollDialogOpen(false)}
+                open={customRollDialogOpen}
+                characterId={characterAttributes.id}
+            />
+            <Fab onClick={() => setCustomRollDialogOpen(true)} color="inherit" aria-label="dice" sx={{ position: 'fixed', bottom: 25, right: 25}} size="medium">
+                <FaDiceD20 fontSize={24} color="black"/>
+            </Fab>
         </>
     )
 }

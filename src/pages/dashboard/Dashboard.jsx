@@ -340,6 +340,35 @@ export function Dashboard() {
                                                         </Typography>
                                                     </>
                                                 )
+                                            } else if (roll.type === "check") {
+                                                return (
+                                                    <>
+                                                        <Typography 
+                                                            sx={{ textTransform: "uppercase" }} 
+                                                            component="p" 
+                                                            variant="body1" 
+                                                            color="text.secondary"
+                                                        >
+                                                            Rolagem de teste customizada
+                                                        </Typography>
+                                                        <Typography 
+                                                            sx={{ textTransform: "uppercase" }} 
+                                                            component="p" 
+                                                            variant="body1" 
+                                                            color="inherit"
+                                                        > 
+                                                            {roll.input.trim()}
+                                                            &nbsp; 
+                                                            <Bull/>
+                                                            &nbsp;
+                                                            [{roll.diceRolls.trim()}]
+                                                            &nbsp; 
+                                                            &rarr;
+                                                            &nbsp; 
+                                                            <strong>{roll.testResult}</strong>
+                                                        </Typography>
+                                                    </>
+                                                )
                                             } else {
                                                 return (
                                                     <>
@@ -349,7 +378,7 @@ export function Dashboard() {
                                                             variant="body1" 
                                                             color="text.secondary"
                                                         >
-                                                            Rolagem de dano com {roll.attack}
+                                                            Rolagem de dano: {roll.attack}
                                                         </Typography>
                                                         <Typography 
                                                             sx={{ textTransform: "uppercase" }} 

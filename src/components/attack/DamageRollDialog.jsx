@@ -36,7 +36,7 @@ export const DamageRollDialog = (props) => {
                 </Grid>
                 <Grid container sx={{ alignItems: 'end', mt: 1}}>
                     <Grid item xs={12}>
-                        <Button onClick={handleClose} color="secondary" variant='text' endIcon={<SaveAsIcon/>} fullWidth>Fechar</Button>
+                        <Button onClick={handleClose} color="secondary" variant='text' fullWidth>Fechar</Button>
                     </Grid>
                 </Grid>
             </Box>
