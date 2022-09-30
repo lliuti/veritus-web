@@ -173,7 +173,7 @@ export function CharacterSheet() {
             <Container maxWidth="xl" sx={{ mt: 5, mb: 10 }}>
                 <ActiveParty characterSettings={characterSettings} fetchCharacter={fetchCharacter}/>
                 <CharacterInfo characterInfo={characterInfo} fetchCharacter={fetchCharacter}/>
-                <Grid container spacing={{ xs: 1, md: 3}}>
+                <Grid container spacing={1}>
                     <Stats characterStatus={characterStatus} fetchCharacter={fetchCharacter}/>
                     <Attributes characterAttributes={characterAttributes} fetchCharacter={fetchCharacter} openDialog={fetchCharacterDialog}/>
                     <Defenses characterDefenses={characterDefenses} fetchCharacter={fetchCharacter}/>

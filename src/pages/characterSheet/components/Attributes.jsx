@@ -74,7 +74,7 @@ export function Attributes({ characterAttributes, fetchCharacter, openDialog }) 
     }
 
     return (
-        <Grid item xs={6} sm={4} md={2} sx={{ mt: 3 }}>
+        <Grid item xs={12} sm={4} md={2} sx={{ mt: 3 }}>
             <Typography component="h1" variant="h5" color="inherit" sx={{ mb: 1}}>Atributos</Typography>
             <Grid container spacing={1}>
                 <Grid item xs={6}>

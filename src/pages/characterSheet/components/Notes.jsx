@@ -37,7 +37,7 @@ export function Notes({ characterNotes, fetchCharacter }) {
 
     return (
         <Grid item xs={12} md={6} sx={{ mt: 2 }}>
-            <Grid container spacing={3}>
+            <Grid container spacing={1}>
                 <Grid item xs={12} sm={6}>
                     <Typography component="h1" variant="h5" color="inherit" sx={{ mb: 1}}>Resistencias</Typography>
                     <TextField
