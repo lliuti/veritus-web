@@ -92,9 +92,9 @@ export const AddItemDialog = (props) => {
         }
         
         setItem("");
-        setWeight("");
+        setWeight("0");
         setDescription("");
-        setCategory("");
+        setCategory("0");
         fetchCharacter();
         onClose();
         setButtonFunction("create");
