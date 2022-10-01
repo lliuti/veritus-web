@@ -135,6 +135,12 @@ export function CharacterSheet() {
             } else {
                 weightCapacity = response.data.characterAttributes.str * 5;
             }
+            
+            response.data.characterItems.map((i) => {
+                if (i.item.toLowerCase() == "mochila militar") {
+                    weightCapacity += 2
+                }
+            })
 
             const equipment = {
                 id: response.data.id,
