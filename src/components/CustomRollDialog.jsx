@@ -14,7 +14,7 @@ import Switch from '@mui/material/Switch';
 export const CustomRollDialog = (props) => {
     const { onClose, open, characterId } = props;
     const [rollInput, setRollInput] = useState("");
-    const [checked, setChecked] = useState(true);
+    const [checked, setChecked] = useState(false);
     const [customRollLoading, setCustomRollLoading] = useState(false);
     const [rollResultDialogOpen, setRollResultDialogOpen] = useState(false);
     const [customRollInfo, setCustomRollInfo] = useState([]);
