@@ -8,8 +8,6 @@ import SaveAsIcon from '@mui/icons-material/SaveAs';
 export function SkillRollDialog(props) {
     const { onClose, open, skillRollDialogInfo } = props;
 
-    console.log(skillRollDialogInfo);
-
     const handleClose = () => {
         onClose();
     };
