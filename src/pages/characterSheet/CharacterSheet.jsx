@@ -22,7 +22,6 @@ import { FaDiceD20 } from "react-icons/fa";
 
 export function CharacterSheet() {
     const [openBackdrop, setOpenBackdrop] = useState(false);
-
     const [characterInfo, setCharacterInfo] = useState([]);
     const [characterStatus, setCharacterStatus] = useState([]);
     const [characterAttributes, setCharacterAttributes] = useState([]);
@@ -39,10 +38,6 @@ export function CharacterSheet() {
     useEffect(() => {
         fetchCharacter();
     }, [id]);
-
-    const fetchCharacterDialog = () => {
-        setOpenBackdrop(true);
-    }
 
     const fetchCharacter = async () => {
         setOpenBackdrop(true);
@@ -95,6 +90,7 @@ export function CharacterSheet() {
                 quickNotes: response.data.characterNotes.quickNotes,
                 text: response.data.characterNotes.text,
             }
+
             const skills = {
                 id: response.data.id,
                 acrobacia: response.data.characterSkills.acrobacia,
@@ -125,6 +121,36 @@ export function CharacterSheet() {
                 tatica: response.data.characterSkills.tatica,
                 tecnologia: response.data.characterSkills.tecnologia,
                 vontade: response.data.characterSkills.vontade,
+                bonuses: {
+                    acrobacia: response.data.characterBonuses.acrobacia,
+                    adestramento: response.data.characterBonuses.adestramento,
+                    artes: response.data.characterBonuses.artes,
+                    atletismo: response.data.characterBonuses.atletismo,
+                    atualidades: response.data.characterBonuses.atualidades,
+                    ciencias: response.data.characterBonuses.ciencias,
+                    crime: response.data.characterBonuses.crime,
+                    diplomacia: response.data.characterBonuses.diplomacia,
+                    enganacao: response.data.characterBonuses.enganacao,
+                    fortitude: response.data.characterBonuses.fortitude,
+                    furtividade: response.data.characterBonuses.furtividade,
+                    iniciativa: response.data.characterBonuses.iniciativa,
+                    intimidacao: response.data.characterBonuses.intimidacao,
+                    intuicao: response.data.characterBonuses.intuicao,
+                    investigacao: response.data.characterBonuses.investigacao,
+                    luta: response.data.characterBonuses.luta,
+                    medicina: response.data.characterBonuses.medicina,
+                    ocultismo: response.data.characterBonuses.ocultismo,
+                    percepcao: response.data.characterBonuses.percepcao,
+                    pilotagem: response.data.characterBonuses.pilotagem,
+                    pontaria: response.data.characterBonuses.pontaria,
+                    profissao: response.data.characterBonuses.profissao,
+                    reflexos: response.data.characterBonuses.reflexos,
+                    religiao: response.data.characterBonuses.religiao,
+                    sobrevivencia: response.data.characterBonuses.sobrevivencia,
+                    tatica: response.data.characterBonuses.tatica,
+                    tecnologia: response.data.characterBonuses.tecnologia,
+                    vontade: response.data.characterBonuses.vontade,
+                }
             };
             let weightCapacity = 0;
 
@@ -181,12 +207,12 @@ export function CharacterSheet() {
                 <CharacterInfo characterInfo={characterInfo} fetchCharacter={fetchCharacter}/>
                 <Grid container spacing={1}>
                     <Stats characterStatus={characterStatus} fetchCharacter={fetchCharacter}/>
-                    <Attributes characterAttributes={characterAttributes} fetchCharacter={fetchCharacter} openDialog={fetchCharacterDialog}/>
+                    <Attributes characterAttributes={characterAttributes} fetchCharacter={fetchCharacter}/>
                     <Defenses characterDefenses={characterDefenses} fetchCharacter={fetchCharacter}/>
                     <Notes characterNotes={characterNotes} fetchCharacter={fetchCharacter}/>
                 </Grid>
                 <Grid container spacing={{ xs: 1, md: 3}}>
-                    <Skills characterSkills={characterSkills} fetchCharacter={fetchCharacter} openDialog={fetchCharacterDialog}/>
+                    <Skills characterSkills={characterSkills} fetchCharacter={fetchCharacter}/>
                     <Equipment characterEquipment={characterEquipment} fetchCharacter={fetchCharacter}/>
                 </Grid>
                 {/* <Grid container>
