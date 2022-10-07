@@ -55,7 +55,7 @@ export function CharacterInfo({ characterInfo, fetchCharacter }) {
         try {
             await api.put(`/characters/${characterInfo.id}/info`, { rank, affinity, background, characterClass, archetype, name, nex: nex.toString(), movement });
     
-            fetchCharacter();
+            // fetchCharacter();
             enqueueSnackbar("Informações atualizadas.", { 
                 variant: "info"
             });
