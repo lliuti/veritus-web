@@ -50,34 +50,34 @@ export function Skills({ characterSkills, fetchCharacter }) {
     }, [characterSkills]);
 
     const fillCharacterSkills = () => {
-        setAcrobacia(characterSkills.acrobacia);
-        setAdestramento(characterSkills.adestramento);
-        setArtes(characterSkills.artes);
-        setAtletismo(characterSkills.atletismo);
-        setAtualidades(characterSkills.atualidades);
-        setCiencias(characterSkills.ciencias);
-        setCrime(characterSkills.crime);
-        setDiplomacia(characterSkills.diplomacia);
-        setEnganacao(characterSkills.enganacao);
-        setFortitude(characterSkills.fortitude);
-        setFurtividade(characterSkills.furtividade);
-        setIniciativa(characterSkills.iniciativa);
-        setIntimidacao(characterSkills.intimidacao);
-        setIntuicao(characterSkills.intuicao);
-        setInvestigacao(characterSkills.investigacao);
-        setLuta(characterSkills.luta);
-        setMedicina(characterSkills.medicina);
-        setOcultismo(characterSkills.ocultismo);
-        setPercepcao(characterSkills.percepcao);
-        setPilotagem(characterSkills.pilotagem);
-        setPontaria(characterSkills.pontaria);
-        setProfissao(characterSkills.profissao);
-        setReflexos(characterSkills.reflexos);
-        setReligiao(characterSkills.religiao);
-        setSobrevivencia(characterSkills.sobrevivencia);
-        setTatica(characterSkills.tatica);
-        setTecnologia(characterSkills.tecnologia);
-        setVontade(characterSkills.vontade);
+        setAcrobacia(parseInt(characterSkills.acrobacia) + parseInt(characterSkills.bonuses?.acrobacia));
+        setAdestramento(parseInt(characterSkills.adestramento) + parseInt(characterSkills.bonuses?.adestramento));
+        setArtes(parseInt(characterSkills.artes) + parseInt(characterSkills.bonuses?.artes));
+        setAtletismo(parseInt(characterSkills.atletismo) + parseInt(characterSkills.bonuses?.atletismo));
+        setAtualidades(parseInt(characterSkills.atualidades) + parseInt(characterSkills.bonuses?.atualidades));
+        setCiencias(parseInt(characterSkills.ciencias) + parseInt(characterSkills.bonuses?.ciencias));
+        setCrime(parseInt(characterSkills.crime) + parseInt(characterSkills.bonuses?.crime));
+        setDiplomacia(parseInt(characterSkills.diplomacia) + parseInt(characterSkills.bonuses?.diplomacia));
+        setEnganacao(parseInt(characterSkills.enganacao) + parseInt(characterSkills.bonuses?.enganacao));
+        setFortitude(parseInt(characterSkills.fortitude) + parseInt(characterSkills.bonuses?.fortitude));
+        setFurtividade(parseInt(characterSkills.furtividade) + parseInt(characterSkills.bonuses?.furtividade));
+        setIniciativa(parseInt(characterSkills.iniciativa) + parseInt(characterSkills.bonuses?.iniciativa));
+        setIntimidacao(parseInt(characterSkills.intimidacao) + parseInt(characterSkills.bonuses?.intimidacao));
+        setIntuicao(parseInt(characterSkills.intuicao) + parseInt(characterSkills.bonuses?.intuicao));
+        setInvestigacao(parseInt(characterSkills.investigacao) + parseInt(characterSkills.bonuses?.investigacao));
+        setLuta(parseInt(characterSkills.luta) + parseInt(characterSkills.bonuses?.luta));
+        setMedicina(parseInt(characterSkills.medicina) + parseInt(characterSkills.bonuses?.medicina));
+        setOcultismo(parseInt(characterSkills.ocultismo) + parseInt(characterSkills.bonuses?.ocultismo));
+        setPercepcao(parseInt(characterSkills.percepcao) + parseInt(characterSkills.bonuses?.percepcao));
+        setPilotagem(parseInt(characterSkills.pilotagem) + parseInt(characterSkills.bonuses?.pilotagem));
+        setPontaria(parseInt(characterSkills.pontaria) + parseInt(characterSkills.bonuses?.pontaria));
+        setProfissao(parseInt(characterSkills.profissao) + parseInt(characterSkills.bonuses?.profissao));
+        setReflexos(parseInt(characterSkills.reflexos) + parseInt(characterSkills.bonuses?.reflexos));
+        setReligiao(parseInt(characterSkills.religiao) + parseInt(characterSkills.bonuses?.religiao));
+        setSobrevivencia(parseInt(characterSkills.sobrevivencia) + parseInt(characterSkills.bonuses?.sobrevivencia));
+        setTatica(parseInt(characterSkills.tatica) + parseInt(characterSkills.bonuses?.tatica));
+        setTecnologia(parseInt(characterSkills.tecnologia) + parseInt(characterSkills.bonuses?.tecnologia));
+        setVontade(parseInt(characterSkills.vontade) + parseInt(characterSkills.bonuses?.vontade));
     };
 
     const handleSkillRollOpen = async (skill) => {
@@ -474,7 +474,7 @@ export function Skills({ characterSkills, fetchCharacter }) {
                 </Grid>
                 <SkillRollDialog open={skillRollOpen} onClose={() => setSkillRollOpen(false)} characterId={characterSkills.id} skillRollDialogInfo={skillRollDialogInfo}/>
                 <EditSkillsDialog open={editSkillsOpen} onClose={() => setEditSkillsOpen(false)} characterSkills={characterSkills} fetchCharacter={fetchCharacter}/>
-                <EditBonusDialog open={editBonusOpen} onClose={() => setEditBonusOpen(false)} characterSkills={characterSkills}/>
+                <EditBonusDialog open={editBonusOpen} onClose={() => setEditBonusOpen(false)} characterSkills={characterSkills} fetchCharacter={fetchCharacter}/>
             </Grid>
 
         </Grid>

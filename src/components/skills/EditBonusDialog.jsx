@@ -13,9 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-export function EditBonusDialog(props) {
-    const { onClose, open, characterSkills } = props;
-
+export function EditBonusDialog({ onClose, open, characterSkills, fetchCharacter }) {
     const [acrobacia, setAcrobacia] = useState(0); 
     const [adestramento, setAdestramento] = useState(0); 
     const [artes, setArtes] = useState(0); 
@@ -84,7 +82,6 @@ export function EditBonusDialog(props) {
     
     const handleUpdateBonus = async () => {
         try {
-            onClose();
             await api.put(`/characters/${characterSkills.id}/bonus`, {
                 acrobacia: parseInt(acrobacia), 
                 adestramento: parseInt(adestramento), 
@@ -116,9 +113,12 @@ export function EditBonusDialog(props) {
                 vontade: parseInt(vontade), 
             });
 
+            onClose();
             enqueueSnackbar("Bonus atualizados.", { 
                 variant: "info"
             });
+
+            fetchCharacter();
         } catch (err) {
             enqueueSnackbar("Não foi possível atualizar os bonus.", { 
                 variant: "error"
