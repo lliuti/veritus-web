@@ -511,7 +511,7 @@ export function EditBonusDialog(props) {
                             endIcon={<SaveAsIcon/>} 
                             fullWidth
                         >
-                            Atualizar Bonus
+                            Atualizar
                         </LoadingButton>
                     </Grid>
                 </Grid>

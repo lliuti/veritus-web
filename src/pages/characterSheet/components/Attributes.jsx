@@ -334,7 +334,7 @@ function EditAttributesDialog(props) {
                             fullWidth
                             // loading={updateLoading}
                         >
-                            Atualizar Atributos
+                            Atualizar
                         </LoadingButton>
                     </Grid>
                 </Grid>

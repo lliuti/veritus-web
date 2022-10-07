@@ -5,7 +5,6 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import LoadingButton from '@mui/lab/LoadingButton';
-import RotateLeftIcon from '@mui/icons-material/RotateLeft';
 
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
@@ -14,14 +13,11 @@ import FormControl from '@mui/material/FormControl';
 
 export const ActiveParty = ({ characterSettings, fetchCharacter }) => {
     const [activeParty, setActiveParty] = useState("");
-    const [recalculate, setRecalculate] = useState(false);
-    const [loadingRecalculate, setLoadingRecalculate] = useState(false);
     const [parties, setParties] = useState([]);
     const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
         setActiveParty(characterSettings.activeParty);
-        setRecalculate(characterSettings.enableRecalculate);
         fetchParties();
     }, [characterSettings]);
 
@@ -56,22 +52,6 @@ export const ActiveParty = ({ characterSettings, fetchCharacter }) => {
 
         return;
     }
-    
-    const handleRecalculate = async () => {
-        setLoadingRecalculate(true);
-        try {
-            await api.post(`/characters/${characterSettings.id}/recalculate`);
-            fetchCharacter();
-            enqueueSnackbar("Estatísticas recalculadas.", { 
-                variant: "info"
-            });
-        } catch (err) {
-            enqueueSnackbar("Não foi possivel recalcular estatísticas.", { 
-                variant: "error"
-            });
-        }
-        setLoadingRecalculate(false);
-    }
 
     return (
         <Grid container spacing={{ xs: 1, md: 2 }}>
@@ -97,19 +77,6 @@ export const ActiveParty = ({ characterSettings, fetchCharacter }) => {
                     </FormControl>
                 </Grid>
             : <></>}
-            <Grid item xs={12} sm={6}>
-                <LoadingButton 
-                    loading={loadingRecalculate}
-                    onClick={handleRecalculate} 
-                    color="secondary" 
-                    variant='outlined' 
-                    endIcon={<RotateLeftIcon/>} 
-                    size="large"
-                    sx={{ mt: 1}}
-                >
-                    Recalcular Ficha
-                </LoadingButton>
-            </Grid>
         </Grid>
     )
 

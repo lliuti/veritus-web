@@ -245,7 +245,7 @@ export const Profile = () => {
                             variant="outlined"
                             onClick={handleUpdateUser}
                         >
-                            Atualizar perfil
+                            Atualizar
                         </LoadingButton>
                     </Grid>
                 </Grid>

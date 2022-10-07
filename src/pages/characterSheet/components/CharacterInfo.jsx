@@ -1,15 +1,20 @@
 import { useState, useEffect } from 'react';
 import { useSnackbar } from 'notistack';
 import { api } from '../../../services/api';
+import { ModifiersDialog } from '../../../components/ModifiersDialog';
+// import { BuildChanger } from '../../../components/BuildChanger';
+import { RiSwordFill } from "react-icons/ri";
+import RotateLeftIcon from '@mui/icons-material/RotateLeft';
 import Select from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Tooltip from '@mui/material/Tooltip';
-
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
+import Button from '@mui/material/Button';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 export function CharacterInfo({ characterInfo, fetchCharacter }) {
     const [rank, setRank] = useState('');
@@ -20,13 +25,10 @@ export function CharacterInfo({ characterInfo, fetchCharacter }) {
     const [name, setName] = useState('');
     const [nex, setNex] = useState(0);
     const [movement, setMovement] = useState('');
-
-    const [hpModByNex, setHpModByNex] = useState('');
-    const [epModByNex, setEpModByNex] = useState('');
-    const [spModByNex, setSpModByNex] = useState('');
-    const [hpMod, setHpMod] = useState('');
-    const [epMod, setEpMod] = useState('');
-    const [spMod, setSpMod] = useState('');
+    const [loadingRecalculate, setLoadingRecalculate] = useState(false);
+    const [modifiersDialogOpen, setModifiersDialogOpen] = useState(false);
+    const [recalculate, setRecalculate] = useState(false);
+    const [buildChangerOpen, setBuildChangerOpen] = useState(false);
 
     const { enqueueSnackbar } = useSnackbar();
 
@@ -43,19 +45,12 @@ export function CharacterInfo({ characterInfo, fetchCharacter }) {
         setMovement(characterInfo.movement);
         setNex(parseInt(characterInfo.nex));
         setName(characterInfo.name);
-        setHpModByNex(characterInfo.hpModByNex);
-        setEpModByNex(characterInfo.epModByNex);
-        setSpModByNex(characterInfo.spModByNex);
-        setHpMod(characterInfo.hpMod);
-        setEpMod(characterInfo.epMod);
-        setSpMod(characterInfo.spMod);
+        setRecalculate(characterInfo.enableRecalculate);
     }
 
     const handleUpdateCharacterInfo = async () => {
         try {
             await api.put(`/characters/${characterInfo.id}/info`, { rank, affinity, background, characterClass, archetype, name, nex: nex.toString(), movement });
-    
-            // fetchCharacter();
             enqueueSnackbar("Informações atualizadas.", { 
                 variant: "info"
             });
@@ -65,29 +60,6 @@ export function CharacterInfo({ characterInfo, fetchCharacter }) {
             });
         }
     };
-
-    const handleUpdateCharacterModifiers = async () => {
-        try {
-            await api.put(`/characters/${characterInfo.id}/modifiers`, {
-                hpModByNex,
-                epModByNex,
-                spModByNex,
-                hpMod,
-                epMod,
-                spMod
-            });
-    
-            fetchCharacter();
-            enqueueSnackbar("Modificadores atualizados.", { 
-                variant: "info"
-            });
-        } catch (err) {
-            enqueueSnackbar("Não foi possível atualizar os modificadores.", { 
-                variant: "error"
-            });
-        }
-
-    }
 
     const handleNexChange = (event) => {
         if ((nex == 95 || nex == "95") && event.target.value == "100") {
@@ -99,11 +71,43 @@ export function CharacterInfo({ characterInfo, fetchCharacter }) {
         }
     }
 
+    const handleRecalculate = async () => {
+        setLoadingRecalculate(true);
+        try {
+            await api.post(`/characters/${characterInfo.id}/recalculate`);
+            enqueueSnackbar("Estatísticas recalculadas.", { 
+                variant: "info"
+            });
+        } catch (err) {
+            enqueueSnackbar("Não foi possivel recalcular estatísticas.", { 
+                variant: "error"
+            });
+        }
+        setLoadingRecalculate(false);
+        fetchCharacter();
+    }
+
     return (
         <Grid item xs={12} sm={6} md={12} sx={{ mt: 3}}>
             <Typography component="h1" variant="h5" color="inherit">Informações</Typography>
-            <Grid container spacing={1}>
-                <Grid item xs={6} md={1.714285714285714} sm={3}>
+            <Grid container columnSpacing={1} rowSpacing={0}>
+                {/* <Grid item xs={12}>
+                    <Button 
+                        color="secondary" 
+                        variant='outlined'  
+                        size="large" 
+                        sx={{ mt: 3 }}
+                        onClick={() => setBuildChangerOpen(true)}
+                        endIcon={<RiSwordFill/>}
+                    >
+                        Build
+                    </Button>
+                    <BuildChanger 
+                        open={buildChangerOpen} 
+                        onClose={() => setBuildChangerOpen(false)}
+                    />
+                </Grid> */}
+                <Grid item xs={6} sm={6} md={2.4}>
                     <TextField
                         margin="normal"
                         id="name"
@@ -117,7 +121,7 @@ export function CharacterInfo({ characterInfo, fetchCharacter }) {
                         onBlur={handleUpdateCharacterInfo}
                     />
                 </Grid>
-                <Grid item md={1.714285714285714} sm={3} xs={6}>
+                <Grid item xs={6} sm={6} md={2.4}>
                     <FormControl variant="filled" fullWidth sx={{ mt: 2}}>
                         <InputLabel id="rank-select-label" color="secondary">Patente</InputLabel>
                         <Select
@@ -138,7 +142,7 @@ export function CharacterInfo({ characterInfo, fetchCharacter }) {
                         </Select>
                     </FormControl>
                 </Grid>
-                <Grid item md={1.714285714285714} sm={3} xs={6}>
+                <Grid item xs={6} sm={6} md={2.4}>
                     <TextField
                         margin="normal"
                         id="nex"
@@ -154,7 +158,7 @@ export function CharacterInfo({ characterInfo, fetchCharacter }) {
                         onBlur={handleUpdateCharacterInfo}
                     />
                 </Grid>
-                <Grid item md={1.714285714285714} sm={3} xs={6}>
+                <Grid item xs={6} sm={6} md={2.4}>
                     <FormControl variant="filled" fullWidth sx={{ mt: 2}}>
                         <InputLabel id="affinity-select-label" color="secondary">Afinidade</InputLabel>
                         <Select
@@ -175,114 +179,80 @@ export function CharacterInfo({ characterInfo, fetchCharacter }) {
                         </Select>
                     </FormControl>
                 </Grid>
-                <Grid item md={1.714285714285714} sm={3} xs={6}>
+                <Grid item xs={6} sm={6} md={2.4} sx={{ display: { xs: "none", sm: "block" } }}>
+                    <Button 
+                        color="secondary" 
+                        variant='outlined' 
+                        fullWidth 
+                        size="large" 
+                        sx={{ mt: 3 }}
+                        onClick={() => setModifiersDialogOpen(true)}
+                    >
+                        Modificadores
+                    </Button>
+                </Grid>
+                <ModifiersDialog 
+                    open={modifiersDialogOpen} 
+                    onClose={() => setModifiersDialogOpen(false)}
+                    characterId={characterInfo.id} 
+                    modifiers={{ 
+                        hpMod: characterInfo.hpMod, 
+                        hpModByNex: characterInfo.hpModByNex, 
+                        epMod: characterInfo.epMod, 
+                        epModByNex: characterInfo.epModByNex, 
+                        spMod: characterInfo.spMod, 
+                        spModByNex: characterInfo.spModByNex,
+                        transcendences: characterInfo.transcendences,
+                    }}
+                />
+                <Grid item xs={6} sm={6} md={2.4}>
                     <Tooltip 
-                        title='O valor preenchido nesse campo será calculado para cada NEX acima de 0% (ou seja, de 5% em diante).' 
+                        title='As origens "Desgarrado", "Vítima", "Universitário" e "Cultista Arrependido" são calculadas automaticamente, sem a necessidade de utilizar os modificadores manuais.' 
                         placement="top"
                     >
-                        <TextField
-                            type="number"
-                            inputProps={{ min: "0", step: "1" }}
-                            margin="normal"
-                            id="hpModifierByNex"
-                            label="Modif. PV p/ NEX"
-                            name="hpModifierByNex"
-                            variant="filled"
-                            fullWidth
-                            color='secondary'
-                            value={hpModByNex || ''}
-                            onChange={(event) => setHpModByNex(event.target.value)}
-                            onBlur={handleUpdateCharacterModifiers}
-                        />
+                        <FormControl variant="filled" fullWidth sx={{ mt: 2}}>
+                            <InputLabel id="background-select-label" color="secondary">Origem</InputLabel>
+                            <Select
+                                labelId="background-select-label"
+                                id="background-select"
+                                value={background || ''}
+                                label="Origem"
+                                fullWidth
+                                onChange={(event) => setBackground(event.target.value)}
+                                onBlur={handleUpdateCharacterInfo}
+                                color="secondary"
+                            >
+                                <MenuItem value={"Acadêmico"}>Acadêmico</MenuItem>
+                                <MenuItem value={"Agente de Saúde"}>Agente de Saúde</MenuItem>
+                                <MenuItem value={"Amnésico"}>Amnésico</MenuItem>
+                                <MenuItem value={"Artista"}>Artista</MenuItem>
+                                <MenuItem value={"Atleta"}>Atleta</MenuItem>
+                                <MenuItem value={"Chef"}>Chef</MenuItem>
+                                <MenuItem value={"Criminoso"}>Criminoso</MenuItem>
+                                <MenuItem value={"Cultista Arrependido"}>Cultista Arrependido</MenuItem>
+                                <MenuItem value={"Desgarrado"}>Desgarrado</MenuItem>
+                                <MenuItem value={"Engenheiro"}>Engenheiro</MenuItem>
+                                <MenuItem value={"Executivo"}>Executivo</MenuItem>
+                                <MenuItem value={"Investigador"}>Investigador</MenuItem>
+                                <MenuItem value={"Lutador"}>Lutador</MenuItem>
+                                <MenuItem value={"Magnata"}>Magnata</MenuItem>
+                                <MenuItem value={"Mercenário"}>Mercenário</MenuItem>
+                                <MenuItem value={"Militar"}>Militar</MenuItem>
+                                <MenuItem value={"Operário"}>Operário</MenuItem>
+                                <MenuItem value={"Policial"}>Policial</MenuItem>
+                                <MenuItem value={"Religioso"}>Religioso</MenuItem>
+                                <MenuItem value={"Servidor Público"}>Servidor Público</MenuItem>
+                                <MenuItem value={"Teórico da Conspiração"}>Teórico da Conspiração</MenuItem>
+                                <MenuItem value={"T.I."}>T.I.</MenuItem>
+                                <MenuItem value={"Trabalhador Rural"}>Trabalhador Rural</MenuItem>
+                                <MenuItem value={"Trambiqueiro"}>Trambiqueiro</MenuItem>
+                                <MenuItem value={"Universitário"}>Universitário</MenuItem>
+                                <MenuItem value={"Vítima"}>Vítima</MenuItem>
+                            </Select>
+                        </FormControl>
                     </Tooltip>
                 </Grid>
-                <Grid item md={1.714285714285714} sm={3} xs={6}>
-                    <Tooltip 
-                        title='O valor preenchido nesse campo será calculado para cada NEX acima de 0% (ou seja, de 5% em diante).' 
-                        placement="top"
-                    >    
-                        <TextField
-                            type="number"
-                            inputProps={{ min: "0", step: "1" }}
-                            margin="normal"
-                            id="epModifierByNex"
-                            label="Modif. PE p/ NEX"
-                            name="epModifierByNex"
-                            variant="filled"
-                            fullWidth
-                            color='secondary'
-                            value={epModByNex || ''}
-                            onChange={(event) => setEpModByNex(event.target.value)}
-                            onBlur={handleUpdateCharacterModifiers}
-                        />
-                    </Tooltip>
-                </Grid>
-                <Grid item md={1.714285714285714} sm={3} xs={12}>
-                    <Tooltip 
-                        title='O valor preenchido nesse campo será calculado para cada NEX acima de 0% (ou seja, de 5% em diante).' 
-                        placement="top"
-                    >
-                        <TextField
-                            type="number"
-                            inputProps={{ min: "0", step: "1" }}
-                            margin="normal"
-                            id="sanModifierByNex"
-                            label="Modif. PS p/ NEX"
-                            name="sanModifierByNex"
-                            variant="filled"
-                            fullWidth
-                            color='secondary'
-                            value={spModByNex || ''}
-                            onChange={(event) => setSpModByNex(event.target.value)}
-                            onBlur={handleUpdateCharacterModifiers}
-                        />
-                    </Tooltip>
-                </Grid>
-            </Grid>
-            <Grid container spacing={1}>
-                <Grid item md={1.714285714285714} sm={3} xs={6}>
-                    <FormControl variant="filled" fullWidth sx={{ mt: 2}}>
-                        <InputLabel id="background-select-label" color="secondary">Origem</InputLabel>
-                        <Select
-                            labelId="background-select-label"
-                            id="background-select"
-                            value={background || ''}
-                            label="Origem"
-                            fullWidth
-                            onChange={(event) => setBackground(event.target.value)}
-                            onBlur={handleUpdateCharacterInfo}
-                            color="secondary"
-                        >
-                            <MenuItem value={"Acadêmico"}>Acadêmico</MenuItem>
-                            <MenuItem value={"Agente de Saúde"}>Agente de Saúde</MenuItem>
-                            <MenuItem value={"Amnésico"}>Amnésico</MenuItem>
-                            <MenuItem value={"Artista"}>Artista</MenuItem>
-                            <MenuItem value={"Atleta"}>Atleta</MenuItem>
-                            <MenuItem value={"Chef"}>Chef</MenuItem>
-                            <MenuItem value={"Criminoso"}>Criminoso</MenuItem>
-                            <MenuItem value={"Cultista Arrependido"}>Cultista Arrependido</MenuItem>
-                            <MenuItem value={"Desgarrado"}>Desgarrado</MenuItem>
-                            <MenuItem value={"Engenheiro"}>Engenheiro</MenuItem>
-                            <MenuItem value={"Executivo"}>Executivo</MenuItem>
-                            <MenuItem value={"Investigador"}>Investigador</MenuItem>
-                            <MenuItem value={"Lutador"}>Lutador</MenuItem>
-                            <MenuItem value={"Magnata"}>Magnata</MenuItem>
-                            <MenuItem value={"Mercenário"}>Mercenário</MenuItem>
-                            <MenuItem value={"Militar"}>Militar</MenuItem>
-                            <MenuItem value={"Operário"}>Operário</MenuItem>
-                            <MenuItem value={"Policial"}>Policial</MenuItem>
-                            <MenuItem value={"Religioso"}>Religioso</MenuItem>
-                            <MenuItem value={"Servidor Público"}>Servidor Público</MenuItem>
-                            <MenuItem value={"Teórico da Conspiração"}>Teórico da Conspiração</MenuItem>
-                            <MenuItem value={"T.I."}>T.I.</MenuItem>
-                            <MenuItem value={"Trabalhador Rural"}>Trabalhador Rural</MenuItem>
-                            <MenuItem value={"Trambiqueiro"}>Trambiqueiro</MenuItem>
-                            <MenuItem value={"Universitário"}>Universitário</MenuItem>
-                            <MenuItem value={"Vítima"}>Vítima</MenuItem>
-                        </Select>
-                    </FormControl>
-                </Grid>
-                <Grid item md={1.714285714285714} sm={3} xs={6}>
+                <Grid item xs={6} sm={6} md={2.4}>
                     <FormControl variant="filled" fullWidth sx={{ mt: 2}}>
                         <InputLabel id="class-select-label" color="secondary">Classe</InputLabel>
                         <Select
@@ -301,7 +271,7 @@ export function CharacterInfo({ characterInfo, fetchCharacter }) {
                         </Select>
                     </FormControl>
                 </Grid>
-                <Grid item md={1.714285714285714} sm={3} xs={6}>
+                <Grid item xs={6} sm={6} md={2.4}>
                     <FormControl variant="filled" fullWidth sx={{ mt: 2}}>
                         <InputLabel id="archetype-select-label" color="secondary">Trilha</InputLabel>
                             {(() => {
@@ -366,7 +336,7 @@ export function CharacterInfo({ characterInfo, fetchCharacter }) {
                             })()}
                     </FormControl>
                 </Grid>
-                <Grid item md={1.714285714285714} sm={3} xs={6}>
+                <Grid item xs={6} sm={6} md={2.4}>
                     <TextField
                         margin="normal"
                         id="movement"
@@ -380,50 +350,31 @@ export function CharacterInfo({ characterInfo, fetchCharacter }) {
                         onBlur={handleUpdateCharacterInfo}
                     />
                 </Grid>
-                <Grid item md={1.714285714285714} sm={3} xs={6}>
-                    <TextField
-                        margin="normal"
-                        id="hpModifier"
-                        label="Modif. PV geral"
-                        name="hpModifier"
+                <Grid item xs={6} sm={6} md={2.4}>
+                    <LoadingButton 
+                        loading={loadingRecalculate}
+                        onClick={handleRecalculate} 
+                        color="secondary" 
+                        variant='outlined' 
+                        endIcon={<RotateLeftIcon/>}
+                        size="large"
                         fullWidth
-                        variant="filled"
-                        color='secondary'
-                        disabled
-                        value={hpMod || ''}
-                        onChange={(event) => setHpMod(event.target.value)}
-                        onBlur={handleUpdateCharacterModifiers}
-                    />
+                        sx={{ mt: 3}}
+                    >
+                        Recalcular
+                    </LoadingButton>
                 </Grid>
-                <Grid item md={1.714285714285714} sm={3} xs={6}>
-                    <TextField
-                        margin="normal"
-                        id="epModifier"
-                        label="Modif. PE geral"
-                        name="epModifier"
-                        variant="filled"
-                        fullWidth
-                        color='secondary'
-                        value={epMod || ''}
-                        disabled
-                        onChange={(event) => setEpMod(event.target.value)}
-                        onBlur={handleUpdateCharacterModifiers}
-                    />
-                </Grid>
-                <Grid item md={1.714285714285714} sm={3} xs={12}>
-                    <TextField
-                        margin="normal"
-                        id="sanModifier"
-                        label="Modif. PS geral"
-                        name="sanModifier"
-                        variant="filled"
-                        fullWidth
-                        color='secondary'
-                        value={spMod || ''}
-                        disabled
-                        onChange={(event) => setSpMod(event.target.value)}
-                        onBlur={handleUpdateCharacterModifiers}
-                    />
+                <Grid item xs={6} sm={6} md={2.4} sx={{ display: { xs: "block", sm: "none" } }}>
+                    <Button 
+                        color="secondary" 
+                        variant='outlined' 
+                        fullWidth 
+                        size="large" 
+                        sx={{ mt: 3 }}
+                        onClick={() => setModifiersDialogOpen(true)}
+                    >
+                        Modificadores
+                    </Button>
                 </Grid>
             </Grid>
         </Grid>

@@ -571,7 +571,7 @@ export function EditSkillsDialog(props) {
                             fullWidth
                             // loading={updateLoading}
                         >
-                                Atualizar Perícia
+                                Atualizar
                         </LoadingButton>
                     </Grid>
                 </Grid>

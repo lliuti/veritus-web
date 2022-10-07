@@ -43,6 +43,8 @@ export function CharacterSheet() {
         setOpenBackdrop(true);
         try {
             const response = await api.get(`/characters/${id}/sheet`);
+            console.log(response.data.id);
+
             const info = {
                 id: response.data.id,
                 name: response.data.name,
@@ -59,6 +61,8 @@ export function CharacterSheet() {
                 hpMod: response.data.characterModifiers.hpMod,
                 epMod: response.data.characterModifiers.epMod,
                 spMod: response.data.characterModifiers.spMod,
+                transcendences: response.data.characterModifiers.transcendences,
+                enableRecalculate: response.data.characterModifiers.recalculationEnabled
             };
     
             const status = {
@@ -180,7 +184,6 @@ export function CharacterSheet() {
             const settings = {
                 id: response.data.id,
                 activeParty: response.data.activeParty,
-                enableRecalculate: response.data.characterModifiers.recalculationEnabled
             }
     
             setCharacterInfo(info);
