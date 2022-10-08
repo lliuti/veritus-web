@@ -69,12 +69,16 @@ export const AddAttackDialog = (props) => {
             return;
         }
 
-        if (!damage || !criticalDamage) {
-            enqueueSnackbar("Todo ataque precisa de um valor para o Dano e para o Dano Crítico.", { 
+        if (!damage) {
+            enqueueSnackbar("Todo ataque precisa de um valor para o Dano.", { 
                 variant: "error"
             });
             setAddAttackLoading(false);
             return;
+        }
+
+        if (!criticalDamage) {
+            setCriticalDamage("-");
         }
 
         if (buttonFunction == "create") {
