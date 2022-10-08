@@ -299,6 +299,7 @@ export function Dashboard() {
                                                             {roll.diceAmount == 0 ? "-1" : roll.diceAmount}
                                                             d20
                                                             {roll.skillModifier !== 0 ? `+${roll.skillModifier}` : ""} 
+                                                            {roll.bonusModifier !== 0 ? `+${roll.bonusModifier}` : ""} 
                                                             &nbsp; 
                                                             <Bull/>
                                                             &nbsp;  
