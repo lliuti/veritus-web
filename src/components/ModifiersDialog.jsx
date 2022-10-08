@@ -9,12 +9,12 @@ import { useState, useEffect } from 'react';
 import { useSnackbar } from 'notistack';
 
 export function ModifiersDialog({ onClose, open, characterId, modifiers, characterClass }) {
-    const [hpModByNex, setHpModByNex] = useState('');
-    const [epModByNex, setEpModByNex] = useState('');
-    const [spModByNex, setSpModByNex] = useState('');
-    const [hpMod, setHpMod] = useState('');
-    const [epMod, setEpMod] = useState('');
-    const [spMod, setSpMod] = useState('');
+    const [hpModByNex, setHpModByNex] = useState('0');
+    const [epModByNex, setEpModByNex] = useState('0');
+    const [spModByNex, setSpModByNex] = useState('0');
+    const [hpMod, setHpMod] = useState('0');
+    const [epMod, setEpMod] = useState('0');
+    const [spMod, setSpMod] = useState('0');
     const [transcendencias, setTranscendencias] = useState(0);
     const { enqueueSnackbar } = useSnackbar();
 
@@ -79,7 +79,7 @@ export function ModifiersDialog({ onClose, open, characterId, modifiers, charact
                             variant="filled"
                             fullWidth
                             color='secondary'
-                            value={hpModByNex || ''}
+                            value={hpModByNex || '0'}
                             onChange={(event) => setHpModByNex(event.target.value)}
                         />
                     </Tooltip>
@@ -99,7 +99,7 @@ export function ModifiersDialog({ onClose, open, characterId, modifiers, charact
                             variant="filled"
                             fullWidth
                             color='secondary'
-                            value={spModByNex || ''}
+                            value={spModByNex || '0'}
                             onChange={(event) => setSpModByNex(event.target.value)}
                         />
                     </Tooltip>
@@ -119,7 +119,7 @@ export function ModifiersDialog({ onClose, open, characterId, modifiers, charact
                             variant="filled"
                             fullWidth
                             color='secondary'
-                            value={epModByNex || ''}
+                            value={epModByNex || '0'}
                             onChange={(event) => setEpModByNex(event.target.value)}
                         />
                     </Tooltip>
@@ -138,7 +138,7 @@ export function ModifiersDialog({ onClose, open, characterId, modifiers, charact
                             type="number"
                             variant="filled"
                             color='secondary'
-                            value={hpMod || ''}
+                            value={hpMod || '0'}
                             onChange={(event) => setHpMod(event.target.value)}
                         />
                     </Tooltip>
@@ -157,7 +157,7 @@ export function ModifiersDialog({ onClose, open, characterId, modifiers, charact
                             fullWidth
                             type="number"
                             color='secondary'
-                            value={spMod || ''}
+                            value={spMod || '0'}
                             onChange={(event) => setSpMod(event.target.value)}
                         />
                     </Tooltip>
@@ -176,7 +176,7 @@ export function ModifiersDialog({ onClose, open, characterId, modifiers, charact
                             fullWidth
                             type="number"
                             color='secondary'
-                            value={epMod || ''}
+                            value={epMod || '0'}
                             onChange={(event) => setEpMod(event.target.value)}
                         />
                     </Tooltip>
