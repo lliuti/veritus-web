@@ -195,39 +195,74 @@ export const AddPowerDialog = (props) => {
                                 label="Tipo"
                                 onChange={handleStoredPowerChange}
                             >
-                                <MenuItem disabled value="">
-                                    <em>Selecione um dos poderes abaixo</em>
-                                </MenuItem>
                                 {(() => {
                                     if (powerType == "Poder Paranormal") {
                                         return (
-                                            specifications.poderParanormal.map((poder, index) => (
-                                                <MenuItem key={index} value={poder.nome}>{poder.nome}</MenuItem>
-                                            ))
+                                            specifications.poderParanormal.map((poder, index) => {
+                                                if (poder.placeholder == true) {
+                                                    return (
+                                                        <MenuItem disabled value={index}>
+                                                            <em>{poder.nome}</em>
+                                                        </MenuItem>
+                                                    )
+                                                } else { 
+                                                    return (
+                                                        <MenuItem key={index} value={poder.nome}>{poder.nome}</MenuItem>
+                                                    )
+                                                }
+                                            })
                                         )
                                     } else if (powerType == "Poder de Origem") {
                                         return (
                                             specifications.origens.map((origem, index) => (
-                                                <MenuItem key={index} value={origem.poder.nome}>{origem.poder.nome}</MenuItem>
+                                                <MenuItem key={index} value={origem.poder.nome}>{origem.poder.nome} - {origem.background}</MenuItem>
                                             ))
                                         )
                                     } else if (powerType == "Habilidade de Classe") {
                                         return (
-                                            specifications.habilidadesDeClasse.map((hab, index) => (
-                                                <MenuItem key={index} value={hab.nome}>{hab.nome}</MenuItem>
-                                            ))
+                                            specifications.habilidadesDeClasse.map((hab, index) => {
+                                                if (hab.placeholder == true) {
+                                                    return (
+                                                        <MenuItem disabled value={index}>
+                                                            <em>{hab.nome}</em>
+                                                        </MenuItem>
+                                                    )
+                                                } else {
+                                                    return (
+                                                        <MenuItem key={index} value={hab.nome}>{hab.nome}</MenuItem>
+                                                    )
+                                                }
+                                            })
                                         )
                                     } else if (powerType == "Poder de Classe") {
                                         return (
-                                            specifications.poderesDeClasse.map((poder, index) => (
-                                                <MenuItem key={index} value={poder.nome}>{poder.nome}</MenuItem>
-                                            ))
+                                            specifications.poderesDeClasse.map((poder, index) => {
+                                                if (poder.placeholder == true) {
+                                                    return (
+                                                        <MenuItem disabled value={index}>
+                                                            <em>{poder.nome}</em>
+                                                        </MenuItem>
+                                                    )
+                                                } else {
+                                                    return (
+                                                        <MenuItem key={index} value={poder.nome}>{poder.nome}</MenuItem>
+                                                    )
+                                                }
+                                            })
                                         )
                                     } else if (powerType == "Habilidade de Trilha") {
                                         return (
-                                            specifications.habilidadesDeTrilha.map((hab, index) => (
-                                                <MenuItem key={index} value={hab.nome}>{hab.nome}</MenuItem>
-                                            ))
+                                            specifications.habilidadesDeTrilha.map((hab, index) => {
+                                                if (hab.placeholder == true) {
+                                                    return (
+                                                        <MenuItem disabled value={index}>
+                                                            <em>{hab.nome}</em>
+                                                        </MenuItem>
+                                                    )
+                                                } else return (
+                                                    <MenuItem key={index} value={hab.nome}>{hab.nome}</MenuItem>
+                                                )
+                                            })
                                         )
                                     }
                                 })()}
@@ -253,7 +288,7 @@ export const AddPowerDialog = (props) => {
                     <Grid item xs={12} md={6}>
                         <TextField
                             id="nex"
-                            label="NEX %"
+                            label="NEX% que poder foi obtido"
                             name="nex"
                             type="number"
                             inputProps={{ min: "0", max: "100", step: "5" }}

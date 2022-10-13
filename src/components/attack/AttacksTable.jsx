@@ -100,9 +100,11 @@ export function AttacksTable({ characterEquipment, fetchCharacter }) {
                                 sx={{ display: { xs: 'none', sm: 'block' } }} 
                                 color="text.secondary"
                             >       
-                                {/* {attack.test} 
-                                <Bull/>  */}
                                 {attack.damage}
+                                &nbsp;
+                                <Bull/>
+                                &nbsp;
+                                {attack.criticalDamage}
                             </Typography>
                         </AccordionSummary>
                         <AccordionDetails>

@@ -230,6 +230,10 @@ export const specifications = {
             desc: "aumenta a resistência para 20.",
         },
         {
+            nome: "Conhecimento",
+            placeholder: true,
+        },
+        {
             nome: "Expansão de Conhecimento",
             desc: "Você se conecta com o Conhecimento do Outro Lado rompendo os limites de sua compreensão. Você aprende um poder de classe que não pertença à sua classe (caso o poder possua pré-requisitos, você precisa preenchê-los). Pré-requisito: Conhecimento 1.",
         },
@@ -268,6 +272,10 @@ export const specifications = {
         {
             nome: "Visão do Oculto - Afinidade",
             desc: "você ignora camuflagem.",
+        },
+        {
+            nome: "Energia",
+            placeholder: true,
         },
         {
             nome: "Afortunado",
@@ -310,6 +318,10 @@ export const specifications = {
             desc: "o alvo rola novamente todos os dados que você escolher.",
         },
         {
+            nome: "Morte",
+            placeholder: true,
+        },
+        {
             nome: "Encarar a Morte",
             desc: "Sua conexão com a Morte faz com que você não hesite em situações de perigo. Durante cenas de ação, seu limite de gasto de PE aumenta em +1 (isso não afeta a DT de seus efeitos).",
         },
@@ -348,6 +360,10 @@ export const specifications = {
         {
             nome: "Surto Temporal - Afinidade",
             desc: "em vez de uma vez por cena, você pode usar este poder uma vez por turno.",
+        },
+        {
+            nome: "Sangue",
+            placeholder: true,
         },
         {
             nome: "Anatomia Insana",
@@ -1542,27 +1558,48 @@ export const specifications = {
     ],
     habilidadesDeClasse: [
         {
+            placeholder: true,
+            nome: "Combatente"
+        },
+        {
+            placeholder: false,
             nome: "Ataque Especial",
             desc: "Quando faz um ataque, você pode gastar 2 PE para receber +5 no teste de ataque ou na rolagem de dano. Conforme avança de NEX, você pode gastar +1 PE para receber mais bônus de +5 (veja a Tabela 1.3). Você pode aplicar cada bônus de +5 em ataque ou dano. Por exemplo, em NEX 55%, você pode gastar 4 PE para receber +5 no teste de ataque e +10 na rolagem de dano."
         },
         {
+            placeholder: true,
+            nome: "Especialista"
+        },
+        {
+            placeholder: false,
             nome: "Eclético",
             desc: "Quando faz um teste de uma perícia, você pode gastar 2 PE para receber os benef ícios de ser treinado nesta perícia."
         },
         {
+            placeholder: false,
             nome: "Perito",
             desc: "Escolha duas perícias nas quais você é treinado (exceto Luta e Pontaria). Quando faz um teste de uma dessas perícias, você pode gastar 2 PE para somar +1d6 no resultado do teste. Conforme avança de NEX, você pode gastar +1 PE para aumentar o dado de bônus (veja a Tabela 1.4). Por exemplo, em NEX 55%, pode gastar 4 PE para receber +1d10 no teste."
         },
         {
+            placeholder: false,
             nome: "Engenhosidade",
             desc: "Em NEX 40%, quando usa sua habilidade Eclético, você pode gastar 2 PE adicionais para receber os benef ícios de ser veterano na perícia. Em NEX 75%, pode gastar 4 PE adicionais para receber os benef ícios de ser expert na perícia."
         },
         {
+            placeholder: true,
+            nome: "Ocultista"
+        },
+        {
+            placeholder: false,
             nome: "Escolhido pelo Outro Lado",
             desc: "Você teve uma experiência paranormal e foi marcado pelo Outro Lado, absorvendo o conhecimento e poder necessários para realizar rituais. Você pode lançar rituais de 1º círculo. À medida que aumenta seu NEX, pode lançar rituais de círculos maiores (2º círculo em NEX 25%, 3º círculo em NEX 55% e 4º círculo em NEX 85%). Você começa com três rituais de 1º círculo. Sempre que avança de NEX, aprende um ritual de qualquer círculo que possa lançar. Esses rituais não contam no seu limite de rituais conhecidos. Veja o Capítulo 5 para as regras de rituais."
         },
     ],
     poderesDeClasse: [
+        {
+            placeholder: true,
+            nome: "Combatente"
+        },
         {
             nome: "Armamento Pesado",
             desc: "Você recebe proficiência com armas pesadas. Pré-requisito: For 2.",
@@ -1636,6 +1673,10 @@ export const specifications = {
             desc: "Escolha duas perícias. Você se torna treinado nessas perícias. A partir de NEX 35%, você pode escolher perícias nas quais já é treinado para se tornar veterano. A partir de NEX 70%, pode escolher perícias nas quais já é veterano para se tornar expert. Você pode escolher este poder várias vezes.",
         },
         {
+            placeholder: true,
+            nome: "Especialista"
+        },
+        {
             nome: "Artista Marcial",
             desc: "Seus ataques desarmados causam 1d6 pontos de dano, podem causar dano letal e contam como armas ágeis. Em NEX 35%, o dano aumenta para 1d8 e, em NEX 70%, para 1d10.",
         },
@@ -1690,6 +1731,10 @@ export const specifications = {
         {
             nome: "Treinamento em Perícia",
             desc: "Escolha duas perícias. Você se torna treinado nessas perícias. A partir de NEX 35%, você pode escolher perícias nas quais já é treinado para se tornar veterano. A partir de NEX 70%, pode escolher perícias nas quais já é veterano para se tornar expert. Você pode escolher este poder várias vezes.",
+        },
+        {
+            placeholder: true,
+            nome: "Ocultista"
         },
         {
             nome: "Camuflar Ocultismo",
@@ -1755,253 +1800,392 @@ export const specifications = {
     habilidadesDeTrilha: [
         // COMBATENTE
         {
+            placeholder: true,
+            nome: "Combatente"
+        },
+        {
+            placeholder: true,
+            nome: "Aniquilador"
+        },
+        {
             nome: "A Favorita",
             desc: "Escolha uma arma para ser sua favorita, como katana ou fuzil de assalto. A categoria da arma escolhida é reduzida em I.",
+            placeholder: false,
         },
         {
             nome: "Técnica Secreta",
             desc: `A categoria da arma favorita passa a ser reduzida em II. Quando faz um ataque com ela, você pode gastar 2 PE para executar um dos efeitos abaixo como parte do ataque. Você pode adicionar mais efeitos gastando +2 PE por efeito adicional. 
             Amplo. O ataque pode atingir um alvo adicional em seu alcance e adjacente ao original (use o mesmo teste de ataque para ambos).
             Destruidor. Aumenta o multiplicador de crítico da arma em +1.`,
+            placeholder: false,
         },
         {
             nome: "Técnica Sublime",
             desc: `Você adiciona os seguintes efeitos à lista de sua Técnica Secreta:
             Letal. Aumenta a margem de ameaça em +2. Você pode escolher este efeito duas vezes para aumentar a margem de ameaça em +5.
             Perfurante. Ignora até 5 pontos de resistência a dano de qualquer tipo do alvo.`,
+            placeholder: false,
         },
         {
             nome: "Máquina de Matar",
             desc: `A categoria da arma favorita passa a ser reduzida em III, ela recebe +2 na margem de ameaça e seu dano aumenta em um dado do mesmo tipo.`,
+            placeholder: false,
+        },
+        {
+            placeholder: true,
+            nome: "Comandante de Campo"
         },
         {
             nome: "Inspirar Confiança",
             desc: `Sua liderança inspira seus aliados. Você pode gastar uma reação e 2 PE para fazer um aliado em alcance curto rolar novamente um teste recém realizado.`,
+            placeholder: false,
         },
         {
             nome: "Estrategista",
             desc: `Você pode direcionar aliados em alcance curto. Gaste uma ação padrão e 1 PE por aliado que quiser direcionar (limitado pelo seu Intelecto). No próximo turno dos aliados afetados, eles ganham uma ação de movimento adicional.`,
+            placeholder: false,
         },
         {
             nome: "Brecha na Guarda",
             desc: `Uma vez por rodada, quando um aliado causar dano em um inimigo que esteja em seu alcance curto, você pode gastar uma reação e 2 PE para que você ou outro aliado em alcance curto faça um ataque adicional contra o mesmo inimigo. Além disso, o alcance de inspirar confiança e estrategista aumenta para médio.`,
+            placeholder: false,
         },
         {
             nome: "Oficial Comandante",
             desc: `Você pode gastar uma ação padrão e 5 PE para que cada aliado que você possa ver em alcance médio receba uma ação padrão adicional no próximo turno dele.`,
+            placeholder: false,
+        },
+        {
+            placeholder: true,
+            nome: "Guerreiro"
         },
         {
             nome: "Técnica Letal",
             desc: `Você recebe um aumento de +2 na margem de ameaça com todos os seus ataques corpo a corpo.`,
+            placeholder: false,
         },
         {
             nome: "Revidar",
             desc: `Sempre que bloquear um ataque, você pode gastar uma reação e 2 PE para fazer um ataque corpo a corpo no inimigo que o atacou.`,
+            placeholder: false,
         },
         {
             nome: "Força Opressora",
             desc: `Quando acerta um ataque corpo a corpo, você pode gastar 1 PE para realizar uma manobra derrubar ou empurrar contra o alvo do ataque como ação livre. Se escolher empurrar, recebe um bônus de +5 para cada 10 pontos de dano que causou no alvo. Se escolher derrubar e vencer no teste oposto, você pode gastar 1 PE para fazer um ataque adicional contra o alvo caído.`,
+            placeholder: false,
         },
         {
             nome: "Potência Máxima",
             desc: `Quando usa seu Ataque Especial com armas corpo a corpo, todos os bônus numéricos são dobrados. Por exemplo, se usar 5 PE para receber +5 no ataque e +15 no dano, você recebe +10 no ataque e +30 no dano.`,
+            placeholder: false,
+        },
+        {
+            placeholder: true,
+            nome: "Operações Especiais"
         },
         {
             nome: "Iniciativa Aprimorada",
             desc: `Você recebe +5 em Iniciativa e uma ação de movimento adicional na primeira rodada.`,
+            placeholder: false,
         },
         {
             nome: "Ataque Extra",
             desc: `Uma vez por rodada, quando faz um ataque, você pode gastar 2 PE para fazer um ataque adicional.`,
+            placeholder: false,
         },
         {
             nome: "Surto de Adrenalina",
             desc: `Uma vez por rodada, você pode gastar 5 PE para realizar uma ação padrão ou de movimento adicional.`,
+            placeholder: false,
         },
         {
             nome: "Sempre Alerta",
             desc: `Você recebe uma ação padrão adicional no início de cada cena de combate.`,
+            placeholder: false,
+        },
+        {
+            placeholder: true,
+            nome: "Tropa de Choque"
         },
         {
             nome: "Casca Grossa",
             desc: `Você recebe +1 PV para cada 5% de NEX e, quando faz um bloqueio, soma seu Vigor na resistência a dano recebida.`,
+            placeholder: false,
         },
         {
             nome: "Cai Dentro",
             desc: `Sempre que um oponente em alcance curto ataca um de seus aliados, você pode gastar uma reação e 1 PE para fazer com que esse oponente faça um teste de Vontade (DT Vig). Se falhar, o oponente deve atacar você em vez de seu aliado. Este poder só funciona se você puder ser efetivamente atacado e estiver no alcance do ataque (por exemplo, adjacente a um oponente atacando em corpo a corpo ou dentro do alcance de uma arma de ataque à distância). Um oponente que passe no teste de Vontade não pode ser afetado por seu poder Cai Dentro até o final da cena.`,
+            placeholder: false,
         },
         {
             nome: "Duro de Matar",
             desc: `Ao sofrer dano não paranormal, você pode gastar uma reação e 2 PE para reduzir esse dano à metade. Em NEX 85%, você pode usar esta habilidade para reduzir dano paranormal.`,
+            placeholder: false,
         },
         {
             nome: "Inquebrável",
             desc: `Enquanto estiver machucado, você recebe +5 na Defesa e resistência a dano 5. Enquanto estiver morrendo, em vez do normal, você não fica indefeso e ainda pode realizar ações. Você ainda segue as regras de morte normalmente.`,
+            placeholder: false,
         },
-        // ESPECIALISTA
+        {
+            placeholder: true,
+            nome: "Especialista"
+        },
+        {
+            placeholder: true,
+            nome: "Atirador de Elite"
+        },
         {
             nome: "Mira de Elite",
             desc: `Você recebe proficiência com armas de fogo que usam balas longas e soma seu Intelecto em rolagens de dano com essas armas.`,
+            placeholder: false,
         },
         {
             nome: "Disparo Letal",
             desc: `Quando faz a ação mirar você pode gastar 1 PE para aumentar em +2 a margem de ameaça do próximo ataque que fizer até o final de seu próximo turno.`,
+            placeholder: false,
         },
         {
             nome: "Disparo Impactante",
             desc: `Se estiver usando uma arma de fogo com calibre grosso você pode gastar 2 PE para fazer as manobras derrubar, desarmar, empurrar e quebrar usando um ataque a distância.`,
+            placeholder: false,
         },
         {
             nome: "Atirar para Matar",
             desc: `Quando faz um acerto crítico com uma arma de fogo, você causa dano máximo, sem precisar rolar dados.`,
+            placeholder: false,
+        },
+        {
+            placeholder: true,
+            nome: "Infiltrador"
         },
         {
             nome: "Ataque Furtivo",
             desc: `Você sabe atingir os pontos vitais de um inimigo distraído. Uma vez por rodada, quando atinge um alvo desprevenido com um ataque corpo a corpo ou em alcance curto, ou um alvo que você esteja flanqueando, você pode gastar 1 PE para causar +1d6 pontos de dano do mesmo tipo da arma. Em NEX 40% o dano adicional aumenta para +2d6, em NEX 65% aumenta para +3d6 e em NEX 99% aumenta para +4d6.`,
+            placeholder: false,
         },
         {
             nome: "Gatuno",
             desc: `Você recebe +5 em Atletismo e Crime e pode percorrer seu deslocamento normal quando se esconder sem penalidade (veja a perícia Furtividade).`,
+            placeholder: false,
         },
         {
             nome: "Assassinar",
             desc: `Você pode gastar uma ação de movimento e 3 PE para analisar um alvo em alcance curto. Até o fim de seu próximo turno, seu primeiro Ataque Furtivo que causar dano a ele tem seus dados de dano extras dessa habilidade dobrados. Além disso, se sofrer dano de seu ataque, o alvo fica inconsciente ou morrendo, à sua escolha (Fortitude DT Agi evita).`,
+            placeholder: false,
         },
         {
             nome: "Sombra Fugaz",
             desc: `Quando faz um teste de Furtividade após atacar ou fazer outra ação chamativa, você pode gastar 3 PE para não sofrer a penalidade de –15 no teste.`,
+            placeholder: false,
+        },
+        {
+            placeholder: true,
+            nome: "Médico de Campo"
         },
         {
             nome: "Paramédico",
             desc: `Você pode usar uma ação padrão e 2 PE para curar 2d10 pontos de vida de um aliado adjacente. Você pode curar +1d10 PV respectivamente em NEX 40%, 65% e 99%, gastando +1 PE por dado adicional de cura.`,
+            placeholder: false,
         },
         {
             nome: "Equipe de Trauma",
             desc: `Você pode usar uma ação padrão e 2 PE para remover uma condição negativa (exceto morrendo) de um aliado adjacente.`,
+            placeholder: false,
         },
         {
             nome: "Resgate",
             desc: `Uma vez por rodada, se estiver em alcance curto de um aliado machucado ou morrendo, você pode se aproximar do aliado com uma ação livre (desde que seja capaz de fazê-lo usando seu deslocamento normal). Além disso, sempre que curar PV ou remover condições do aliado, você e o aliado recebem +5 na Defesa até o início de seu próximo turno. Por fim, para você, o total de espaços ocupados por carregar um personagem é reduzido pela metade.`,
+            placeholder: false,
         },
         {
             nome: "Reanimação",
             desc: `Uma vez por cena, você pode gastar uma ação completa e 10 PE para trazer de volta a vida um personagem que tenha morrido na mesma cena (exceto morte por dano massivo).`,
+            placeholder: false,
+        },
+        {
+            placeholder: true,
+            nome: "Negociador"
         },
         {
             nome: "Eloquência",
             desc: `Você pode usar uma ação completa e 1 PE por alvo em alcance curto para afetar outros personagens com sua fala. Faça um teste de Diplomacia, Enganação ou Intimidação contra a Vontade dos alvos. Se você vencer, os alvos ficam fascinados enquanto você se concentrar (uma ação padrão por rodada). Um alvo hostil ou que esteja envolvido em combate recebe +5 em seu teste de resistência e tem direito a um novo teste por rodada, sempre que você se concentrar Um personagem que passar no teste fica imune a este efeito por um dia.`,
+            placeholder: false,
         },
         {
             nome: "Discurso Motivador",
             desc: `Você pode gastar uma ação padrão e 4 PE para inspirar seus aliados com suas palavras. Você e todos os seus aliados em
             alcance curto ganham +O em testes de perícia até o fim da cena. A partir de NEX 65%, você pode gastar 8 PE para fornecer um bônus total de+2d2O.`,
+            placeholder: false,
         },
         {
             nome: "Eu Conheço um Cara",
             desc: `Uma vez por missão, você pode ativar sua rede de contatos para pedir um favor, como por exemplo trocar todo o equipamento do seu grupo (como se tivesse uma segunda fase de preparação de missão), conseguir um local de descanso ou mesmo ser resgatado de uma cena. O mestre tem a palavra final de quando é possível usar essa habilidade e quais favores podem ser obtidos.`,
+            placeholder: false,
         },
         {
             nome: "Truque de Mestre",
             desc: `Acostumado a uma vida de fingimento e manipulação, você pode gastar 5 PE para simular o efeito de qualquer habilidade que você tenha visto um de seus aliados usar durante a cena. Você ignora os pré-requisitos da habilidade, mas ainda precisa pagar todos os seus custos, incluindo ações, PE e materiais, e ela usa os seus parâmetros de jogo, como se você estivesse usando a habilidade em questão.`,
+            placeholder: false,
+        },
+        {
+            placeholder: true,
+            nome: "Técnico"
         },
         {
             nome: "Inventário Otimizado",
             desc: `Você soma seu Intelecto à sua Força para calcular sua capacidade de carga. Por exemplo, se você tem Força 1 e Intelecto 3, seu inventário tem 20 espaços.`,
+            placeholder: false,
         },
         {
             nome: "Remendão",
             desc: `Você pode gastar uma ação completa e 1 PE para remover a condição quebrado de um equipamento adjacente até o final da cena. Além disso, qualquer equipamento geral tem sua categoria reduzida em I para você.`,
+            placeholder: false,
         },
         {
             nome: "Improvisar",
             desc: `Você pode improvisar equipamentos com materiais ao seu redor. Escolha um equipamento geral e gaste uma ação completa e 2 PE, mais 2 PE por categoria do item escolhido. Você cria uma versão funcional do equipamento, que segue suas regras de espaço e categoria como normal. Ao final da cena, seu equipamento improvisado se torna inútil.`,
+            placeholder: false,
         },
         {
             nome: "Preparado para Tudo",
             desc: `Você sempre tem o que precisa para qualquer situação. Sempre que precisar de um item qualquer (exceto armas), pode gastar uma ação de movimento e 3 PE por categoria do item para lembrar que colocou ele no fundo da bolsa! Depois de encontrado, o item segue normalmente as regras de inventário.`,
+            placeholder: false,
+        },
+        {
+            placeholder: true,
+            nome: "Ocultista"
+        },
+        {
+            placeholder: true,
+            nome: "Conduíte"
         },
         {
             nome: "Ampliar Ritual",
             desc: `Quando lança um ritual, você pode gastar +2 PE para aumentar seu alcance em um passo (de curto para médio, de médio para longo ou de longo para extremo) ou dobrar sua área de efeito.`,
+            placeholder: false,
         },
         {
             nome: "Acelerar Ritual",
             desc: `Uma vez por rodada, você pode aumentar o custo de um ritual em 4 PE para conjurá-lo como uma ação livre.`,
+            placeholder: false,
         },
         {
             nome: "Anular Ritual",
             desc: `Quando for alvo de um ritual, você pode gastar uma quantidade de PE igual ao custo pago por esse ritual e fazer um teste oposto de Ocultismo contra o conjurador. Se vencer, você anula o ritual, cancelando todos os seus efeitos.`,
+            placeholder: false,
         },
         {
             nome: "Canalizar o Medo",
             desc: `Você aprende o ritual Canalizar o Medo.`,
+            placeholder: false,
+        },
+        {
+            placeholder: true,
+            nome: "Flagelador"
         },
         {
             nome: "Poder do Flagelo",
             desc: `Ao conjurar um ritual, você pode gastar seus próprios pontos de vida para pagar o custo em pontos de esforço, à taxa de 2 PV por PE pago. Pontos de vida gastos dessa forma só podem ser recuperados com descanso.`,
+            placeholder: false,
         },
         {
             nome: "Abraçar a Dor",
             desc: `Sempre que sofrer dano não paranormal, você pode gastar uma reação e 2 PE para reduzir esse dano à metade.`,
+            placeholder: false,
         },
         {
             nome: "Absorver Agonia",
             desc: `Sempre que reduz um ou mais inimigos a 0 PV com um ritual, você recebe uma quantidade de PE temporários igual ao círculo do ritual utilizado. Por exemplo, se ativar esse poder com um ritual de 2º círculo, receberá 2 PE.`,
+            placeholder: false,
         },
         {
             nome: "Medo Tangível",
             desc: `Você aprende o ritual Medo Tangível.`,
+            placeholder: false,
+        },
+        {
+            placeholder: true,
+            nome: "Graduado"
         },
         {
             nome: "Saber Ampliado",
             desc: `Você aprende um ritual de 1º círculo. Toda vez que ganha acesso a um novo círculo, aprende um ritual adicional daquele círculo. Esses rituais não contam no seu limite de rituais.`,
+            placeholder: false,
         },
         {
             nome: "Grimório Ritualístico",
             desc: `Você cria um grimório especial, que armazena rituais que sua mente não seria capaz de guardar. Você aprende uma quantidade de rituais de 1º ou 2º círculos igual ao seu Intelecto. Quando ganha acesso a um novo círculo, pode incluir um novo ritual desse círculo em seu grimório. Esses rituais não contam em seu limite de rituais conhecidos. Para conjurar um ritual armazenado em seu grimório, você precisa antes empunhar o grimório e gastar uma ação completa o folheando para relembrando o ritual. O grimório ocupa 1 espaço em seu inventário. Se perdê-lo, você pode replicá-lo com duas ações de interlúdio.`,
+            placeholder: false,
         },
         {
             nome: "Rituais Eficientes",
             desc: `A DT para resistir a todos os seus rituais aumenta em +5.`,
+            placeholder: false,
         },
         {
             nome: "Conhecendo o Medo",
             desc: `Você aprende o ritual Conhecendo o Medo.`,
+            placeholder: false,
+        },
+        {
+            placeholder: true,
+            nome: "Intuitivo"
         },
         {
             nome: "Mente Sã",
             desc: `Você compreende melhor as entidades do Outro Lado, e passa a ser menos abalado por seus efeitos. Você recebe resistência paranormal +5 (+5 em testes de resistência contra efeitos paranormais).`,
+            placeholder: false,
         },
         {
             nome: "Presença Poderosa",
             desc: `Sua resiliência mental faz com que você possa extrair mais do Outro Lado. Você adiciona sua Presença ao seu limite de PE por turno, mas apenas para conjurar rituais (não para DT).`,
+            placeholder: false,
         },
         {
             nome: "Inabalável",
             desc: `Você recebe resistência a dano mental e paranormal 10. Além disso, quando é alvo de um efeito paranormal que permite um teste de Vontade para reduzir o dano à metade, você não sofre dano algum se passar.`,
+            placeholder: false,
         },
         {
             nome: "Presença do Medo",
             desc: `Você aprende o ritual Presença do Medo.`,
+            placeholder: false,
+        },
+        {
+            placeholder: true,
+            nome: "Lâmina Paranormal"
         },
         {
             nome: "Lâmina Maldita",
             desc: `Você aprende o ritual Amaldiçoar Arma. Se já o conhece, seu custo é reduzido em –1 PE. Além disso, quando conjura esse ritual, você pode usar Ocultismo, em vez de Luta ou Pontaria, para testes de ataque com a arma amaldiçoada.`,
+            placeholder: false,
         },
         {
             nome: "Gladiador Paranormal",
             desc: `Sempre que acerta um ataque corpo a corpo em um inimigo, você recebe 2 PE temporários. Você pode ganhar um máximo de PE temporários por cena igual ao seu limite de PE. PE temporários desaparecem no final da cena.`,
+            placeholder: false,
         },
         {
             nome: "Conjuração Marcial",
             desc: `Uma vez por rodada, quando você lança um ritual com execução de uma ação padrão, pode gastar 2 PE para fazer um ataque corpo a corpo como uma ação livre.`,
+            placeholder: false,
         },
         {
             nome: "Lâmina do Medo",
             desc: `Você aprende o ritual Lâmina do Medo.`,
+            placeholder: false,
         },
     ],
     ataques: [
+        {
+            placeholder: true,
+            nome: "Armas Simples",
+        },
+        {
+            placeholder: true,
+            nome: "Corpo a corpo - Leves",
+        },
         {
             nome: "Ataque Desarmado",
             dano: "1d3",
@@ -2012,8 +2196,9 @@ export const specifications = {
             multiplicadorCritico: "x2",
             alcance: "-",
             espaco: "0",
-            desc: "",
+            desc: "Independentemente do golpe, um ataque desarmado é considerado uma arma corpo a corpo leve com dano 1d3 não letal, e não é afetado por efeitos que mencionem objetos ou armas.",
             adicionarAoInventario: false,
+            placeholder: false,
         },
         {
             nome: "Coronhada (uma mão)",
@@ -2023,10 +2208,11 @@ export const specifications = {
             margemCritico: "20",
             multiplicadorCritico: "x2",
             alcance: "-",
-            desc: "",
+            desc: "Você pode usar uma arma de fogo como uma arma corpo a corpo. O dano é 1d4 de impacto para armas de fogo leves e de uma mão (como pistolas) e 1d6 para armas de fogo de duas mãos (como fuzis).",
             tipoDano: "I",
             espaco: "0",
             adicionarAoInventario: false,
+            placeholder: false,
         },
         {
             nome: "Coronhada (duas mãos)",
@@ -2036,10 +2222,11 @@ export const specifications = {
             margemCritico: "20",
             multiplicadorCritico: "x2",
             alcance: "-",
-            desc: "",
+            desc: "Você pode usar uma arma de fogo como uma arma corpo a corpo. O dano é 1d4 de impacto para armas de fogo leves e de uma mão (como pistolas) e 1d6 para armas de fogo de duas mãos (como fuzis).",
             tipoDano: "I",
             espaco: "0",
             adicionarAoInventario: false,
+            placeholder: false,
         },
         {
             nome: "Faca",
@@ -2049,10 +2236,11 @@ export const specifications = {
             margemCritico: "19",
             multiplicadorCritico: "x2",
             alcance: "Curto",
-            desc: "",
+            desc: "Uma lâmina longa e afiada, como uma navalha, uma faca de churrasco ou uma faca militar (facas de cozinha pequenas causam apenas 1d3 pontos de dano). É uma arma ágil e pode ser arremessada.",
             tipoDano: "C",
             espaco: "1",
             adicionarAoInventario: true,
+            placeholder: false,
         },
         {
             nome: "Martelo",
@@ -2062,23 +2250,11 @@ export const specifications = {
             margemCritico: "20",
             multiplicadorCritico: "x2",
             alcance: "-",
-            desc: "",
+            desc: "Esta ferramenta comum pode ser usada como arma na falta de opções melhores.",
             tipoDano: "I",
             espaco: "1",
             adicionarAoInventario: true,
-        },
-        {
-            nome: "Martelo",
-            categoria: "0",
-            dano: "1d6",
-            danoCritico: "2d6",
-            margemCritico: "20",
-            multiplicadorCritico: "x2",
-            alcance: "-",
-            desc: "",
-            tipoDano: "I",
-            espaco: "1",
-            adicionarAoInventario: true,
+            placeholder: false,
         },
         {
             nome: "Punhal",
@@ -2088,10 +2264,15 @@ export const specifications = {
             margemCritico: "20",
             multiplicadorCritico: "x3",
             alcance: "-",
-            desc: "",
+            desc: "Uma faca de lâmina longa e pontiaguda, usada por cultistas em seus rituais. É uma arma ágil.",
             tipoDano: "P",
             espaco: "1",
             adicionarAoInventario: true,
+            placeholder: false,
+        },
+        {
+            placeholder: true,
+            nome: "Corpo a Corpo – Uma Mão",
         },
         {
             nome: "Bastão (uma mão)",
@@ -2101,10 +2282,11 @@ export const specifications = {
             margemCritico: "20",
             multiplicadorCritico: "x2",
             alcance: "-",
-            desc: "",
+            desc: "Um cilindro de madeira maciça. Pode ser um taco de beisebol, um cacetete da polícia, uma tonfa ou apenas uma clava envolta em pregos ou arame farpado. Você pode empunhar um bastão com uma mão (dano 1d6) ou com as duas (dano 1d8).",
             tipoDano: "I",
             espaco: "1",
             adicionarAoInventario: true,
+            placeholder: false,
         },
         {
             nome: "Bastão (duas mãos)",
@@ -2114,10 +2296,11 @@ export const specifications = {
             margemCritico: "20",
             multiplicadorCritico: "x2",
             alcance: "-",
-            desc: "",
+            desc: "Um cilindro de madeira maciça. Pode ser um taco de beisebol, um cacetete da polícia, uma tonfa ou apenas uma clava envolta em pregos ou arame farpado. Você pode empunhar um bastão com uma mão (dano 1d6) ou com as duas (dano 1d8).",
             tipoDano: "I",
             espaco: "1",
             adicionarAoInventario: true,
+            placeholder: false,
         },
         {
             nome: "Machete",
@@ -2127,10 +2310,11 @@ export const specifications = {
             margemCritico: "19",
             multiplicadorCritico: "x2",
             alcance: "-",
-            desc: "",
+            desc: "Uma lâmina longa, muito usada como ferramenta para abrir trilhas.",
             tipoDano: "C",
             espaco: "1",
             adicionarAoInventario: true,
+            placeholder: false,
         },
         {
             nome: "Lança",
@@ -2140,10 +2324,15 @@ export const specifications = {
             margemCritico: "20",
             multiplicadorCritico: "x2",
             alcance: "Curto",
-            desc: "",
+            desc: "Uma haste de madeira com uma ponta metálica afiada, a lança é uma arma arcaica, mas usada ainda hoje por artistas marciais. Pode ser arremessada.",
             tipoDano: "P",
             espaco: "1",
             adicionarAoInventario: true,
+            placeholder: false,
+        },
+        {
+            placeholder: true,
+            nome: "Corpo a Corpo – Duas Mãos",
         },
         {
             nome: "Cajado",
@@ -2153,14 +2342,19 @@ export const specifications = {
             margemCritico: "20",
             multiplicadorCritico: "x2",
             alcance: "-",
-            desc: "",
+            desc: "Um cabo de madeira ou barra de ferro longo. Inclui cajado o bo usado em artes marciais. É uma arma ágil. Além disso, pode ser usado com Combater com Duas Armas (e poderes similares) para fazer ataques adicionais, como se fosse uma arma de uma mão e uma arma leve.",
             tipoDano: "I",
             espaco: "2",
             adicionarAoInventario: true,
+            placeholder: false,
+        },
+        {
+            placeholder: true,
+            nome: "Armas de Disparo – Duas Mãos",
         },
         {
             nome: "Arco",
-            desc: "",
+            desc: "Um arco e flecha comum, próprio para tiro ao alvo.",
             categoria: "0",
             dano: "1d6",
             danoCritico: "3d6",
@@ -2170,10 +2364,11 @@ export const specifications = {
             tipoDano: "P",
             espaco: "2",
             adicionarAoInventario: true,
+            placeholder: false,
         },
         {
             nome: "Besta",
-            desc: "",
+            desc: "Esta arma da antiguidade exige uma ação de movimento para ser recarregada a cada disparo.",
             categoria: "0",
             dano: "1d8",
             danoCritico: "2d8",
@@ -2183,11 +2378,16 @@ export const specifications = {
             tipoDano: "P",
             espaco: "2",
             adicionarAoInventario: true,
+            placeholder: false,
+        },
+        {
+            placeholder: true,
+            nome: "Armas de Fogo – Leves",
         },
         {
             nome: "Pistola",
-            desc: "",
-            categoria: "1",
+            desc: "Uma arma de mão comum entre policiais e militares por ser facilmente recarregável.",
+            categoria: "I",
             dano: "1d12",
             danoCritico: "2d12",
             margemCritico: "18",
@@ -2196,6 +2396,397 @@ export const specifications = {
             tipoDano: "B",
             espaco: "1",
             adicionarAoInventario: true,
+            placeholder: false,
+        },
+        {
+            nome: "Revólver",
+            desc: "A arma de fogo mais comum, e uma das mais confiáveis.",
+            categoria: "I",
+            dano: "2d6",
+            danoCritico: "6d6",
+            margemCritico: "19",
+            multiplicadorCritico: "x3",
+            alcance: "Curto",
+            tipoDano: "B",
+            espaco: "1",
+            adicionarAoInventario: true,
+            placeholder: false,
+        },
+        {
+            placeholder: true,
+            nome: "Armas de Fogo – Duas Mãos",
+        },
+        {
+            nome: "Fuzil de caça",
+            desc: "Esta arma de fogo é bastante popular entre fazendeiros, caçadores e atiradores esportistas.",
+            categoria: "I",
+            dano: "2d8",
+            danoCritico: "6d8",
+            margemCritico: "19",
+            multiplicadorCritico: "x3",
+            alcance: "Médio",
+            tipoDano: "B",
+            espaco: "2",
+            adicionarAoInventario: true,
+            placeholder: false,
+        },
+        {
+            placeholder: true,
+            nome: "Armas Táticas",
+        },
+        {
+            placeholder: true,
+            nome: "Corpo a Corpo – Leves",
+        },
+        {
+            nome: "Machadinha",
+            desc: "Ferramenta útil para cortar madeira, pode ser facilmente encontrada em canteiros de obras e fazendas. Pode ser arremessada.",
+            categoria: "0",
+            dano: "1d6",
+            danoCritico: "3d6",
+            margemCritico: "20",
+            multiplicadorCritico: "x3",
+            alcance: "Curto",
+            tipoDano: "C",
+            espaco: "1",
+            adicionarAoInventario: true,
+            placeholder: false,
+        },
+        {
+            nome: "Nunchaku",
+            desc: "Dois bastões curtos de madeira ligados por uma corrente. É uma arma ágil.",
+            categoria: "0",
+            dano: "1d8",
+            danoCritico: "2d8",
+            margemCritico: "20",
+            multiplicadorCritico: "x2",
+            alcance: "-",
+            tipoDano: "I",
+            espaco: "1",
+            adicionarAoInventario: true,
+            placeholder: false,
+        },
+        {
+            placeholder: true,
+            nome: "Corpo a Corpo – Uma Mão",
+        },
+        {
+            nome: "Corrente",
+            desc: "Um pedaço de corrente grossa pode ser usado como uma arma bastante efetiva. A corrente fornece +2 em testes para desarmar e derrubar.",
+            categoria: "0",
+            dano: "1d8",
+            danoCritico: "2d8",
+            margemCritico: "20",
+            multiplicadorCritico: "x2",
+            alcance: "-",
+            tipoDano: "I",
+            espaco: "1",
+            adicionarAoInventario: true,
+            placeholder: false,
+        },
+        {
+            nome: "Espada (uma mão)",
+            desc: "Uma arma medieval, como uma espada longa dos cavaleiros europeus ou uma cimitarra sarracena. Você pode empunhar uma espada com uma mão (dano 1d8) ou com as duas (dano 1d10).",
+            categoria: "I",
+            dano: "1d8",
+            danoCritico: "2d8",
+            margemCritico: "19",
+            multiplicadorCritico: "x2",
+            alcance: "-",
+            tipoDano: "C",
+            espaco: "1",
+            adicionarAoInventario: true,
+            placeholder: false,
+        },
+        {
+            nome: "Espada (duas mãos)",
+            desc: "Uma arma medieval, como uma espada longa dos cavaleiros europeus ou uma cimitarra sarracena. Você pode empunhar uma espada com uma mão (dano 1d8) ou com as duas (dano 1d10).",
+            categoria: "I",
+            dano: "1d10",
+            danoCritico: "2d10",
+            margemCritico: "19",
+            multiplicadorCritico: "x2",
+            alcance: "-",
+            tipoDano: "C",
+            espaco: "1",
+            adicionarAoInventario: true,
+            placeholder: false,
+        },
+        {
+            nome: "Florete",
+            desc: "Esta espada de lâmina fina e comprida é usada por esgrimistas.É uma arma ágil.",
+            categoria: "I",
+            dano: "1d6",
+            danoCritico: "2d6",
+            margemCritico: "18",
+            multiplicadorCritico: "x2",
+            alcance: "-",
+            tipoDano: "C",
+            espaco: "1",
+            adicionarAoInventario: true,
+            placeholder: false,
+        },
+        {
+            nome: "Machado",
+            desc: "Uma ferramenta importante para lenhadores e bombeiros, um machado pode causar ferimentos terríveis.",
+            categoria: "I",
+            dano: "1d8",
+            danoCritico: "3d8",
+            margemCritico: "20",
+            multiplicadorCritico: "x3",
+            alcance: "-",
+            tipoDano: "C",
+            espaco: "1",
+            adicionarAoInventario: true,
+            placeholder: false,
+        },
+        {
+            nome: "Maça",
+            desc: "Bastão com uma cabeça metálica cheia de protuberâncias.",
+            categoria: "I",
+            dano: "2d4",
+            danoCritico: "4d4",
+            margemCritico: "20",
+            multiplicadorCritico: "x2",
+            alcance: "-",
+            tipoDano: "I",
+            espaco: "1",
+            adicionarAoInventario: true,
+            placeholder: false,
+        },
+        {
+            placeholder: true,
+            nome: "Corpo a Corpo – Duas Mãos",
+        },
+        {
+            nome: "Acha",
+            desc: "Um machado grande e pesado, usado no corte de árvores largas.",
+            categoria: "I",
+            dano: "1d12",
+            danoCritico: "3d12",
+            margemCritico: "20",
+            multiplicadorCritico: "x3",
+            alcance: "-",
+            tipoDano: "C",
+            espaco: "2",
+            adicionarAoInventario: true,
+            placeholder: false,
+        },
+        {
+            nome: "Gadanho",
+            desc: "Uma ferramenta agrícola, o gadanho é uma versão maior da foice, para uso com as duas mãos. Foi criada para ceifar cereais, mas também pode ceifar vidas.",
+            categoria: "I",
+            dano: "2d4",
+            danoCritico: "8d4",
+            margemCritico: "20",
+            multiplicadorCritico: "x4",
+            alcance: "-",
+            tipoDano: "C",
+            espaco: "2",
+            adicionarAoInventario: true,
+            placeholder: false,
+        },
+        {
+            nome: "Katana",
+            desc: "Originária do Japão, esta espada longa e levemente curvada transcendeu os séculos. É uma arma ágil. Se você for veterano em Luta pode usá-la como uma arma de uma mão.",
+            categoria: "I",
+            dano: "1d10",
+            danoCritico: "2d10",
+            margemCritico: "19",
+            multiplicadorCritico: "x2",
+            alcance: "-",
+            tipoDano: "C",
+            espaco: "2",
+            adicionarAoInventario: true,
+            placeholder: false,
+        },
+        {
+            nome: "Marreta",
+            desc: "Normalmente usada para demolir paredes, também pode ser usada para demolir pessoas. Use estas estatísticas para outras ferramentas de construção civil, como picaretas.",
+            categoria: "I",
+            dano: "3d4",
+            danoCritico: "6d4",
+            margemCritico: "20",
+            multiplicadorCritico: "x2",
+            alcance: "-",
+            tipoDano: "I",
+            espaco: "2",
+            adicionarAoInventario: true,
+            placeholder: false,
+        },
+        {
+            nome: "Montante",
+            desc: "Enorme e pesada, esta espada de 1,5m de comprimento foi uma das armas mais poderosas em seu tempo.",
+            categoria: "I",
+            dano: "2d6",
+            danoCritico: "4d6",
+            margemCritico: "19",
+            multiplicadorCritico: "x2",
+            alcance: "-",
+            tipoDano: "C",
+            espaco: "2",
+            adicionarAoInventario: true,
+            placeholder: false,
+        },
+        {
+            nome: "Motoserra",
+            desc: "Uma ferramenta capaz de causar ferimentos profundos; sempre que rolar um 6 em um dado de dano com uma motosserra, role um dado de dano adicional. Apesar de potente, esta arma é desajeitada e impõe –1d20 nos seus testes de ataque.",
+            categoria: "I",
+            dano: "3d6",
+            danoCritico: "6d6",
+            margemCritico: "20",
+            multiplicadorCritico: "x2",
+            alcance: "-",
+            tipoDano: "C",
+            espaco: "2",
+            adicionarAoInventario: true,
+            placeholder: false,
+        },
+        {
+            placeholder: true,
+            nome: "Armas de Disparo – Duas Mãos",
+        },
+        {
+            nome: "Arco Composto",
+            desc: "Este arco moderno usa materiais de alta tensão e um sistema de roldanas para gerar mais pressão. Ao contrário de outras armas de disparo, permite que você aplique seu valor de Força às rolagens de dano.",
+            categoria: "I",
+            dano: "1d10",
+            danoCritico: "3d10",
+            margemCritico: "20",
+            multiplicadorCritico: "x3",
+            alcance: "Médio",
+            tipoDano: "P",
+            espaco: "2",
+            adicionarAoInventario: true,
+            placeholder: false,
+        },
+        {
+            nome: "Balestra",
+            desc: "Uma besta pesada, capaz de disparos poderosos. Exige uma ação de movimento para ser recarregada a cada disparo.",
+            categoria: "I",
+            dano: "1d12",
+            danoCritico: "2d12",
+            margemCritico: "19",
+            multiplicadorCritico: "x2",
+            alcance: "Médio",
+            tipoDano: "P",
+            espaco: "2",
+            adicionarAoInventario: true,
+            placeholder: false,
+        },
+        {
+            placeholder: true,
+            nome: "Armas de Fogo – Uma Mão",
+        },
+        {
+            nome: "Submetralhadora",
+            desc: "Esta arma de fogo automática pode ser empunhada com apenas uma mão.",
+            categoria: "I",
+            dano: "2d6",
+            danoCritico: "6d6",
+            margemCritico: "19",
+            multiplicadorCritico: "x3",
+            alcance: "Curto",
+            tipoDano: "B",
+            espaco: "1",
+            adicionarAoInventario: true,
+            placeholder: false,
+        },
+        {
+            placeholder: true,
+            nome: "Armas de Fogo – Duas Mãos",
+        },
+        {
+            nome: "Espingarda",
+            desc: "Arma de fogo longa e com cano liso. A espingarda causa apenas metade do dano em alcance médio ou maior.",
+            categoria: "I",
+            dano: "4d6",
+            danoCritico: "12d6",
+            margemCritico: "20",
+            multiplicadorCritico: "x3",
+            alcance: "Curto",
+            tipoDano: "B",
+            espaco: "2",
+            adicionarAoInventario: true,
+            placeholder: false,
+        },
+        {
+            nome: "Fuzil de assalto",
+            desc: "A arma de fogo padrão da maioria dos exércitos modernos. É uma arma automática.",
+            categoria: "II",
+            dano: "2d10",
+            danoCritico: "6d10",
+            margemCritico: "19",
+            multiplicadorCritico: "x3",
+            alcance: "Médio",
+            tipoDano: "B",
+            espaco: "2",
+            adicionarAoInventario: true,
+            placeholder: false,
+        },
+        {
+            nome: "Fuzil de precisão",
+            desc: "Esta arma de fogo de uso militar é projetada para disparos longos e precisos. Se for veterano em Pontaria e mirar com um fuzil de precisão (veja a página 87), você recebe +5 na margem de ameaça de seu ataque.",
+            categoria: "III",
+            dano: "2d10",
+            danoCritico: "6d10",
+            margemCritico: "19",
+            multiplicadorCritico: "x3",
+            alcance: "Longo",
+            tipoDano: "B",
+            espaco: "2",
+            adicionarAoInventario: true,
+            placeholder: false,
+        },
+        {
+            placeholder: true,
+            nome: "Armas Pesadas",
+        },
+        {
+            placeholder: true,
+            nome: "À Distância – Duas Mãos",
+        },
+        {
+            nome: "Bazuca",
+            desc: "Este lança-foguetes foi concebido como uma arma anti-tanques, mas também se mostrou eficaz contra criaturas. A bazuca causa seu dano no alvo atingido e em todos os seres num raio de 3m; esses seres (mas não o alvo atingido diretamente) têm direito a um teste de Reflexos (DT Agi) para reduzir o dano à metade. Você pode disparar o foguete num ponto qualquer em alcance médio, em vez de num ser específico; nesse caso, não precisa rolar ataque e não tem chance de errar (mas também não acerta nenhum ser diretamente). A bazuca exige uma ação de movimento para ser recarregada a cada disparo.",
+            categoria: "III",
+            dano: "10d8",
+            danoCritico: "20d8",
+            margemCritico: "20",
+            multiplicadorCritico: "x2",
+            alcance: "Médio",
+            tipoDano: "I",
+            espaco: "2",
+            adicionarAoInventario: true,
+            placeholder: false,
+        },
+        {
+            nome: "Lança-chamas",
+            desc: "Equipamento militar que esguicha líquido inflamável incandescente. Um lança-chamas atinge todos os seres em uma linha de 1,5m de largura com alcance curto, mas não alcança além disso. Faça um único teste de ataque e compare o resultado com a Defesa de todos os seres na área. Além de sofrer dano, seres atingidos ficam em chamas.",
+            categoria: "III",
+            dano: "6d6",
+            danoCritico: "12d6",
+            margemCritico: "20",
+            multiplicadorCritico: "x2",
+            alcance: "Curto",
+            tipoDano: "Fogo",
+            espaco: "2",
+            adicionarAoInventario: true,
+            placeholder: false,
+        },
+        {
+            nome: "Metralhadora",
+            desc: "Uma arma de fogo pesada, de uso militar. Para atacar com uma metralhadora, você precisa ter Força 4 ou maior ou gastar uma ação de movimento para apoiá-la em seu tripé ou suporte apropriado; caso contrário, sofre –5 em seus ataques. Uma metralhadora é uma arma automática.",
+            categoria: "II",
+            dano: "2d12",
+            danoCritico: "6d12",
+            margemCritico: "19",
+            multiplicadorCritico: "x3",
+            alcance: "Médio",
+            tipoDano: "B",
+            espaco: "2",
+            adicionarAoInventario: true,
+            placeholder: false,
         },
     ]
 }

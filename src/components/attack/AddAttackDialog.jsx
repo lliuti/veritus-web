@@ -15,6 +15,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
+import { specifications } from '../../specifications';
 
 export const AddAttackDialog = (props) => {
     const { onClose, open, characterId, fetchCharacter, attackToEdit } = props;
@@ -32,6 +33,7 @@ export const AddAttackDialog = (props) => {
     const [description, setDescription] = useState("");
     const [buttonFunction, setButtonFunction] = useState("create");
     const [addAttackLoading, setAddAttackLoading] = useState(false);
+    const [storedAttack, setStoredAttack] = useState([]);
 
     const { enqueueSnackbar } = useSnackbar();
 
@@ -154,22 +156,59 @@ export const AddAttackDialog = (props) => {
         onClose();
     }   
 
+    const handleStoredAttackChange = (event) => {
+        setStoredAttack(event.target.value);
+        const storedAttack = specifications.ataques.find(specification => specification.nome === event.target.value);
+        setAttack(storedAttack.nome);
+        setDamage(storedAttack.dano);
+        setCriticalDamage(storedAttack.danoCritico);
+        setCategory(storedAttack.categoria);
+        setDamageType(storedAttack.tipoDano);
+        setMargin(storedAttack.margemCritico);
+        setMultiplier(storedAttack.multiplicadorCritico);
+        setRange(storedAttack.alcance);
+        setWeight(storedAttack.espaco);
+        setDescription(storedAttack.desc);
+        setAddToInventoryValue(storedAttack.adicionarAoInventario);
+    }
+
     return (
         <Dialog onClose={handleClose} open={open} fullWidth maxWidth='lg'>
             <Typography component="h1" variant="h5" color="inherit" sx={{ paddingLeft: 2, paddingTop: 2}}>Adicionar Ataque / Arma</Typography>
             <Box component="div" sx={{ p: 2 }}>
                 <Grid container sx={{ alignItems: 'center' }} spacing={1}>
                     <Grid item xs={12} md={3}>
+                        <FormControl variant="filled" fullWidth>
+                            <InputLabel id="stored-attack-select-label" color="secondary">Selecionar ataque cadastrado</InputLabel>
+                            <Select
+                                labelId="stored-attack-value-select-label"
+                                id="stored-attack-value-select"
+                                value={storedAttack}
+                                color="secondary"
+                                label="Selecionar ataque cadastrado"
+                                onChange={handleStoredAttackChange}
+                            >
+                                {
+                                    specifications.ataques.map((attack) => {
+                                        if (attack.placeholder == true) {
+                                            return (
+                                                <MenuItem disabled value={attack.nome}>
+                                                    <em>{attack.nome}</em>
+                                                </MenuItem>
+                                            )
+                                        } else {
+                                            return (
+                                                <MenuItem key={attack.nome} value={attack.nome}>{attack.nome}</MenuItem>
+                                            )
+                                        }
+                                    })
+                                }
+                            </Select>
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={12} md={3}>
                         <TextField id="attack" label="Ataque / Arma" variant="filled" color="secondary" size="regular" fullWidth value={attack} onChange={(event) => setAttack(event.target.value)}/>
                     </Grid>
-                    {/* <Grid item xs={12} md={3}>
-                        <Tooltip 
-                            title='Exemplo de teste: "3d20+5". Evite espaços e acentos.' 
-                            placement="top"
-                        >
-                            <TextField id="test" label="Teste" variant="filled" color="secondary" size="regular" fullWidth value={test} onChange={(event) => setTest(event.target.value)}/>
-                        </Tooltip>
-                    </Grid> */}
                     <Grid item xs={12}  md={3}>
                         <Tooltip 
                             // title='Exemplo de teste dinâmico: "2d6+[AGI]". Exemplo de teste simples: "2d6+3".' 
