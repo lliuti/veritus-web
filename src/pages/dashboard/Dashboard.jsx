@@ -120,7 +120,7 @@ export function Dashboard() {
     return (
         <>
             <Header variant="dashboard"/>
-            <Container component="main" maxWidth="xl" sx={{ mt: 5}}>
+            <Container component="main" maxWidth="xl" sx={{ mt: 2}}>
                 <Box sx={{ width: '100%' }}>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                         <Tabs 
@@ -188,8 +188,8 @@ export function Dashboard() {
 
                             {sheets?.map((sheet) => (
                                 <Grid item xs={12} sm={6} md={3} key={sheet.id}>
-                                    <Paper elevation={3} sx={{ p: 2}}>
-                                        <Grid container rowSpacing={1.5}>
+                                    <Paper elevation={3} sx={{ p: 2 }}>
+                                        <Grid container rowSpacing={1}>
                                             <Grid item xs={12}>
                                                 <Typography variant="h5" component="p" sx={{ textAlign: "center"}}>
                                                     {sheet.name}
@@ -253,7 +253,7 @@ export function Dashboard() {
                     open={bottomDrawerOpen}
                     onClose={() => setBottomDrawerOpen(false)}
                 >
-                    <Box sx={{ py: 3, px: 8, maxHeight: "440px", overflowY: "auto" }}>
+                    <Box sx={{ py: 2, px: 3, maxHeight: "440px", overflowY: "auto" }}>
                         <Grid container spacing={3}>
                             {rollsLog.length < 1 && (
                                 <Grid item xs={12}>
