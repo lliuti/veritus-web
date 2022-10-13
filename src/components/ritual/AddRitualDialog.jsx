@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSnackbar } from 'notistack';
 import { api } from '../../services/api';
-import { ritualsJSON } from "../../rituals.js";
+import { specifications } from "../../specifications";
 
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
@@ -135,7 +135,7 @@ export const AddRitualDialog = (props) => {
 
     const handleStoredRitualChange = (event) => {
         setStoredRitual(event.target.value);
-        const ritual = ritualsJSON.find(r => r.name == event.target.value);
+        const ritual = specifications.rituais.find(r => r.name == event.target.value);
         setName(ritual.name)
         setElement(ritual.element)
         setCircle(ritual.circle)
@@ -169,7 +169,7 @@ export const AddRitualDialog = (props) => {
                                 <MenuItem disabled value="">
                                     <em>Selecione um dos rituais abaixo</em>
                                 </MenuItem>
-                                {ritualsJSON.map((ritual) => (
+                                {specifications.rituais.map((ritual) => (
                                     <MenuItem key={ritual.name} value={ritual.name}>{ritual.name}</MenuItem>
                                 ))}
                             </Select>

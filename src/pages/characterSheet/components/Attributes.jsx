@@ -155,22 +155,22 @@ export function Attributes({ characterAttributes, fetchCharacter }) {
 function EditAttributesDialog(props) {
     const { onClose, open, characterAttributes, fetchCharacter } = props;
 
-    const [str, setStr] = useState("0");
-    const [vig, setVig] = useState("0");
-    const [dex, setDex] = useState("0");
-    const [cha, setCha] = useState("0");
-    const [int, setInt] = useState("0");
+    const [str, setStr] = useState(0);
+    const [vig, setVig] = useState(0);
+    const [dex, setDex] = useState(0);
+    const [cha, setCha] = useState(0);
+    const [int, setInt] = useState(0);
     const [updateLoading, setUpdateLoading] = useState(false);
     const [usedPoints, setUsedPoints] = useState(0);
     const [remainingPoints, setRemainingPoints] = useState(0);
     const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
-        setStr(characterAttributes.str);
-        setVig(characterAttributes.vig);
-        setDex(characterAttributes.dex);
-        setCha(characterAttributes.cha);
-        setInt(characterAttributes.int);
+        setStr(parseInt(characterAttributes.str));
+        setVig(parseInt(characterAttributes.vig));
+        setDex(parseInt(characterAttributes.dex));
+        setCha(parseInt(characterAttributes.cha));
+        setInt(parseInt(characterAttributes.int));
 
         calculateAttributePoints();
     }, [characterAttributes]);
@@ -182,16 +182,17 @@ function EditAttributesDialog(props) {
     const calculateAttributePoints = () => {
         let usedPoints = 0;
         let remainingPoints = 0;
+        let nex = parseInt(characterAttributes.nex);
         
-        let totalPoints = parseInt(str) + parseInt(vig) + parseInt(dex) + parseInt(cha) + parseInt(int);
+        let totalPoints = str + vig + dex + cha + int;
 
-        if (parseInt(characterAttributes.nex) < 20) {
+        if (nex < 20) {
             remainingPoints = 4;
-        } else if (parseInt(characterAttributes.nex) < 50) {
+        } else if (nex < 50) {
             remainingPoints = 5;
-        } else if (parseInt(characterAttributes.nex) < 80) {
+        } else if (nex < 80) {
             remainingPoints = 6;
-        } else if (parseInt(characterAttributes.nex) < 95) {
+        } else if (nex < 95) {
             remainingPoints = 7;
         }
         usedPoints = totalPoints - 5

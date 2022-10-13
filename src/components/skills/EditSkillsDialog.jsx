@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSnackbar } from "notistack";
 import { api } from "../../services/api";
+import { specifications } from "../../specifications";
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -13,7 +14,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 export function EditSkillsDialog(props) {
-    const { onClose, open, characterSkills, fetchCharacter } = props;
+    const { onClose, open, characterSkills, fetchCharacter, build } = props;
 
     const [acrobacia, setAcrobacia] = useState(""); 
     const [adestramento, setAdestramento] = useState(""); 
@@ -44,6 +45,8 @@ export function EditSkillsDialog(props) {
     const [tecnologia, setTecnologia] = useState(""); 
     const [vontade, setVontade] = useState(""); 
     const [updateLoading, setUpdateLoading] = useState(false);
+    const [backgroundSkills, setBackgroundSkills] = useState("");
+    const [classSkills, setClassSkills] = useState("");
 
     const { enqueueSnackbar } = useSnackbar();
 
@@ -76,6 +79,10 @@ export function EditSkillsDialog(props) {
         setTatica(characterSkills.tatica);
         setTecnologia(characterSkills.tecnologia);
         setVontade(characterSkills.vontade);
+
+        // console.log(specifications.origem[build.background]?.pericias, specifications.classe[build.class]?.pericias);
+        setBackgroundSkills(specifications.origens.find(x => x.background == build.background)?.pericias)
+        setClassSkills(specifications.classes[build.class]?.pericias);
     }, [characterSkills]);
 
     const handleClose = () => {
@@ -104,16 +111,18 @@ export function EditSkillsDialog(props) {
     return (
         <Dialog onClose={handleClose} open={open} fullWidth maxWidth='lg'>
             <Typography component="h1" variant="h5" color="inherit" sx={{ paddingLeft: 2, paddingTop: 2}}>Editar Perícias</Typography>
+            <Typography component="p" variant="body" color="text.secondary" sx={{ paddingLeft: 2, mt: 1 }}>Origem: {backgroundSkills}</Typography>
+            <Typography component="p" variant="body" color="text.secondary" sx={{ paddingLeft: 2 }}>Classe: {classSkills}</Typography>
             <Box component="div" sx={{ p: 2 }}>
                 <Grid container spacing={{ xs: 0.5, sm: 1}}>
                     <Grid item xs={12} sm={3}>
                         <FormControl variant="filled" fullWidth sx={{ mt: 1}}>
-                            <InputLabel id="acrobacia-select-label" color="secondary">Acrobacia</InputLabel>
+                            <InputLabel id="acrobacia-select-label" color="success">Acrobacia</InputLabel>
                             <Select
                                 labelId="acrobacia-select-label"
                                 id="acrobacia-select"
                                 value={acrobacia}
-                                color="secondary"
+                                color="success"
                                 label="Perícia"
                                 onChange={(event) => setAcrobacia(event.target.value)}
                             >

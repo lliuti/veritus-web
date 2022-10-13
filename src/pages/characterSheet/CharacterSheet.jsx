@@ -215,7 +215,7 @@ export function CharacterSheet() {
                     <Notes characterNotes={characterNotes} fetchCharacter={fetchCharacter}/>
                 </Grid>
                 <Grid container spacing={{ xs: 1, md: 3}}>
-                    <Skills characterSkills={characterSkills} fetchCharacter={fetchCharacter}/>
+                    <Skills characterSkills={characterSkills} build={{ class: characterInfo.characterClass, background: characterInfo.background }} fetchCharacter={fetchCharacter}/>
                     <Equipment characterEquipment={characterEquipment} fetchCharacter={fetchCharacter}/>
                 </Grid>
                 {/* <Grid container>

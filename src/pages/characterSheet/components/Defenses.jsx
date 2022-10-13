@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import Tooltip from '@mui/material/Tooltip';
 import { api } from '../../../services/api';
 
 export function Defenses({ characterDefenses, fetchCharacter }) {
@@ -45,36 +46,46 @@ export function Defenses({ characterDefenses, fetchCharacter }) {
             <Typography component="h1" variant="h5" color="inherit" sx={{ mb: 1}}>Defesa</Typography>
             <Grid container spacing={1}>
                 <Grid item xs={6} md={12}>
-                    <TextField
-                        margin="normal"
-                        size='small'
-                        id="passive"
-                        label="Passiva"
-                        name="passive"
-                        variant="filled"
-                        color='secondary'
-                        fullWidth
-                        value={passive || ''}
-                        onChange={(event) => setPassive(event.target.value)}
-                        onBlur={handleUpdateDefenses}
-                        sx={{ mb: 1, mt: 0}}
-                    />
+                    <Tooltip 
+                        title='10 + Agi + Outros' 
+                        placement="top-start"
+                    >
+                        <TextField
+                            margin="normal"
+                            size='small'
+                            id="passive"
+                            label="Passiva"
+                            name="passive"
+                            variant="filled"
+                            color='secondary'
+                            fullWidth
+                            value={passive || ''}
+                            onChange={(event) => setPassive(event.target.value)}
+                            onBlur={handleUpdateDefenses}
+                            sx={{ mb: 1, mt: 0}}
+                        />
+                    </Tooltip>
                 </Grid>
                 <Grid item xs={6} md={12}>
-                    <TextField
-                        margin="normal"
-                        size='small'
-                        id="dodging"
-                        label="Esquivando"
-                        name="dodging"
-                        variant="filled"
-                        color='secondary'
-                        value={dodging || ''}
-                        onChange={(event) => setDodging(event.target.value)}
-                        onBlur={handleUpdateDefenses}
-                        fullWidth
-                        sx={{ mb: 1, mt: 0}}
-                    />
+                    <Tooltip 
+                        title='Passiva + Reflexos' 
+                        placement="top-start"
+                    >
+                        <TextField
+                            margin="normal"
+                            size='small'
+                            id="dodging"
+                            label="Esquivando"
+                            name="dodging"
+                            variant="filled"
+                            color='secondary'
+                            value={dodging || ''}
+                            onChange={(event) => setDodging(event.target.value)}
+                            onBlur={handleUpdateDefenses}
+                            fullWidth
+                            sx={{ mb: 1, mt: 0}}
+                        />
+                    </Tooltip>
                 </Grid>
             </Grid>
         </Grid>

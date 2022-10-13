@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 
-export function Skills({ characterSkills, fetchCharacter }) {
+export function Skills({ characterSkills, fetchCharacter, build }) {
     const [editSkillsOpen, setEditSkillsOpen] = useState(false);
     const [editBonusOpen, setEditBonusOpen] = useState(false);
     const [skillRollOpen, setSkillRollOpen] = useState(false);
@@ -473,7 +473,7 @@ export function Skills({ characterSkills, fetchCharacter }) {
                     <Button onClick={() => setEditSkillsOpen(true)} color="inherit" variant='text' fullWidth sx={{ mt: 0}}>Editar Perícias</Button>
                 </Grid>
                 <SkillRollDialog open={skillRollOpen} onClose={() => setSkillRollOpen(false)} characterId={characterSkills.id} skillRollDialogInfo={skillRollDialogInfo}/>
-                <EditSkillsDialog open={editSkillsOpen} onClose={() => setEditSkillsOpen(false)} characterSkills={characterSkills} fetchCharacter={fetchCharacter}/>
+                <EditSkillsDialog open={editSkillsOpen} onClose={() => setEditSkillsOpen(false)} characterSkills={characterSkills} build={build} fetchCharacter={fetchCharacter}/>
                 <EditBonusDialog open={editBonusOpen} onClose={() => setEditBonusOpen(false)} characterSkills={characterSkills} fetchCharacter={fetchCharacter}/>
             </Grid>
 

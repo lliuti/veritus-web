@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSnackbar } from 'notistack';
 import { api } from '../../services/api';
+import { specifications } from '../../specifications';
 
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
@@ -26,6 +27,7 @@ export const AddPowerDialog = (props) => {
     const [nex, setNex] = useState(0);
     const [buttonFunction, setButtonFunction] = useState("create");
     const [addPowerLoading, setAddPowerLoading] = useState(false);
+    const [storedPower, setStoredPower] = useState([]);
 
     const { enqueueSnackbar } = useSnackbar();
 
@@ -116,11 +118,126 @@ export const AddPowerDialog = (props) => {
         }
     }
 
+    const handleStoredPowerChange = (event) => {
+        setStoredPower(event.target.value);
+
+        let power = [];
+        if (powerType == "Poder de Origem") {
+            power = specifications.origens.find(p => p.poder.nome == event.target.value);
+            setNex("0");
+            setName(power.poder.nome);
+            setDescription(power.poder.desc);
+        } else if (powerType == "Habilidade de Classe") {
+            power = specifications.habilidadesDeClasse.find(p => p.nome == event.target.value);
+            setName(power.nome);
+            setDescription(power.desc);
+            setNex("5");
+        } else if (powerType == "Habilidade de Trilha") {
+            power = specifications.habilidadesDeTrilha.find(p => p.nome == event.target.value);
+            setName(power.nome);
+            setDescription(power.desc);
+            setNex("10");
+        } else if (powerType == "Poder de Classe") {
+            power = specifications.poderesDeClasse.find(p => p.nome == event.target.value);
+            setName(power.nome);
+            setDescription(power.desc);
+            setNex("15");
+        } else if (powerType == "Poder Paranormal") {
+            power = specifications.poderParanormal.find(p => p.nome == event.target.value);
+            setName(power.nome);
+            setDescription(power.desc);
+            setNex("15");
+        }
+        
+    }
+
     return (
         <Dialog onClose={handleClose} open={open} fullWidth maxWidth='lg'>
             <Typography component="h1" variant="h5" color="inherit" sx={{ paddingLeft: 2, paddingTop: 2}}>Adicionar Item</Typography>
             <Box component="div" sx={{ p: 2 }}>
                 <Grid container sx={{ alignItems: 'center' }} spacing={1}>
+                    <Grid item xs={12} md={6}>
+                        <FormControl variant="filled" fullWidth>
+                            <InputLabel id="power-type-select-label" color="secondary">Tipo</InputLabel>
+                            <Select
+                                labelId="power-type-value-select-label"
+                                id="power-type-value-select"
+                                value={powerType}
+                                color="secondary"
+                                label="Tipo"
+                                onChange={(event) => {
+                                    setNex("0");
+                                    setName("");
+                                    setDescription("");
+                                    setPowerType(event.target.value);
+                                    setStoredPower("");
+                                }}
+                            >
+                                <MenuItem disabled value="">
+                                    <em>Selecione um dos poderes abaixo</em>
+                                </MenuItem>
+                                <MenuItem value="Poder de Origem">Poder de Origem</MenuItem>
+                                <MenuItem value="Habilidade de Classe">Habilidade de Classe</MenuItem>
+                                <MenuItem value="Habilidade de Trilha">Habilidade de Trilha</MenuItem>
+                                <MenuItem value="Poder de Classe">Poder de Classe</MenuItem>
+                                <MenuItem value="Poder Paranormal">Poder Paranormal</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <FormControl variant="filled" fullWidth>
+                            <InputLabel id="stored-power-select-label" color="secondary">Selecionar poder cadastrado</InputLabel>
+                            <Select
+                                labelId="stored-power-value-select-label"
+                                id="stored-power-value-select"
+                                value={storedPower}
+                                color="secondary"
+                                label="Tipo"
+                                onChange={handleStoredPowerChange}
+                            >
+                                <MenuItem disabled value="">
+                                    <em>Selecione um dos poderes abaixo</em>
+                                </MenuItem>
+                                {(() => {
+                                    if (powerType == "Poder Paranormal") {
+                                        return (
+                                            specifications.poderParanormal.map((poder, index) => (
+                                                <MenuItem key={index} value={poder.nome}>{poder.nome}</MenuItem>
+                                            ))
+                                        )
+                                    } else if (powerType == "Poder de Origem") {
+                                        return (
+                                            specifications.origens.map((origem, index) => (
+                                                <MenuItem key={index} value={origem.poder.nome}>{origem.poder.nome}</MenuItem>
+                                            ))
+                                        )
+                                    } else if (powerType == "Habilidade de Classe") {
+                                        return (
+                                            specifications.habilidadesDeClasse.map((hab, index) => (
+                                                <MenuItem key={index} value={hab.nome}>{hab.nome}</MenuItem>
+                                            ))
+                                        )
+                                    } else if (powerType == "Poder de Classe") {
+                                        return (
+                                            specifications.poderesDeClasse.map((poder, index) => (
+                                                <MenuItem key={index} value={poder.nome}>{poder.nome}</MenuItem>
+                                            ))
+                                        )
+                                    } else if (powerType == "Habilidade de Trilha") {
+                                        return (
+                                            specifications.habilidadesDeTrilha.map((hab, index) => (
+                                                <MenuItem key={index} value={hab.nome}>{hab.nome}</MenuItem>
+                                            ))
+                                        )
+                                    }
+                                })()}
+
+                                {/* {poderes[powerType].map((poder) => (
+                                    <MenuItem value={poder.nome}>{poder.nome}</MenuItem>
+                                ))} */}
+                            </Select>
+                        </FormControl>
+                    </Grid>
                     <Grid item xs={12} md={6}>
                         <TextField 
                             id="name" 
@@ -134,37 +251,6 @@ export const AddPowerDialog = (props) => {
                         />
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <TextField 
-                            id="description" 
-                            label="Descrição" 
-                            variant="filled" 
-                            color="secondary" 
-                            size="regular" 
-                            fullWidth
-                            value={description}
-                            onChange={(event) => setDescription(event.target.value)}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                        <FormControl variant="filled" fullWidth>
-                            <InputLabel id="power-type-select-label" color="secondary">Tipo</InputLabel>
-                            <Select
-                                labelId="power-type-value-select-label"
-                                id="power-type-value-select"
-                                value={powerType}
-                                color="secondary"
-                                label="Tipo"
-                                onChange={(event) => setPowerType(event.target.value)}
-                            >
-                                <MenuItem value="Poder de Origem">Poder de Origem</MenuItem>
-                                <MenuItem value="Habilidade de Classe">Habilidade de Classe</MenuItem>
-                                <MenuItem value="Habilidade de Trilha">Habilidade de Trilha</MenuItem>
-                                <MenuItem value="Poder de Classe">Poder de Classe</MenuItem>
-                                <MenuItem value="Poder Paranormal">Poder Paranormal</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
                         <TextField
                             id="nex"
                             label="NEX %"
@@ -176,6 +262,20 @@ export const AddPowerDialog = (props) => {
                             color='secondary'
                             value={nex || 0}
                             onChange={handleNexChange}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField 
+                            id="description" 
+                            multiline
+                            rows={3}
+                            label="Descrição" 
+                            variant="filled" 
+                            color="secondary" 
+                            size="regular" 
+                            fullWidth
+                            value={description}
+                            onChange={(event) => setDescription(event.target.value)}
                         />
                     </Grid>
                     <Grid item xs={12} md={12}>
