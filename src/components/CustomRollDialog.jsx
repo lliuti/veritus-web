@@ -79,7 +79,7 @@ export const CustomRollDialog = (props) => {
                                 color="text.secondary"
                                 sx={{ fontStyle: "italic" }}
                             >
-                                Um exemplo de rolagem correta é: 3d20+7
+                                Um exemplo de rolagem correta é: 1d20+7
                             </Typography>
                             <Typography 
                                 component="p" 
@@ -87,7 +87,7 @@ export const CustomRollDialog = (props) => {
                                 color="text.secondary"
                                 sx={{ fontStyle: "italic" }}
                             >
-                                Um exemplo de rolagem errada é: 3d20 + 7.
+                                Um exemplo de rolagem errada é: d20 + 7
                             </Typography>
                         </Grid>
                         <Grid item xs={12}>
