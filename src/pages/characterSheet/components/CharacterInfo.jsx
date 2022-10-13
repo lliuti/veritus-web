@@ -122,25 +122,30 @@ export function CharacterInfo({ characterInfo, fetchCharacter }) {
                     />
                 </Grid>
                 <Grid item xs={6} sm={6} md={2.4}>
-                    <FormControl variant="filled" fullWidth sx={{ mt: 2}}>
-                        <InputLabel id="rank-select-label" color="secondary">Patente</InputLabel>
-                        <Select
-                            labelId="rank-select-label"
-                            id="rank-select"
-                            value={rank || ''}
-                            color="secondary"
-                            fullWidth
-                            label="Patente"
-                            onChange={(event) => setRank(event.target.value)}
-                            onBlur={handleUpdateCharacterInfo}
-                        >
-                            <MenuItem value={"Recruta"}>Recruta</MenuItem>
-                            <MenuItem value={"Operador"}>Operador</MenuItem>
-                            <MenuItem value={"Agente especial"}>Agente especial</MenuItem>
-                            <MenuItem value={"Oficial de operações"}>Oficial de operações</MenuItem>
-                            <MenuItem value={"Agente de elite"}>Agente de elite</MenuItem>
-                        </Select>
-                    </FormControl>
+                    {/* <Tooltip 
+                        title='Este campo calcula automaticamente a quantidade de itens por categoria no campo "Carga", no Inventário.' 
+                        placement="top-start"
+                    > */}
+                        <FormControl variant="filled" fullWidth sx={{ mt: 2}}>
+                            <InputLabel id="rank-select-label" color="secondary">Patente</InputLabel>
+                            <Select
+                                labelId="rank-select-label"
+                                id="rank-select"
+                                value={rank || ''}
+                                color="secondary"
+                                fullWidth
+                                label="Patente"
+                                onChange={(event) => setRank(event.target.value)}
+                                onBlur={handleUpdateCharacterInfo}
+                            >
+                                <MenuItem value={"Recruta"}>Recruta</MenuItem>
+                                <MenuItem value={"Operador"}>Operador</MenuItem>
+                                <MenuItem value={"Agente especial"}>Agente especial</MenuItem>
+                                <MenuItem value={"Oficial de operações"}>Oficial de operações</MenuItem>
+                                <MenuItem value={"Agente de elite"}>Agente de elite</MenuItem>
+                            </Select>
+                        </FormControl>
+                    {/* </Tooltip> */}
                 </Grid>
                 <Grid item xs={6} sm={6} md={2.4}>
                     <TextField
@@ -206,10 +211,10 @@ export function CharacterInfo({ characterInfo, fetchCharacter }) {
                     }}
                 />
                 <Grid item xs={6} sm={6} md={2.4}>
-                    <Tooltip 
+                    {/* <Tooltip 
                         title='As origens "Desgarrado", "Vítima", "Universitário" e "Cultista Arrependido" são calculadas automaticamente, sem a necessidade de utilizar os modificadores manuais.' 
                         placement="top"
-                    >
+                    > */}
                         <FormControl variant="filled" fullWidth sx={{ mt: 2}}>
                             <InputLabel id="background-select-label" color="secondary">Origem</InputLabel>
                             <Select
@@ -250,7 +255,7 @@ export function CharacterInfo({ characterInfo, fetchCharacter }) {
                                 <MenuItem value={"Vítima"}>Vítima</MenuItem>
                             </Select>
                         </FormControl>
-                    </Tooltip>
+                    {/* </Tooltip> */}
                 </Grid>
                 <Grid item xs={6} sm={6} md={2.4}>
                     <FormControl variant="filled" fullWidth sx={{ mt: 2}}>
