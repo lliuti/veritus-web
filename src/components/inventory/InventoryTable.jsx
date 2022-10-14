@@ -3,6 +3,7 @@ import { api } from '../../services/api';
 import { AddItemDialog } from './AddItemDialog';
 import { useSnackbar } from 'notistack';
 import { Bull } from "../../components/Bull";
+import { HiPlusSm } from "react-icons/hi";
 
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
@@ -285,6 +286,7 @@ export function InventoryTable({ characterEquipment, fetchCharacter }) {
                 color="inherit" 
                 variant='text' 
                 fullWidth sx={{ mt: 1}}
+                endIcon={<HiPlusSm/>}
             >
                 Adicionar Item
             </Button>
