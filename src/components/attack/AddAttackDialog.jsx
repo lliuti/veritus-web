@@ -189,16 +189,16 @@ export const AddAttackDialog = (props) => {
                                 onChange={handleStoredAttackChange}
                             >
                                 {
-                                    specifications.ataques.map((attack) => {
+                                    specifications.ataques.map((attack, index) => {
                                         if (attack.placeholder == true) {
                                             return (
-                                                <MenuItem disabled value={attack.nome}>
+                                                <MenuItem key={index} disabled value={attack.nome}>
                                                     <em>{attack.nome}</em>
                                                 </MenuItem>
                                             )
                                         } else {
                                             return (
-                                                <MenuItem key={attack.nome} value={attack.nome}>{attack.nome}</MenuItem>
+                                                <MenuItem key={index} value={attack.nome}>{attack.nome}</MenuItem>
                                             )
                                         }
                                     })
