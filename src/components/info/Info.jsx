@@ -38,7 +38,7 @@ export const Info = ({ characterInfo }) => {
     };
 
     return (
-        <Grid item xs={12} sm={6} md={12} sx={{ mt: 3}}>
+        <Grid item xs={12} sm={6} md={12} sx={{ mt: 5 }}>
             <Typography component="h1" variant="h5" color="inherit">Características</Typography>
             <Grid container columnSpacing={1}>
                 <Grid item xs={6} sm={6} md={2.4}>
