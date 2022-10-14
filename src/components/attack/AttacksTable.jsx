@@ -3,6 +3,7 @@ import { api } from '../../services/api';
 import { AttackRollDialog } from './AttackRollDialog';
 import { DamageRollDialog } from './DamageRollDialog';
 import { AddAttackDialog } from './AddAttackDialog';
+import { HiPlusSm } from "react-icons/hi";
 import { Bull } from '../Bull';
 import { useSnackbar } from 'notistack';
 
@@ -171,6 +172,7 @@ export function AttacksTable({ characterEquipment, fetchCharacter }) {
                 color="inherit" 
                 variant='text' 
                 fullWidth sx={{ mt: 1}}
+                endIcon={<HiPlusSm/>}
             >
                 Adicionar Ataque/Arma
             </Button>
