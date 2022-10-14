@@ -136,7 +136,6 @@ export const AddAttackDialog = (props) => {
 
         }
 
-
         setAddToInventoryValue(true);
         setAttack("");
         setTest("");
@@ -185,6 +184,7 @@ export const AddAttackDialog = (props) => {
                                 id="stored-attack-value-select"
                                 value={storedAttack}
                                 color="secondary"
+                                size="small"
                                 label="Selecionar ataque cadastrado"
                                 onChange={handleStoredAttackChange}
                             >
@@ -207,7 +207,7 @@ export const AddAttackDialog = (props) => {
                         </FormControl>
                     </Grid>
                     <Grid item xs={12} md={3}>
-                        <TextField id="attack" label="Ataque / Arma" variant="filled" color="secondary" size="regular" fullWidth value={attack} onChange={(event) => setAttack(event.target.value)}/>
+                        <TextField id="attack" label="Ataque / Arma" variant="filled" color="secondary" size="small" fullWidth value={attack} onChange={(event) => setAttack(event.target.value)}/>
                     </Grid>
                     <Grid item xs={12}  md={3}>
                         <Tooltip 
@@ -215,7 +215,7 @@ export const AddAttackDialog = (props) => {
                             title='Exemplo de teste: "2d6+3+1d8". Evite espaços e acentos.'
                             placement="top"
                         >
-                            <TextField id="damage" label="Dano" variant="filled" color="secondary" size="regular" fullWidth value={damage} onChange={(event) => setDamage(event.target.value)}/>
+                            <TextField id="damage" label="Dano" variant="filled" color="secondary" size="small" fullWidth value={damage} onChange={(event) => setDamage(event.target.value)}/>
                         </Tooltip>
                     </Grid>
                     <Grid item xs={12} md={3}>
@@ -228,7 +228,7 @@ export const AddAttackDialog = (props) => {
                                 label="Dano Crítico" 
                                 variant="filled" 
                                 color="secondary" 
-                                size="regular" 
+                                size="small" 
                                 fullWidth 
                                 value={criticalDamage} 
                                 onChange={(event) => setCriticalDamage(event.target.value)}
@@ -244,6 +244,7 @@ export const AddAttackDialog = (props) => {
                                 value={damageType}
                                 color="secondary"
                                 label="Tipo"
+                                size="small"
                                 onChange={(event) => setDamageType(event.target.value)}
                             >
                                 <MenuItem value="B">Balístico</MenuItem>
@@ -270,6 +271,7 @@ export const AddAttackDialog = (props) => {
                                 id="category-value-select"
                                 value={category}
                                 color="secondary"
+                                size="small"
                                 label="Categoria"
                                 onChange={(event) => setCategory(event.target.value)}
                             >
@@ -290,6 +292,7 @@ export const AddAttackDialog = (props) => {
                                 value={margin}
                                 color="secondary"
                                 label="Crítico"
+                                size="small"
                                 onChange={(event) => setMargin(event.target.value)}
                             >
                                 <MenuItem value="-">-</MenuItem>
@@ -312,6 +315,7 @@ export const AddAttackDialog = (props) => {
                                 labelId="multiplier-value-select-label"
                                 id="multiplier-value-select"
                                 value={multiplier}
+                                size="small"
                                 color="secondary"
                                 label="Multiplicador"
                                 onChange={(event) => setMultiplier(event.target.value)}
@@ -332,6 +336,7 @@ export const AddAttackDialog = (props) => {
                                 id="range-value-select"
                                 value={range}
                                 color="secondary"
+                                size="small"
                                 label="Alcance"
                                 onChange={(event) => setRange(event.target.value)}
                             >
@@ -352,6 +357,7 @@ export const AddAttackDialog = (props) => {
                                 value={weight}
                                 color="secondary"
                                 label="Espaços"
+                                size="small"
                                 onChange={(event) => setWeight(event.target.value)}
                             >
                                 <MenuItem value="0">0</MenuItem>
@@ -369,7 +375,7 @@ export const AddAttackDialog = (props) => {
                             label="Descrição" 
                             variant="filled" 
                             color="secondary" 
-                            size="regular"
+                            size="small"
                             value={description} 
                             onChange={(event) => setDescription(event.target.value)}
                             fullWidth
@@ -384,6 +390,7 @@ export const AddAttackDialog = (props) => {
                                     id="add-to-inventory-value-select"
                                     value={addToInventoryValue}
                                     color="secondary"
+                                    size="small"
                                     label="Adicionar ao Inventário?"
                                     onChange={(event) => setAddToInventoryValue(event.target.value)}
                                 >
@@ -393,6 +400,7 @@ export const AddAttackDialog = (props) => {
                             </FormControl>
                         </Grid>
                     : <></>}
+
                     <Grid item xs={12}  md={12}>
                         <LoadingButton 
                             color="secondary" 
