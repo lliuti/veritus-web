@@ -104,7 +104,7 @@ export function AttacksTable({ characterEquipment, fetchCharacter }) {
                                 &nbsp;
                                 <Bull/>
                                 &nbsp;
-                                {attack.criticalDamage}
+                                {attack.margin}/{attack.multiplier}
                             </Typography>
                         </AccordionSummary>
                         <AccordionDetails>
