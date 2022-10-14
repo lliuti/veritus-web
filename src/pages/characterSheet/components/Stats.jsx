@@ -64,8 +64,10 @@ export function Stats({ characterStatus, fetchCharacter }) {
     return (
         <Grid item xs={12} sm={4} md={2} sx={{ mt: 3 }}>
             <Typography component="h1" variant="h5" color="inherit" sx={{ mb: 1}}>Saúde</Typography>
-            <Button onClick={handleHpClickOpen} color="secondary" variant='outlined' endIcon={<FavoriteIcon/>} fullWidth sx={{ my: 0.4 }}>
-                PV {currentHp}/{maxHp}
+            <Button onClick={handleHpClickOpen} color="secondary" variant='outlined' fullWidth sx={{ mb: 1, display: "flex", alignItems: "center", justifyContent: "space-around" }}>
+                <Typography component="span" variant="inherit">PV</Typography>
+                <Typography component="span" variant="inherit">{currentHp}/{maxHp}</Typography>
+                <FavoriteIcon/>
             </Button>
             <HpDialog 
                 open={hpDialogOpen} 
@@ -77,9 +79,10 @@ export function Stats({ characterStatus, fetchCharacter }) {
                 setCurrentHp={setCurrentHp}
                 setMaxHp={setMaxHp}
             />
-
-            <Button onClick={handleSanClickOpen} color="secondary" variant='outlined' endIcon={<EmojiEmotionsIcon/>} fullWidth sx={{ my: 0.4 }}>
-                PS {currentSp}/{maxSp}
+            <Button onClick={handleSanClickOpen} color="secondary" variant='outlined' fullWidth sx={{ mb: 1, display: "flex", alignItems: "center", justifyContent: "space-around" }}>
+                <Typography component="span" variant="inherit">PS</Typography>
+                <Typography component="span" variant="inherit">{currentSp}/{maxSp}</Typography>
+                <EmojiEmotionsIcon/>
             </Button>
             <SanDialog 
                 open={sanDialogOpen} 
@@ -91,9 +94,10 @@ export function Stats({ characterStatus, fetchCharacter }) {
                 setCurrentSp={setCurrentSp}
                 setMaxSp={setMaxSp}
             />
-
-            <Button onClick={handleEpClickOpen} color="secondary" variant='outlined' endIcon={<BatteryCharging90Icon/>} fullWidth sx={{ my: 0.4 }}>
-                PE {currentEp}/{maxEp}
+            <Button onClick={handleEpClickOpen} color="secondary" variant='outlined' fullWidth sx={{ my: 0, display: "flex", alignItems: "center", justifyContent: "space-around" }}>
+                <Typography component="span" variant="inherit">PE</Typography>
+                <Typography component="span" variant="inherit">{currentEp}/{maxEp}</Typography>
+                <BatteryCharging90Icon/>
             </Button>
             <EpDialog 
                 open={epDialogOpen} 
