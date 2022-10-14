@@ -2,13 +2,14 @@ import { useState, useEffect } from 'react';
 import { api } from '../../services/api';
 import { Bull } from "../Bull";
 import { AddPowerDialog } from './AddPowerDialog';
+import { HiPlusSm } from "react-icons/hi";
+import { useSnackbar } from 'notistack';
 
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { useSnackbar } from 'notistack';
 
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -126,6 +127,7 @@ export const PowersTable = ({ characterEquipment, fetchCharacter }) => {
                     color="inherit" 
                     variant='text' 
                     fullWidth sx={{ mt: 1}}
+                    endIcon={<HiPlusSm/>}
                 >
                     Adicionar Habilidade / Poder
                 </Button>
