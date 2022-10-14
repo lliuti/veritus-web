@@ -120,7 +120,7 @@ export function Build({ characterInfo, fetchCharacter }) {
     }
 
     return (
-        <Grid item xs={12} sm={6} md={12} sx={{ mt: 3}}>
+        <Grid item xs={12} sm={6} md={12} sx={{ mt: 5 }}>
             <Typography component="h1" variant="h5" color="inherit">Build</Typography>
             <Grid container columnSpacing={1} rowSpacing={0}>
                 <Grid item xs={6} sm={6} md={2.4}>
