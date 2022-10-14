@@ -1,13 +1,13 @@
 import { useNavigate, useParams  } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { CharacterInfo } from "./components/CharacterInfo";
+import { Build } from "./components/Build";
 import { Stats } from "./components/Stats";
 import { Attributes } from "./components/Attributes";
 import { Defenses } from "./components/Defenses";
 import { Skills } from "./components/Skills";
 import { Equipment } from "./components/Equipment";
 import { Notes } from "./components/Notes";
-import { ActiveParty } from "./components/ActiveParty";
+// import { ActiveParty } from "./components/ActiveParty";
 import { Tiptap } from "../../components/Tiptap";
 import Fab from '@mui/material/Fab';
 import { CustomRollDialog } from "../../components/CustomRollDialog";
@@ -19,6 +19,7 @@ import Grid from '@mui/material/Grid';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import { FaDiceD20 } from "react-icons/fa";
+import { Info } from "../../components/info/Info";
 
 export function CharacterSheet() {
     const [openBackdrop, setOpenBackdrop] = useState(false);
@@ -62,7 +63,8 @@ export function CharacterSheet() {
                 epMod: response.data.characterModifiers.epMod,
                 spMod: response.data.characterModifiers.spMod,
                 transcendences: response.data.characterModifiers.transcendences,
-                enableRecalculate: response.data.characterModifiers.recalculationEnabled
+                enableRecalculate: response.data.characterModifiers.recalculationEnabled,
+                activeParty: response.data.activeParty
             };
     
             const status = {
@@ -183,7 +185,7 @@ export function CharacterSheet() {
             }
             const settings = {
                 id: response.data.id,
-                activeParty: response.data.activeParty,
+                // activeParty: response.data.activeParty,
             }
     
             setCharacterInfo(info);
@@ -206,8 +208,8 @@ export function CharacterSheet() {
         <>
             <Header variant="sheet"/>
             <Container maxWidth="xl" sx={{ mt: 5, mb: 10 }}>
-                <ActiveParty characterSettings={characterSettings} fetchCharacter={fetchCharacter}/>
-                <CharacterInfo characterInfo={characterInfo} fetchCharacter={fetchCharacter}/>
+                <Info characterInfo={characterInfo}/>
+                <Build characterInfo={characterInfo} fetchCharacter={fetchCharacter}/>
                 <Grid container spacing={1}>
                     <Stats characterStatus={characterStatus} fetchCharacter={fetchCharacter}/>
                     <Attributes characterAttributes={characterAttributes} fetchCharacter={fetchCharacter}/>
@@ -221,6 +223,7 @@ export function CharacterSheet() {
                 {/* <Grid container>
                     <Tiptap characterNotes={characterNotes}/>
                 </Grid> */}
+                {/* <ActiveParty characterSettings={characterSettings} fetchCharacter={fetchCharacter}/> */}
             </Container>
             <Backdrop
                 sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
