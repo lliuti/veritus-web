@@ -42,7 +42,7 @@ export function Defenses({ characterDefenses, fetchCharacter }) {
     }
 
     return (
-        <Grid item xs={12} sm={4} md={2} sx={{ mt: 3 }}>
+        <Grid item xs={12} sm={4} md={2} sx={{ mt: 5 }}>
             <Typography component="h1" variant="h5" color="inherit" sx={{ mb: 1}}>Defesa</Typography>
             <Grid container spacing={1}>
                 <Grid item xs={6} md={12}>
