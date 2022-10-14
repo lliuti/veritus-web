@@ -3,6 +3,7 @@ import { api } from '../../services/api';
 import { Bull } from "../Bull";
 import { AddRitualDialog } from './AddRitualDialog';
 import { useSnackbar } from 'notistack';
+import { HiPlusSm } from "react-icons/hi";
 
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
@@ -170,119 +171,22 @@ export const RitualsTable = ({ characterEquipment, fetchCharacter }) => {
                     </AccordionDetails>
                 </Accordion>
             ))}
-                {/* <Accordion>
-                    <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                    >
-                        <Typography sx={{ mr: 2 }}>Decadencia</Typography>
-                        <Typography 
-                            sx={{ display: { xs: 'none', sm: 'block' } }} 
-                            color="text.secondary"
-                        >
-                            Acelera o envelhecimento dos órgãos internos do alvo, fazendo seu corpo definhar.
-                        </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12}>
-                                <Box sx={{ mb: 0, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                                    <Typography>Morte - 1° círculo</Typography>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={12} sm={3}>
-                                <Box sx={{ mb: 0, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                                    <Typography color="text.secondary">Execução</Typography>
-                                    <Typography>Padrão</Typography>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={12} sm={3}>
-                                <Box sx={{ mb: 0, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                                    <Typography color="text.secondary">Alcance</Typography>
-                                    <Typography>Toque</Typography>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={12} sm={3}>
-                                <Box sx={{ mb: 0, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                                    <Typography color="text.secondary">Alvo</Typography>
-                                    <Typography>1 ser</Typography>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={12} sm={3}>
-                                <Box sx={{ mb: 0, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                                    <Typography color="text.secondary">Duração</Typography>
-                                    <Typography>instantanea</Typography>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Box sx={{ mb: 0, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                                    <Typography color="text.secondary">Resistencia</Typography>
-                                    <Typography>Fortitude reduz à metade</Typography>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Box sx={{ mb: 0, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                                    <Typography color="text.secondary">Descrição extensa</Typography>
-                                    <Typography>Espirais de trevas envolvem sua mão e definham o alvo, que sofre 2d8+2 pontos de dano de Morte.</Typography>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Box sx={{ mb: 0, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                                    <Typography color="text.secondary">Discente</Typography>
-                                    <Typography>(+2 PE): muda a resistência para “nenhuma” e o dano para 3d8+3. Como parte da execução do ritual, você transfere as espirais para uma arma e faz um ataque corpo a corpo contra o alvo com esta arma. Se acertar, causa o dano da arma e do ritual, somados.</Typography>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Box sx={{ mb: 0, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                                    <Typography color="text.secondary">Verdadeiro</Typography>
-                                    <Typography>(+5 PE): muda o alcance para “pessoal” o alvo para “área: explosão com 6m de raio” e o dano para 8d8+8. As espirais afetam todos os seres na área. Requer 3º círculo.</Typography>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={6} sm={3}>
-                                <Box sx={{ mb: 0, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                                    <Typography color="text.secondary">Editar</Typography>
-                                    <IconButton 
-                                        onClick={() => handleEditRitual(ritual)} 
-                                        aria-label="delete" 
-                                        color="warning" 
-                                        size="small"
-                                    >
-                                        <EditIcon color="warning"/>
-                                    </IconButton>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={6} sm={3}>
-                                <Box sx={{ mb: 0, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                                    <Typography color="text.secondary">Deletar</Typography>
-                                    <IconButton 
-                                        onClick={() => handleDeleteRitual(ritual.id)} 
-                                        aria-label="delete" 
-                                        color="error" 
-                                        size="small"
-                                    >
-                                        <DeleteForeverIcon color="error"/>
-                                    </IconButton>
-                                </Box>
-                            </Grid>
-                        </Grid>
-                    </AccordionDetails>
-                </Accordion> */}
-                <Button 
-                    onClick={() => setAddRitualDialogOpen(true)} 
-                    color="inherit" 
-                    variant='text' 
-                    fullWidth sx={{ mt: 1}}
-                >
-                    Adicionar Ritual
-                </Button>
-                <AddRitualDialog 
-                    onClose={handleCloseAddRitualDialog}
-                    open={addRitualDialogOpen}
-                    characterId={characterEquipment.id} 
-                    fetchCharacter={fetchCharacter}
-                    ritualToEdit={ritualToEdit}
-                />
+            <Button 
+                onClick={() => setAddRitualDialogOpen(true)} 
+                color="inherit" 
+                variant='text' 
+                fullWidth sx={{ mt: 1}}
+                endIcon={<HiPlusSm/>}
+            >
+                Adicionar Ritual
+            </Button>
+            <AddRitualDialog 
+                onClose={handleCloseAddRitualDialog}
+                open={addRitualDialogOpen}
+                characterId={characterEquipment.id} 
+                fetchCharacter={fetchCharacter}
+                ritualToEdit={ritualToEdit}
+            />
         </Container>
     )
 }
