@@ -46,12 +46,13 @@ export function Notes({ characterNotes, fetchCharacter }) {
                         multiline
                         rows={4}
                         variant="filled"    
-                        size='large'
+                        size='small'
                         color="secondary"
                         fullWidth
                         value={resistances}
                         onChange={(event) => setResistances(event.target.value)}
                         onBlur={handleUpdateNotes}
+                        sx={{ mt: 0.4 }}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -62,12 +63,13 @@ export function Notes({ characterNotes, fetchCharacter }) {
                         multiline
                         rows={4}
                         variant="filled"    
-                        size='large'
+                        size="small"
                         color="secondary"
                         fullWidth
                         value={quickNotes}
                         onChange={(event) => setQuickNotes(event.target.value)}
                         onBlur={handleUpdateNotes}
+                        sx={{ mt: 0.4 }}
                     />
                 </Grid>
             </Grid>
