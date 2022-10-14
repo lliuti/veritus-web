@@ -98,7 +98,7 @@ export function Skills({ characterSkills, fetchCharacter, build }) {
     };
 
     return (
-        <Grid item xs={12} md={4} sx={{ mt: 3 }}>
+        <Grid item xs={12} md={4} sx={{ mt: 5 }}>
             <Typography component="h1" variant="h5" color="inherit" sx={{ mb: 1}}>Perícias</Typography>
             <Grid container spacing={{ xs: 0.8, sm: 1 }}>
                 <Grid item xs={12} lg={6}>
