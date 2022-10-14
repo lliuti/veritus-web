@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSnackbar } from 'notistack';
 import { api } from '../../../services/api';
 import { ModifiersDialog } from '../../../components/ModifiersDialog';
+import CalculateIcon from '@mui/icons-material/Calculate';
 import RotateLeftIcon from '@mui/icons-material/RotateLeft';
 import Select from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
@@ -360,6 +361,7 @@ export function Build({ characterInfo, fetchCharacter }) {
                         // size="large" 
                         sx={{ mt: 2.4, height: 0.6 }}
                         onClick={() => setModifiersDialogOpen(true)}
+                        endIcon={<CalculateIcon/>}
                     >
                         Modificadores
                     </Button>
