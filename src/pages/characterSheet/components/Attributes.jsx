@@ -9,6 +9,7 @@ import SaveAsIcon from '@mui/icons-material/SaveAs';
 import { useState, useEffect } from 'react';
 import { api } from '../../../services/api';
 import { useSnackbar } from "notistack";
+import { GiBiceps, GiRunningShoe, GiCheckedShield, GiBrain, GiPolarStar } from "react-icons/gi";
 import Tooltip from '@mui/material/Tooltip';
 
 export function Attributes({ characterAttributes, fetchCharacter }) {
@@ -87,7 +88,11 @@ export function Attributes({ characterAttributes, fetchCharacter }) {
                         disabled={attributeRollEnabled}
                         color="secondary" 
                         variant='outlined' 
-                        size='medium' fullWidth>FOR: {str}
+                        endIcon={<GiBiceps/>}
+                        size='medium' 
+                        fullWidth
+                    >
+                        FOR: {str}
                     </LoadingButton>
                 </Grid>
                 <Grid item xs={6}>
@@ -100,6 +105,7 @@ export function Attributes({ characterAttributes, fetchCharacter }) {
                         disabled={attributeRollEnabled}
                         color="secondary" 
                         variant='outlined' 
+                        endIcon={<GiCheckedShield/>}
                         size='medium' fullWidth>VIG: {vig}
                     </LoadingButton>
                 </Grid>
@@ -112,7 +118,8 @@ export function Attributes({ characterAttributes, fetchCharacter }) {
                         loading={dexRollLoading}
                         disabled={attributeRollEnabled}
                         color="secondary" 
-                        variant='outlined' 
+                        variant='outlined'
+                        endIcon={<GiRunningShoe/>} 
                         size='medium' fullWidth>AGI: {dex}
                     </LoadingButton>
                 </Grid>
@@ -126,6 +133,7 @@ export function Attributes({ characterAttributes, fetchCharacter }) {
                         disabled={attributeRollEnabled}
                         color="secondary" 
                         variant='outlined' 
+                        endIcon={<GiBrain/>}
                         size='medium' fullWidth>INT: {int}
                     </LoadingButton>
                 </Grid>
@@ -139,6 +147,7 @@ export function Attributes({ characterAttributes, fetchCharacter }) {
                         disabled={attributeRollEnabled}
                         color="secondary" 
                         variant='outlined' 
+                        endIcon={<GiPolarStar/>}
                         size='medium' fullWidth>PRE: {cha}
                     </LoadingButton>
                 </Grid>
