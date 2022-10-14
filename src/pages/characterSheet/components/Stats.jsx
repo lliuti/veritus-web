@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useSnackbar } from 'notistack';
 import { api } from '../../../services/api';
+import { GiElectric } from "react-icons/gi";
+import { RiMentalHealthFill } from "react-icons/ri";
+import { MdFavorite } from "react-icons/md";
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import LoadingButton from '@mui/lab/LoadingButton';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
-import BatteryCharging90Icon from '@mui/icons-material/BatteryCharging90';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
@@ -62,12 +62,12 @@ export function Stats({ characterStatus, fetchCharacter }) {
     };
 
     return (
-        <Grid item xs={12} sm={4} md={2} sx={{ mt: 3 }}>
+        <Grid item xs={12} sm={4} md={2} sx={{ mt: 5 }}>
             <Typography component="h1" variant="h5" color="inherit" sx={{ mb: 1}}>Saúde</Typography>
             <Button onClick={handleHpClickOpen} color="secondary" variant='outlined' fullWidth sx={{ mb: 1, display: "flex", alignItems: "center", justifyContent: "space-around" }}>
                 <Typography component="span" variant="inherit">PV</Typography>
                 <Typography component="span" variant="inherit">{currentHp}/{maxHp}</Typography>
-                <FavoriteIcon/>
+                <MdFavorite size={18}/>
             </Button>
             <HpDialog 
                 open={hpDialogOpen} 
@@ -82,7 +82,7 @@ export function Stats({ characterStatus, fetchCharacter }) {
             <Button onClick={handleSanClickOpen} color="secondary" variant='outlined' fullWidth sx={{ mb: 1, display: "flex", alignItems: "center", justifyContent: "space-around" }}>
                 <Typography component="span" variant="inherit">PS</Typography>
                 <Typography component="span" variant="inherit">{currentSp}/{maxSp}</Typography>
-                <EmojiEmotionsIcon/>
+                <RiMentalHealthFill size={18}/>
             </Button>
             <SanDialog 
                 open={sanDialogOpen} 
@@ -97,7 +97,7 @@ export function Stats({ characterStatus, fetchCharacter }) {
             <Button onClick={handleEpClickOpen} color="secondary" variant='outlined' fullWidth sx={{ my: 0, display: "flex", alignItems: "center", justifyContent: "space-around" }}>
                 <Typography component="span" variant="inherit">PE</Typography>
                 <Typography component="span" variant="inherit">{currentEp}/{maxEp}</Typography>
-                <BatteryCharging90Icon/>
+                <GiElectric size={18}/>
             </Button>
             <EpDialog 
                 open={epDialogOpen} 
