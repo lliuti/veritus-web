@@ -75,7 +75,7 @@ export function Attributes({ characterAttributes, fetchCharacter }) {
     }
 
     return (
-        <Grid item xs={12} sm={4} md={2} sx={{ mt: 3 }}>
+        <Grid item xs={12} sm={4} md={2} sx={{ mt: 5 }}>
             <Typography component="h1" variant="h5" color="inherit" sx={{ mb: 1}}>Atributos</Typography>
             <Grid container spacing={1}>
                 <Grid item xs={6}>
@@ -88,7 +88,7 @@ export function Attributes({ characterAttributes, fetchCharacter }) {
                         disabled={attributeRollEnabled}
                         color="secondary" 
                         variant='outlined' 
-                        endIcon={<GiBiceps/>}
+                        endIcon={<GiBiceps size={18}/>}
                         size='medium' 
                         fullWidth
                     >
@@ -105,7 +105,7 @@ export function Attributes({ characterAttributes, fetchCharacter }) {
                         disabled={attributeRollEnabled}
                         color="secondary" 
                         variant='outlined' 
-                        endIcon={<GiCheckedShield/>}
+                        endIcon={<GiCheckedShield size={18}/>}
                         size='medium' fullWidth>VIG: {vig}
                     </LoadingButton>
                 </Grid>
@@ -119,7 +119,7 @@ export function Attributes({ characterAttributes, fetchCharacter }) {
                         disabled={attributeRollEnabled}
                         color="secondary" 
                         variant='outlined'
-                        endIcon={<GiRunningShoe/>} 
+                        endIcon={<GiRunningShoe size={18}/>} 
                         size='medium' fullWidth>AGI: {dex}
                     </LoadingButton>
                 </Grid>
@@ -133,7 +133,7 @@ export function Attributes({ characterAttributes, fetchCharacter }) {
                         disabled={attributeRollEnabled}
                         color="secondary" 
                         variant='outlined' 
-                        endIcon={<GiBrain/>}
+                        endIcon={<GiBrain size={18}/>}
                         size='medium' fullWidth>INT: {int}
                     </LoadingButton>
                 </Grid>
@@ -147,7 +147,7 @@ export function Attributes({ characterAttributes, fetchCharacter }) {
                         disabled={attributeRollEnabled}
                         color="secondary" 
                         variant='outlined' 
-                        endIcon={<GiPolarStar/>}
+                        endIcon={<GiPolarStar size={18}/>}
                         size='medium' fullWidth>PRE: {cha}
                     </LoadingButton>
                 </Grid>
