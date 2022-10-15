@@ -6,6 +6,7 @@ import { AddAttackDialog } from './AddAttackDialog';
 import { HiPlusSm } from "react-icons/hi";
 import { Bull } from '../Bull';
 import { useSnackbar } from 'notistack';
+import { FaDiceD20 } from "react-icons/fa";
 
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
@@ -75,9 +76,11 @@ export function AttacksTable({ characterEquipment, fetchCharacter }) {
                 attack,
                 type
             });
+            console.log(response.data);
             setDamageRollInfo(response.data);
             setDamageRollDialogOpen(true);
         } catch (err) {
+            console.log(err);
             enqueueSnackbar("Não foi possível realizar a rolagem de dano.", { 
                 variant: "error"
             });
@@ -101,10 +104,10 @@ export function AttacksTable({ characterEquipment, fetchCharacter }) {
                                 sx={{ display: { xs: 'none', sm: 'block' } }} 
                                 color="text.secondary"
                             >       
-                                {attack.damage}
+                                {/* {attack.damage}
                                 &nbsp;
                                 <Bull/>
-                                &nbsp;
+                                &nbsp; */}
                                 {attack.margin}/{attack.multiplier}
                             </Typography>
                         </AccordionSummary>
@@ -113,13 +116,35 @@ export function AttacksTable({ characterEquipment, fetchCharacter }) {
                                 <Grid item xs={6} sm={4} md={4} lg={3}>
                                     <Box sx={{ mb: 2, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
                                         <Typography color="text.secondary">Dano</Typography>
-                                        <LoadingButton loading={damageLoading} onClick={() => handleDamageRoll(attack, "damage")} color="secondary" variant='outlined' size="small" sx={{ textTransform: "lowercase" }}>{attack.damage}</LoadingButton>
+                                        <LoadingButton 
+                                            loading={damageLoading} 
+                                            onClick={() => handleDamageRoll(attack, "damage")} 
+                                            color="secondary" 
+                                            variant='outlined' 
+                                            size="small" 
+                                            endIcon={<FaDiceD20 size={16}/>}
+                                            // sx={{ textTransform: "lowercase" }}
+                                        >
+                                            {/* {attack.damage} */}
+                                            Rolar
+                                        </LoadingButton>
                                     </Box>
                                 </Grid>
                                 <Grid item xs={6} sm={4} md={4} lg={3}>
                                     <Box sx={{ mb: 2, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
                                         <Typography color="text.secondary">Dano Crítico</Typography>
-                                        <LoadingButton loading={criticalDamageLoading} onClick={() => handleDamageRoll(attack, "criticalDamage")} color="secondary" variant='outlined' size="small" sx={{ textTransform: "lowercase" }}>{attack.criticalDamage}</LoadingButton>
+                                        <LoadingButton 
+                                            loading={criticalDamageLoading} 
+                                            onClick={() => handleDamageRoll(attack, "criticalDamage")} 
+                                            color="secondary" 
+                                            variant='outlined' 
+                                            size="small" 
+                                            endIcon={<FaDiceD20 size={16}/>}
+                                            // sx={{ textTransform: "lowercase" }}
+                                        >
+                                            {/* {attack.criticalDamage} */}
+                                            Rolar
+                                        </LoadingButton>
                                     </Box>
                                 </Grid>
                                 <Grid item xs={6} sm={4} md={4} lg={3}>

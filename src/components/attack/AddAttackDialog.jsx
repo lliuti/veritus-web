@@ -36,6 +36,7 @@ export const AddAttackDialog = (props) => {
     const [storedAttack, setStoredAttack] = useState([]);
     
     const [damageValues, setDamageValues] = useState([{ damage: '', type: 'B' }]);
+    const [criticalDamageValues , setCriticalDamageValues ] = useState([{ damage: '', type: 'B' }]);
 
     const { enqueueSnackbar } = useSnackbar();
 
@@ -50,7 +51,9 @@ export const AddAttackDialog = (props) => {
             setAttack(attackToEdit.attack);
             setTest(attackToEdit.test);
             setDamage(attackToEdit.damage);
+            setDamageValues(JSON.parse(attackToEdit.damage));
             setCriticalDamage(attackToEdit.criticalDamage);
+            setCriticalDamageValues(JSON.parse(attackToEdit.criticalDamage));
             setDamageType(attackToEdit.damageType);
             setCategory(attackToEdit.category);
             setMargin(attackToEdit.margin);
@@ -73,13 +76,13 @@ export const AddAttackDialog = (props) => {
             return;
         }
 
-        if (!damage) {
-            enqueueSnackbar("Todo ataque precisa de um valor para o Dano.", { 
-                variant: "error"
-            });
-            setAddAttackLoading(false);
-            return;
-        }
+        // if (!damage) {
+        //     enqueueSnackbar("Todo ataque precisa de um valor para o Dano.", { 
+        //         variant: "error"
+        //     });
+        //     setAddAttackLoading(false);
+        //     return;
+        // }
 
         if (!criticalDamage) {
             setCriticalDamage("-");
@@ -90,8 +93,10 @@ export const AddAttackDialog = (props) => {
                 await api.post(`/characters/${characterId}/attack`, {
                     attack,
                     test: test.normalize('NFD').replace(/[\u0300-\u036f]/g, ""),
-                    damage: damage.normalize('NFD').replace(/[\u0300-\u036f]/g, ""),
-                    criticalDamage: criticalDamage.normalize('NFD').replace(/[\u0300-\u036f]/g, ""),
+                    // damage: damage.normalize('NFD').replace(/[\u0300-\u036f]/g, ""),
+                    damage: JSON.stringify(damageValues),
+                    // criticalDamage: criticalDamage.normalize('NFD').replace(/[\u0300-\u036f]/g, ""),
+                    criticalDamage: JSON.stringify(criticalDamageValues),
                     damageType,
                     category,
                     margin,
@@ -115,8 +120,10 @@ export const AddAttackDialog = (props) => {
                 await api.put(`/characters/${characterId}/attack/${attackToEdit.id}`, {
                     attack,
                     test: test.normalize('NFD').replace(/[\u0300-\u036f]/g, ""),
-                    damage: damage.normalize('NFD').replace(/[\u0300-\u036f]/g, ""),
-                    criticalDamage: criticalDamage.normalize('NFD').replace(/[\u0300-\u036f]/g, ""),
+                    // damage: damage.normalize('NFD').replace(/[\u0300-\u036f]/g, ""),
+                    damage: JSON.stringify(damageValues),
+                    // criticalDamage: criticalDamage.normalize('NFD').replace(/[\u0300-\u036f]/g, ""),
+                    criticalDamage: JSON.stringify(criticalDamageValues),
                     damageType,
                     category,
                     margin,
@@ -143,6 +150,8 @@ export const AddAttackDialog = (props) => {
         setTest("");
         setDamage("");
         setCriticalDamage("");
+        setDamageValues([{ damage: '', type: 'B' }]);
+        setCriticalDamageValues([{ damage: '', type: 'B' }]);
         setDamageType("");
         setCategory("");
         setMargin("");
@@ -162,7 +171,9 @@ export const AddAttackDialog = (props) => {
         const storedAttack = specifications.ataques.find(specification => specification.nome === event.target.value);
         setAttack(storedAttack.nome);
         setDamage(storedAttack.dano);
+        setDamageValues([{ damage: storedAttack.dano, type: storedAttack.tipoDano }]);
         setCriticalDamage(storedAttack.danoCritico);
+        setCriticalDamageValues([{ damage: storedAttack.danoCritico, type: storedAttack.tipoDano }]);
         setCategory(storedAttack.categoria);
         setDamageType(storedAttack.tipoDano);
         setMargin(storedAttack.margemCritico);
@@ -173,11 +184,16 @@ export const AddAttackDialog = (props) => {
         setAddToInventoryValue(storedAttack.adicionarAoInventario);
     }
 
-    const handleDynamicFormChange = (event, index) => {
+    const handleDynamicDamageChange = (event, index) => {
         let data = [...damageValues];
         data[index][event.target.name] = event.target.value;
         setDamageValues(data);
-        console.log(damageValues);
+    }
+    
+    const handleDynamicCriticalChange = (event, index) => {
+        let data = [...criticalDamageValues];
+        data[index][event.target.name] = event.target.value;
+        setCriticalDamageValues(data);
     }
 
     const handleAddDamage = () => {
@@ -186,6 +202,14 @@ export const AddAttackDialog = (props) => {
 
         const newDamage = { damage: '', type: 'B' };
         setDamageValues([...damageValues, newDamage]);
+    }
+    
+    const handleAddCriticalDamage = () => {
+        const emptyDamage = criticalDamageValues.find(d => d.damage == "");
+        if (emptyDamage) return;
+
+        const newDamage = { damage: '', type: 'B' };
+        setCriticalDamageValues([...criticalDamageValues, newDamage]);
     }
 
     const handleRemoveDamage = (index) => {
@@ -200,9 +224,22 @@ export const AddAttackDialog = (props) => {
         data.splice(index, 1)
         setDamageValues(data)
     }
+    
+    const handleRemoveCriticalDamage = (index) => {
+        if (criticalDamageValues.length == 1) {
+            let data = [...criticalDamageValues];
+            data[index].damage = "";
+            data[index].type = "B";
+            setCriticalDamageValues(data);
+            return;
+        };
+        let data = [...criticalDamageValues];
+        data.splice(index, 1)
+        setCriticalDamageValues(data)
+    }
 
     return (
-        <Dialog onClose={handleClose} open={open} fullWidth maxWidth='lg'>
+        <Dialog onClose={handleClose} open={open} fullWidth maxWidth='md'>
             <Typography component="h1" variant="h5" color="inherit" sx={{ paddingLeft: 2, paddingTop: 2}}>Adicionar Ataque / Arma</Typography>
             <Box component="div" sx={{ p: 2 }}>
                 <Grid container sx={{ alignItems: 'center' }} spacing={1}>
@@ -246,8 +283,8 @@ export const AddAttackDialog = (props) => {
                         >
                             <TextField id="damage" label="Dano" variant="filled" color="secondary" size="small" fullWidth value={damage} onChange={(event) => setDamage(event.target.value)}/>
                         </Tooltip>
-                    </Grid>
-                    <Grid item xs={12} md={3}>
+                    </Grid> */}
+                    {/* <Grid item xs={12} md={3}>
                         <Tooltip 
                             title='Exemplo de teste: "6d10+8+1d2". Evite espaços e acentos.'
                             placement="top"
@@ -263,8 +300,8 @@ export const AddAttackDialog = (props) => {
                                 onChange={(event) => setCriticalDamage(event.target.value)}
                             />
                         </Tooltip>
-                    </Grid>
-                    <Grid item xs={12}  md={3}>
+                    </Grid> */}
+                    {/* <Grid item xs={12}  md={3}>
                         <FormControl variant="filled" fullWidth>
                             <InputLabel id="damage-type-select-label" color="secondary">Tipo</InputLabel>
                             <Select
@@ -431,13 +468,13 @@ export const AddAttackDialog = (props) => {
                     : <></>}
 
                     <Grid item xs={12}>
-                        <Typography component="h1" variant="h5" color="inherit" sx={{ mt: 2 }}>Dano</Typography>
+                        <Typography component="h1" variant="h5" color="inherit" sx={{ mt: 3 }}>Dano</Typography>
+                        <Typography component="p" variant="body1" color="text.secondary" sx={{ mt: 0 }}>Evite espaços e acentos. Exemplo de rolagem: 2d6+3</Typography>
                     </Grid>
-
                     <Grid item xs={12}>
                         {damageValues.map((damage, index) => (
                             <Grid key={index} container spacing={1} sx={{ mb: 1 }}>
-                                <Grid item xs={12} md={3}>
+                                <Grid item xs={12} md={6}>
                                     <TextField 
                                         id="damage" 
                                         name="damage"
@@ -446,11 +483,11 @@ export const AddAttackDialog = (props) => {
                                         color="secondary" 
                                         size="small"
                                         value={damage.damage} 
-                                        onChange={(event) => handleDynamicFormChange(event, index)}
+                                        onChange={(event) => handleDynamicDamageChange(event, index)}
                                         fullWidth
                                     />
                                 </Grid>
-                                <Grid item xs={12} md={3}>
+                                <Grid item xs={12} md={4}>
                                     <FormControl variant="filled" fullWidth>
                                         <InputLabel id="damageTypeLabel" name="damageTypeLabel" color="secondary">Tipo</InputLabel>
                                         <Select
@@ -461,14 +498,14 @@ export const AddAttackDialog = (props) => {
                                             color="secondary"
                                             label="Tipo"
                                             size="small"
-                                            onChange={(event) => handleDynamicFormChange(event, index)}
+                                            onChange={(event) => handleDynamicDamageChange(event, index)}
                                         >
-                                            <MenuItem value="B">Balístico</MenuItem>
-                                            <MenuItem value="C">Corte</MenuItem>
+                                            <MenuItem value="Balístico">Balístico</MenuItem>
+                                            <MenuItem value="Corte">Corte</MenuItem>
                                             <MenuItem value="Eletricidade">Eletricidade</MenuItem>
                                             <MenuItem value="Fogo">Fogo</MenuItem>
                                             <MenuItem value="Frio">Frio</MenuItem>
-                                            <MenuItem value="I">Impacto</MenuItem>
+                                            <MenuItem value="Impacto">Impacto</MenuItem>
                                             <MenuItem value="Mental">Mental</MenuItem>
                                             <MenuItem value="Conhecimento">Conhecimento</MenuItem>
                                             <MenuItem value="Morte">Morte</MenuItem>
@@ -479,15 +516,73 @@ export const AddAttackDialog = (props) => {
                                         </Select>
                                     </FormControl>
                                 </Grid>
-                                <Grid item xs={12} md={3}>
-                                    <Button onClick={() => handleRemoveDamage(index)} color="inherit" sx={{ mt: 0.8 }}>Remover</Button>
+                                <Grid item xs={12} md={2}>
+                                    <Button onClick={() => handleRemoveDamage(index)} color="inherit" sx={{ mt: 0.8 }} fullWidth>Remover Dano</Button>
                                 </Grid>
                             </Grid>
                         ))}
                     </Grid>
-
                     <Grid item xs={12}>
                         <Button onClick={handleAddDamage} color="inherit">Adicionar dano</Button>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Typography component="h1" variant="h5" color="inherit" sx={{ mt: 2 }}>Dano Crítico</Typography>
+                        <Typography component="p" variant="body1" color="text.secondary" sx={{ mt: 0 }}>Evite espaços e acentos. Exemplo de rolagem: 2d6+3</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        {criticalDamageValues.map((damage, index) => (
+                            <Grid key={index} container spacing={1} sx={{ mb: 1 }}>
+                                <Grid item xs={12} md={6}>
+                                    <TextField 
+                                        id="damage" 
+                                        name="damage"
+                                        label="Dano" 
+                                        variant="filled" 
+                                        color="secondary" 
+                                        size="small"
+                                        value={damage.damage} 
+                                        onChange={(event) => handleDynamicCriticalChange(event, index)}
+                                        fullWidth
+                                    />
+                                </Grid>
+                                <Grid item xs={12} md={4}>
+                                    <FormControl variant="filled" fullWidth>
+                                        <InputLabel id="criticalDamageTypeLabel" name="criticalDamageTypeLabel" color="secondary">Tipo</InputLabel>
+                                        <Select
+                                            labelId="criticalDamageType"
+                                            id="type"
+                                            name="type"
+                                            value={damage.type}
+                                            color="secondary"
+                                            label="Tipo"
+                                            size="small"
+                                            onChange={(event) => handleDynamicCriticalChange(event, index)}
+                                        >
+                                            <MenuItem value="Balístico">Balístico</MenuItem>
+                                            <MenuItem value="Corte">Corte</MenuItem>
+                                            <MenuItem value="Eletricidade">Eletricidade</MenuItem>
+                                            <MenuItem value="Fogo">Fogo</MenuItem>
+                                            <MenuItem value="Frio">Frio</MenuItem>
+                                            <MenuItem value="Impacto">Impacto</MenuItem>
+                                            <MenuItem value="Mental">Mental</MenuItem>
+                                            <MenuItem value="Conhecimento">Conhecimento</MenuItem>
+                                            <MenuItem value="Morte">Morte</MenuItem>
+                                            <MenuItem value="Sangue">Sangue</MenuItem>
+                                            <MenuItem value="Energia">Energia</MenuItem>
+                                            <MenuItem value="Perfuração">Perfuração</MenuItem>
+                                            <MenuItem value="Químico">Químico</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </Grid>
+                                <Grid item xs={12} md={2}>
+                                    <Button onClick={() => handleRemoveCriticalDamage(index)} color="inherit" sx={{ mt: 0.8 }} fullWidth>Remover Dano</Button>
+                                </Grid>
+                            </Grid>
+                        ))}
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Button onClick={handleAddCriticalDamage} color="inherit">Adicionar dano crítico</Button>
                     </Grid>
 
                     <Grid item xs={12}  md={12}>
