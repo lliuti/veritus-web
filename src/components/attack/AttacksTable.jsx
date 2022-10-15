@@ -76,11 +76,9 @@ export function AttacksTable({ characterEquipment, fetchCharacter }) {
                 attack,
                 type
             });
-            console.log(response.data);
             setDamageRollInfo(response.data);
             setDamageRollDialogOpen(true);
         } catch (err) {
-            console.log(err);
             enqueueSnackbar("Não foi possível realizar a rolagem de dano.", { 
                 variant: "error"
             });

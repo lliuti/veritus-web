@@ -49,7 +49,6 @@ export const Info = ({ characterInfo }) => {
                 variant: "info"
             });
         } catch (err) {
-            console.log(err);
             enqueueSnackbar("Não foi possível atualizar as informações.", { 
                 variant: "error"
             });

@@ -225,7 +225,6 @@ function EditAttributesDialog(props) {
                 variant: "info"
             });
         } catch (err) {
-            console.log(err);
             enqueueSnackbar("Não foi possível atualizar os atributos.", { 
                 variant: "error"
             });

@@ -46,7 +46,6 @@ export function ModifiersDialog({ onClose, open, characterId, modifiers, charact
 
             handleClose();
         } catch (err) {
-            console.log(err);
             enqueueSnackbar("Não foi possível atualizar os modificadores.", { 
                 variant: "error"
             });

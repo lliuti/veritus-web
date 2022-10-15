@@ -89,7 +89,6 @@ export function Skills({ characterSkills, fetchCharacter, build }) {
             setSkillRollDialogInfo(response.data);
             setSkillRollOpen(true);
         } catch (err) {
-            console.log(err);
             enqueueSnackbar("Não foi possível realizar a rolagem de perícia.", { 
                 variant: "error"
             });

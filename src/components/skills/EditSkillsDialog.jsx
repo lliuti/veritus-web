@@ -80,7 +80,6 @@ export function EditSkillsDialog(props) {
         setTecnologia(characterSkills.tecnologia);
         setVontade(characterSkills.vontade);
 
-        // console.log(specifications.origem[build.background]?.pericias, specifications.classe[build.class]?.pericias);
         setBackgroundSkills(specifications.origens.find(x => x.background == build.background)?.pericias)
         setClassSkills(specifications.classes[build.class]?.pericias);
     }, [characterSkills]);
