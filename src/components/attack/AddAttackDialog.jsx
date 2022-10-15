@@ -76,14 +76,6 @@ export const AddAttackDialog = (props) => {
             return;
         }
 
-        // if (!damage) {
-        //     enqueueSnackbar("Todo ataque precisa de um valor para o Dano.", { 
-        //         variant: "error"
-        //     });
-        //     setAddAttackLoading(false);
-        //     return;
-        // }
-
         if (!criticalDamage) {
             setCriticalDamage("-");
         }
@@ -93,9 +85,7 @@ export const AddAttackDialog = (props) => {
                 await api.post(`/characters/${characterId}/attack`, {
                     attack,
                     test: test.normalize('NFD').replace(/[\u0300-\u036f]/g, ""),
-                    // damage: damage.normalize('NFD').replace(/[\u0300-\u036f]/g, ""),
                     damage: JSON.stringify(damageValues),
-                    // criticalDamage: criticalDamage.normalize('NFD').replace(/[\u0300-\u036f]/g, ""),
                     criticalDamage: JSON.stringify(criticalDamageValues),
                     damageType,
                     category,
@@ -120,9 +110,7 @@ export const AddAttackDialog = (props) => {
                 await api.put(`/characters/${characterId}/attack/${attackToEdit.id}`, {
                     attack,
                     test: test.normalize('NFD').replace(/[\u0300-\u036f]/g, ""),
-                    // damage: damage.normalize('NFD').replace(/[\u0300-\u036f]/g, ""),
                     damage: JSON.stringify(damageValues),
-                    // criticalDamage: criticalDamage.normalize('NFD').replace(/[\u0300-\u036f]/g, ""),
                     criticalDamage: JSON.stringify(criticalDamageValues),
                     damageType,
                     category,
@@ -276,59 +264,6 @@ export const AddAttackDialog = (props) => {
                     <Grid item xs={12} md={3}>
                         <TextField id="attack" label="Ataque / Arma" variant="filled" color="secondary" size="small" fullWidth value={attack} onChange={(event) => setAttack(event.target.value)}/>
                     </Grid>
-                    {/* <Grid item xs={12}  md={3}>
-                        <Tooltip 
-                            title='Exemplo de teste: "2d6+3+1d8". Evite espaços e acentos.'
-                            placement="top"
-                        >
-                            <TextField id="damage" label="Dano" variant="filled" color="secondary" size="small" fullWidth value={damage} onChange={(event) => setDamage(event.target.value)}/>
-                        </Tooltip>
-                    </Grid> */}
-                    {/* <Grid item xs={12} md={3}>
-                        <Tooltip 
-                            title='Exemplo de teste: "6d10+8+1d2". Evite espaços e acentos.'
-                            placement="top"
-                        >
-                            <TextField 
-                                id="criticalDamage" 
-                                label="Dano Crítico" 
-                                variant="filled" 
-                                color="secondary" 
-                                size="small" 
-                                fullWidth 
-                                value={criticalDamage} 
-                                onChange={(event) => setCriticalDamage(event.target.value)}
-                            />
-                        </Tooltip>
-                    </Grid> */}
-                    {/* <Grid item xs={12}  md={3}>
-                        <FormControl variant="filled" fullWidth>
-                            <InputLabel id="damage-type-select-label" color="secondary">Tipo</InputLabel>
-                            <Select
-                                labelId="damage-type-value-select-label"
-                                id="damage-type-value-select"
-                                value={damageType}
-                                color="secondary"
-                                label="Tipo"
-                                size="small"
-                                onChange={(event) => setDamageType(event.target.value)}
-                            >
-                                <MenuItem value="B">Balístico</MenuItem>
-                                <MenuItem value="C">Corte</MenuItem>
-                                <MenuItem value="Eletricidade">Eletricidade</MenuItem>
-                                <MenuItem value="Fogo">Fogo</MenuItem>
-                                <MenuItem value="Frio">Frio</MenuItem>
-                                <MenuItem value="I">Impacto</MenuItem>
-                                <MenuItem value="Mental">Mental</MenuItem>
-                                <MenuItem value="Conhecimento">Conhecimento</MenuItem>
-                                <MenuItem value="Morte">Morte</MenuItem>
-                                <MenuItem value="Sangue">Sangue</MenuItem>
-                                <MenuItem value="Energia">Energia</MenuItem>
-                                <MenuItem value="Perfuração">Perfuração</MenuItem>
-                                <MenuItem value="Químico">Químico</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Grid> */}
                     <Grid item xs={12}  md={3}>
                         <FormControl variant="filled" fullWidth>
                             <InputLabel id="category-select-label" color="secondary">Categoria</InputLabel>
