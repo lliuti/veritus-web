@@ -34,6 +34,8 @@ export const AddAttackDialog = (props) => {
     const [buttonFunction, setButtonFunction] = useState("create");
     const [addAttackLoading, setAddAttackLoading] = useState(false);
     const [storedAttack, setStoredAttack] = useState([]);
+    
+    const [damageValues, setDamageValues] = useState([{ damage: '', type: 'B' }]);
 
     const { enqueueSnackbar } = useSnackbar();
 
@@ -171,12 +173,40 @@ export const AddAttackDialog = (props) => {
         setAddToInventoryValue(storedAttack.adicionarAoInventario);
     }
 
+    const handleDynamicFormChange = (event, index) => {
+        let data = [...damageValues];
+        data[index][event.target.name] = event.target.value;
+        setDamageValues(data);
+        console.log(damageValues);
+    }
+
+    const handleAddDamage = () => {
+        const emptyDamage = damageValues.find(d => d.damage == "");
+        if (emptyDamage) return;
+
+        const newDamage = { damage: '', type: 'B' };
+        setDamageValues([...damageValues, newDamage]);
+    }
+
+    const handleRemoveDamage = (index) => {
+        if (damageValues.length == 1) {
+            let data = [...damageValues];
+            data[index].damage = "";
+            data[index].type = "B";
+            setDamageValues(data);
+            return;
+        };
+        let data = [...damageValues];
+        data.splice(index, 1)
+        setDamageValues(data)
+    }
+
     return (
         <Dialog onClose={handleClose} open={open} fullWidth maxWidth='lg'>
             <Typography component="h1" variant="h5" color="inherit" sx={{ paddingLeft: 2, paddingTop: 2}}>Adicionar Ataque / Arma</Typography>
             <Box component="div" sx={{ p: 2 }}>
                 <Grid container sx={{ alignItems: 'center' }} spacing={1}>
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12}>
                         <FormControl variant="filled" fullWidth>
                             <InputLabel id="stored-attack-select-label" color="secondary">Selecionar ataque cadastrado</InputLabel>
                             <Select
@@ -209,9 +239,8 @@ export const AddAttackDialog = (props) => {
                     <Grid item xs={12} md={3}>
                         <TextField id="attack" label="Ataque / Arma" variant="filled" color="secondary" size="small" fullWidth value={attack} onChange={(event) => setAttack(event.target.value)}/>
                     </Grid>
-                    <Grid item xs={12}  md={3}>
+                    {/* <Grid item xs={12}  md={3}>
                         <Tooltip 
-                            // title='Exemplo de teste dinâmico: "2d6+[AGI]". Exemplo de teste simples: "2d6+3".' 
                             title='Exemplo de teste: "2d6+3+1d8". Evite espaços e acentos.'
                             placement="top"
                         >
@@ -262,7 +291,7 @@ export const AddAttackDialog = (props) => {
                                 <MenuItem value="Químico">Químico</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={12}  md={3}>
                         <FormControl variant="filled" fullWidth>
                             <InputLabel id="category-select-label" color="secondary">Categoria</InputLabel>
@@ -382,7 +411,7 @@ export const AddAttackDialog = (props) => {
                         />
                     </Grid>
                     {buttonFunction == "create" ? 
-                        <Grid item xs={12}  md={3}>
+                        <Grid item xs={12} md={3}>
                             <FormControl variant="filled" fullWidth>
                                 <InputLabel id="add-to-inventory-select-label" color="secondary">Adicionar ao Inventário?</InputLabel>
                                 <Select
@@ -400,6 +429,66 @@ export const AddAttackDialog = (props) => {
                             </FormControl>
                         </Grid>
                     : <></>}
+
+                    <Grid item xs={12}>
+                        <Typography component="h1" variant="h5" color="inherit" sx={{ mt: 2 }}>Dano</Typography>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        {damageValues.map((damage, index) => (
+                            <Grid key={index} container spacing={1} sx={{ mb: 1 }}>
+                                <Grid item xs={12} md={3}>
+                                    <TextField 
+                                        id="damage" 
+                                        name="damage"
+                                        label="Dano" 
+                                        variant="filled" 
+                                        color="secondary" 
+                                        size="small"
+                                        value={damage.damage} 
+                                        onChange={(event) => handleDynamicFormChange(event, index)}
+                                        fullWidth
+                                    />
+                                </Grid>
+                                <Grid item xs={12} md={3}>
+                                    <FormControl variant="filled" fullWidth>
+                                        <InputLabel id="damageTypeLabel" name="damageTypeLabel" color="secondary">Tipo</InputLabel>
+                                        <Select
+                                            labelId="damageType"
+                                            id="type"
+                                            name="type"
+                                            value={damage.type}
+                                            color="secondary"
+                                            label="Tipo"
+                                            size="small"
+                                            onChange={(event) => handleDynamicFormChange(event, index)}
+                                        >
+                                            <MenuItem value="B">Balístico</MenuItem>
+                                            <MenuItem value="C">Corte</MenuItem>
+                                            <MenuItem value="Eletricidade">Eletricidade</MenuItem>
+                                            <MenuItem value="Fogo">Fogo</MenuItem>
+                                            <MenuItem value="Frio">Frio</MenuItem>
+                                            <MenuItem value="I">Impacto</MenuItem>
+                                            <MenuItem value="Mental">Mental</MenuItem>
+                                            <MenuItem value="Conhecimento">Conhecimento</MenuItem>
+                                            <MenuItem value="Morte">Morte</MenuItem>
+                                            <MenuItem value="Sangue">Sangue</MenuItem>
+                                            <MenuItem value="Energia">Energia</MenuItem>
+                                            <MenuItem value="Perfuração">Perfuração</MenuItem>
+                                            <MenuItem value="Químico">Químico</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </Grid>
+                                <Grid item xs={12} md={3}>
+                                    <Button onClick={() => handleRemoveDamage(index)} color="inherit" sx={{ mt: 0.8 }}>Remover</Button>
+                                </Grid>
+                            </Grid>
+                        ))}
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Button onClick={handleAddDamage} color="inherit">Adicionar dano</Button>
+                    </Grid>
 
                     <Grid item xs={12}  md={12}>
                         <LoadingButton 
