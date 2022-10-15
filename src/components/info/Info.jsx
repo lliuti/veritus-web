@@ -20,12 +20,31 @@ export const Info = ({ characterInfo }) => {
 
     useEffect(() => {
         setName(characterInfo.name);
-        // setAge(characterInfo.age);
+        setAge(characterInfo.age);
+        setNickname(characterInfo.nickname);
+        setGender(characterInfo.gender);
+        setHeight(characterInfo.height);
+        setBodyType(characterInfo.bodyType);
+        setHair(characterInfo.hair);
+        setGreatestQuality(characterInfo.greatestQuality);
+        setWorstFlaw(characterInfo.worstFlaw);
+        setBelief(characterInfo.belief);
     }, [characterInfo]);
 
     const handleUpdateCharacterInfo = async () => {
         try {
-            await api.put(`/characters/${characterInfo.id}/info`, { name });
+            await api.put(`/characters/${characterInfo.id}/info`, { 
+                name,
+                age: parseInt(age),
+                nickname,
+                gender,
+                height,
+                bodyType,
+                hair,
+                greatestQuality,
+                worstFlaw,
+                belief,
+            });
             enqueueSnackbar("Informações atualizadas.", { 
                 variant: "info"
             });
