@@ -121,7 +121,7 @@ export function EditSkillsDialog(props) {
                                 labelId="acrobacia-select-label"
                                 id="acrobacia-select"
                                 value={acrobacia}
-                                color="success"
+                                color="secondary"
                                 label="Perícia"
                                 onChange={(event) => setAcrobacia(event.target.value)}
                             >
