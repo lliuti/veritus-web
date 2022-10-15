@@ -382,12 +382,13 @@ export function Dashboard() {
                                                             Rolagem de dano: {roll.attack}
                                                         </Typography>
                                                         {/* [{roll.diceRolls.trim()}] */}
-                                                        {roll.resultValues.map((result) => (
+                                                        {roll.resultValues.map((result, index) => (
                                                             <Typography 
                                                                 // sx={{ textTransform: "uppercase" }} 
                                                                 component="p" 
                                                                 variant="body1" 
                                                                 color="inherit"
+                                                                key={index}
                                                             > 
                                                                 {result.damageRoll}
                                                                 &nbsp; 
