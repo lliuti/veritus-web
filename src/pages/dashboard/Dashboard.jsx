@@ -381,18 +381,27 @@ export function Dashboard() {
                                                         >
                                                             Rolagem de dano: {roll.attack}
                                                         </Typography>
-                                                        <Typography 
-                                                            sx={{ textTransform: "uppercase" }} 
-                                                            component="p" 
-                                                            variant="body1" 
-                                                            color="inherit"
-                                                        > 
-                                                            [{roll.diceRolls.trim()}]
-                                                            &nbsp; 
-                                                            &rarr;
-                                                            &nbsp; 
-                                                            <strong>{roll.testResult}</strong>
-                                                        </Typography>
+                                                        {/* [{roll.diceRolls.trim()}] */}
+                                                        {roll.resultValues.map((result) => (
+                                                            <Typography 
+                                                                // sx={{ textTransform: "uppercase" }} 
+                                                                component="p" 
+                                                                variant="body1" 
+                                                                color="inherit"
+                                                            > 
+                                                                {result.damageRoll}
+                                                                &nbsp; 
+                                                                &rarr;
+                                                                &nbsp; 
+                                                                [{result.diceRolls.trim()}]
+                                                                &nbsp; 
+                                                                &rarr;
+                                                                &nbsp; 
+                                                                <strong>{result.testResult}</strong>
+                                                                &nbsp; 
+                                                                ({result.type})
+                                                            </Typography>
+                                                        ))}
                                                     </>
                                                 )
                                             }
