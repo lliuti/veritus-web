@@ -211,20 +211,25 @@ function EditAttributesDialog(props) {
     }
 
     const handleUpdateAttributes = async () => {
-        // setUpdateLoading(true);
         try {
             onClose();
-            await api.put(`/characters/${characterAttributes.id}/attributes`, { str,vig,dex,cha,int });
+            await api.put(`/characters/${characterAttributes.id}/attributes`, { 
+                str: str.toString(),
+                vig: vig.toString(),
+                dex: dex.toString(),
+                cha: cha.toString(),
+                int: int.toString() 
+            });
             fetchCharacter();
             enqueueSnackbar("Atributos atualizados.", { 
                 variant: "info"
             });
         } catch (err) {
+            console.log(err);
             enqueueSnackbar("Não foi possível atualizar os atributos.", { 
                 variant: "error"
             });
         }
-        // setUpdateLoading(false);
     };
 
     return (
@@ -258,8 +263,7 @@ function EditAttributesDialog(props) {
                             type="number" 
                             value={str}
                             onChange={(event) => {
-                                setStr(event.target.value);
-                                // calculateAttributePoints();
+                                setStr(parseInt(event.target.value));
                             }}
                             onBlur={calculateAttributePoints}
                             fullWidth
@@ -275,8 +279,7 @@ function EditAttributesDialog(props) {
                             type="number" 
                             value={vig}
                             onChange={(event) => {
-                                setVig(event.target.value);
-                                // calculateAttributePoints();
+                                setVig(parseInt(event.target.value));
                             }}
                             onBlur={calculateAttributePoints}
                             fullWidth
@@ -292,8 +295,7 @@ function EditAttributesDialog(props) {
                             type="number" 
                             value={dex}
                             onChange={(event) => {
-                                setDex(event.target.value);
-                                // calculateAttributePoints();
+                                setDex(parseInt(event.target.value));
                             }}
                             onBlur={calculateAttributePoints}
                             fullWidth
@@ -309,8 +311,7 @@ function EditAttributesDialog(props) {
                             type="number" 
                             value={int}
                             onChange={(event) => {
-                                setInt(event.target.value);
-                                // calculateAttributePoints();
+                                setInt(parseInt(event.target.value));
                             }}
                             onBlur={calculateAttributePoints}
                             fullWidth
@@ -326,8 +327,7 @@ function EditAttributesDialog(props) {
                             type="number" 
                             value={cha}
                             onChange={(event) => {
-                                setCha(event.target.value);
-                                // calculateAttributePoints();
+                                setCha(parseInt(event.target.value));
                             }}
                             onBlur={calculateAttributePoints}
                             fullWidth
@@ -342,7 +342,6 @@ function EditAttributesDialog(props) {
                             variant='text' 
                             endIcon={<SaveAsIcon/>} 
                             fullWidth
-                            // loading={updateLoading}
                         >
                             Atualizar
                         </LoadingButton>
