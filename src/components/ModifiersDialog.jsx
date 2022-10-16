@@ -61,7 +61,7 @@ export function ModifiersDialog({ onClose, open, characterId, modifiers, charact
         <Dialog onClose={handleClose} open={open} fullWidth>
             <Grid container spacing={1} sx={{ px: 2, pb: 2}}>
                 <Grid item xs={12}>
-                    <Typography component="h1" variant="h5" color="inherit" sx={{ mt: 2}}>Editar Modificadores</Typography>
+                    <Typography component="h1" variant="h6" color="inherit" sx={{ mt: 2}}>Editar Modificadores</Typography>
                 </Grid>
                 <Grid item xs={6} sm={4}>
                     <Tooltip 
@@ -71,7 +71,6 @@ export function ModifiersDialog({ onClose, open, characterId, modifiers, charact
                         <TextField
                             type="number"
                             inputProps={{ min: "0", step: "1" }}
-                            margin="normal"
                             id="hpModifierByNex"
                             label="Modif. PV p/ NEX"
                             name="hpModifierByNex"
@@ -91,7 +90,6 @@ export function ModifiersDialog({ onClose, open, characterId, modifiers, charact
                         <TextField
                             type="number"
                             inputProps={{ min: "0", step: "1" }}
-                            margin="normal"
                             id="sanModifierByNex"
                             label="Modif. PS p/ NEX"
                             name="sanModifierByNex"
@@ -111,7 +109,6 @@ export function ModifiersDialog({ onClose, open, characterId, modifiers, charact
                         <TextField
                             type="number"
                             inputProps={{ min: "0", step: "1" }}
-                            margin="normal"
                             id="epModifierByNex"
                             label="Modif. PE p/ NEX"
                             name="epModifierByNex"
@@ -129,7 +126,6 @@ export function ModifiersDialog({ onClose, open, characterId, modifiers, charact
                         placement="top"
                     >    
                         <TextField
-                            margin="normal"
                             id="hpModifier"
                             label="Modif. PV geral"
                             name="hpModifier"
@@ -148,7 +144,6 @@ export function ModifiersDialog({ onClose, open, characterId, modifiers, charact
                         placement="top"
                     >
                         <TextField
-                            margin="normal"
                             id="sanModifier"
                             label="Modif. PS geral"
                             name="sanModifier"
@@ -167,7 +162,6 @@ export function ModifiersDialog({ onClose, open, characterId, modifiers, charact
                         placement="top"
                     >
                         <TextField
-                            margin="normal"
                             id="epModifier"
                             label="Modif. PE geral"
                             name="epModifier"
@@ -186,7 +180,6 @@ export function ModifiersDialog({ onClose, open, characterId, modifiers, charact
                         placement="top-start"
                     >
                         <TextField
-                            margin="normal"
                             id="transcendencias"
                             label="Quantas vezes o personagem transcendeu?"
                             name="transcendencias"
