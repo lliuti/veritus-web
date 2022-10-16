@@ -75,8 +75,8 @@ export function Attributes({ characterAttributes, fetchCharacter }) {
     }
 
     return (
-        <Grid item xs={12} sm={4} md={2} sx={{ mt: 5 }}>
-            <Typography component="h1" variant="h5" color="inherit" sx={{ mb: 1}}>Atributos</Typography>
+        <Grid item xs={12} sm={5} md={3} sx={{ mt: 5 }}>
+            <Typography component="h1" variant="h6" color="inherit" sx={{ mb: 1}}>Atributos</Typography>
             <Grid container spacing={1}>
                 <Grid item xs={6}>
                     <LoadingButton 
@@ -236,7 +236,7 @@ function EditAttributesDialog(props) {
             <Box component="div" sx={{ p: 2 }}>
                 <Grid container sx={{ alignItems: 'center' }} spacing={1}>
                     <Grid item xs={12}>
-                        <Typography component="h1" variant="h5" color="inherit">Editar Atributos</Typography>
+                        <Typography component="h1" variant="h6" color="inherit">Editar Atributos</Typography>
                     </Grid>
                     <Grid item xs={12}>
                         <Tooltip 
@@ -360,7 +360,7 @@ function AttributeRollDialog(props) {
 
     return (
         <Dialog onClose={handleClose} open={open}>
-            <Typography component="h1" variant="h5" color="inherit" sx={{ px: 2, paddingTop: 2 }}>Rolagem de {attributeRollDialogInfo.attributeName}</Typography>
+            <Typography component="h1" variant="h6" color="inherit" sx={{ px: 2, paddingTop: 2 }}>Rolagem de {attributeRollDialogInfo.attributeName}</Typography>
             <Box component="div" sx={{ p: 2 }}>
                 <Grid container sx={{ alignItems: 'center' }}>
                     <Grid item xs={12}>
