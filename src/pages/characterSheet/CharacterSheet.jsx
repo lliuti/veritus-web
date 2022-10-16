@@ -1,4 +1,4 @@
-import { useNavigate, useParams  } from "react-router-dom";
+import { useParams  } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Build } from "./components/Build";
 import { Stats } from "./components/Stats";
@@ -6,8 +6,8 @@ import { Attributes } from "./components/Attributes";
 import { Defenses } from "./components/Defenses";
 import { Skills } from "./components/Skills";
 import { Equipment } from "./components/Equipment";
-import { Notes } from "./components/Notes";
-// import { ActiveParty } from "./components/ActiveParty";
+import { QuickNotes } from "../../components/QuickNotes";
+import { Resistances } from "../../components/Resistances";
 import { Tiptap } from "../../components/Tiptap";
 import Fab from '@mui/material/Fab';
 import { CustomRollDialog } from "../../components/CustomRollDialog";
@@ -224,7 +224,8 @@ export function CharacterSheet() {
                     <Stats characterStatus={characterStatus} fetchCharacter={fetchCharacter}/>
                     <Attributes characterAttributes={characterAttributes} fetchCharacter={fetchCharacter}/>
                     <Defenses characterDefenses={characterDefenses} fetchCharacter={fetchCharacter}/>
-                    <Notes characterNotes={characterNotes} fetchCharacter={fetchCharacter}/>
+                    <Resistances characterNotes={characterNotes} fetchCharacter={fetchCharacter}/>
+                    <QuickNotes characterNotes={characterNotes} fetchCharacter={fetchCharacter}/>
                 </Grid>
                 <Grid container spacing={{ xs: 1, md: 3}}>
                     <Skills characterSkills={characterSkills} build={{ class: characterInfo.characterClass, background: characterInfo.background }} fetchCharacter={fetchCharacter}/>
@@ -233,7 +234,6 @@ export function CharacterSheet() {
                 {/* <Grid container>
                     <Tiptap characterNotes={characterNotes}/>
                 </Grid> */}
-                {/* <ActiveParty characterSettings={characterSettings} fetchCharacter={fetchCharacter}/> */}
             </Container>
             <Backdrop
                 sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
