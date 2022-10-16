@@ -28,8 +28,7 @@ export function Defenses({ characterDefenses, fetchCharacter }) {
                 passive,
                 dodging
              });
-    
-            fetchCharacter();
+
             enqueueSnackbar("Defesas atualizadas.", { 
                 variant: "info"
             });
@@ -42,8 +41,8 @@ export function Defenses({ characterDefenses, fetchCharacter }) {
     }
 
     return (
-        <Grid item xs={12} sm={4} md={2} sx={{ mt: 5 }}>
-            <Typography component="h1" variant="h5" color="inherit" sx={{ mb: 1}}>Defesa</Typography>
+        <Grid item xs={12} sm={4} md={1} sx={{ mt: 5 }}>
+            <Typography component="h1" variant="h6" color="inherit" sx={{ mb: 1}}>Defesa</Typography>
             <Grid container spacing={1}>
                 <Grid item xs={6} md={12}>
                     <Tooltip 
@@ -51,7 +50,6 @@ export function Defenses({ characterDefenses, fetchCharacter }) {
                         placement="top-start"
                     >
                         <TextField
-                            margin="normal"
                             size='small'
                             id="passive"
                             label="Passiva"
@@ -72,7 +70,6 @@ export function Defenses({ characterDefenses, fetchCharacter }) {
                         placement="top-start"
                     >
                         <TextField
-                            margin="normal"
                             size='small'
                             id="dodging"
                             label="Esquivando"
