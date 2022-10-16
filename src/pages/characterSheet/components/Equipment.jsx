@@ -53,7 +53,7 @@ export function Equipment({characterEquipment, fetchCharacter}) {
 
     return (
         <Grid item xs={12} md={8} sx={{ mt: 5 }}>
-            <Typography component="h1" variant="h5" color="inherit" sx={{ mb: 1}}>Equipamento</Typography>
+            <Typography component="h1" variant="h6" color="inherit" sx={{ mb: 1}}>Equipamento</Typography>
             <Tabs
                 value={tabValue}
                 onChange={handleTabsChange}
