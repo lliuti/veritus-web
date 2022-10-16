@@ -62,8 +62,8 @@ export function Stats({ characterStatus, fetchCharacter }) {
     };
 
     return (
-        <Grid item xs={12} sm={4} md={2} sx={{ mt: 5 }}>
-            <Typography component="h1" variant="h5" color="inherit" sx={{ mb: 1}}>Saúde</Typography>
+        <Grid item xs={12} sm={3} md={2} sx={{ mt: 5 }}>
+            <Typography component="h1" variant="h6" color="inherit" sx={{ mb: 1}}>Saúde</Typography>
             <Button onClick={handleHpClickOpen} color="secondary" variant='outlined' fullWidth sx={{ mb: 1, display: "flex", alignItems: "center", justifyContent: "space-around" }}>
                 <Typography component="span" variant="inherit">PV</Typography>
                 <Typography component="span" variant="inherit">{currentHp}/{maxHp}</Typography>
@@ -180,7 +180,7 @@ function HpDialog(props) {
 
     return (
         <Dialog onClose={handleClose} open={open} fullWidth maxWidth='sm'>
-            <Typography component="h1" variant="h5" color="inherit" sx={{ paddingLeft: 2, paddingTop: 2}}>Pontos de Vida</Typography>
+            <Typography component="h1" variant="h6" color="inherit" sx={{ paddingLeft: 2, paddingTop: 2}}>Pontos de Vida</Typography>
             <Box component="div" sx={{ p: 2 }}>
                 <Grid container sx={{ alignItems: 'center' }} spacing={2}>
                     <Grid item xs={12}>
@@ -348,7 +348,7 @@ function SanDialog(props) {
 
     return (
         <Dialog onClose={handleClose} open={open} fullWidth maxWidth='sm'>
-            <Typography component="h1" variant="h5" color="inherit" sx={{ paddingLeft: 2, paddingTop: 2}}>Pontos de Sanidade</Typography>
+            <Typography component="h1" variant="h6" color="inherit" sx={{ paddingLeft: 2, paddingTop: 2}}>Pontos de Sanidade</Typography>
             <Box component="div" sx={{ p: 2 }}>
                 <Grid container sx={{ alignItems: 'center' }} spacing={2}>
                     <Grid item xs={12}>
@@ -516,7 +516,7 @@ function EpDialog(props) {
 
     return (
         <Dialog onClose={handleClose} open={open} fullWidth maxWidth='sm'>
-            <Typography component="h1" variant="h5" color="inherit" sx={{ paddingLeft: 2, paddingTop: 2}}>Pontos de Esforço</Typography>
+            <Typography component="h1" variant="h6" color="inherit" sx={{ paddingLeft: 2, paddingTop: 2}}>Pontos de Esforço</Typography>
             <Box component="div" sx={{ p: 2 }}>
                 <Grid container sx={{ alignItems: 'center' }} spacing={2}>
                     <Grid item xs={12}>
