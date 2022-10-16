@@ -13,7 +13,7 @@ export const DamageRollDialog = (props) => {
 
     return (
         <Dialog onClose={handleClose} open={open}>
-            <Typography component="h1" variant="h5" color="inherit" sx={{ px: 2, paddingTop: 2 }}>Rolagem de dano com {damageRollInfo.attack}</Typography>
+            <Typography component="h1" variant="h6" color="inherit" sx={{ px: 2, paddingTop: 2 }}>Rolagem de dano com {damageRollInfo.attack}</Typography>
             <Box component="div" sx={{ p: 2 }}>
                 {damageRollInfo.resultValues?.map((damage, index) => (
                     <Grid container key={index} sx={{ mb: 2 }}>
