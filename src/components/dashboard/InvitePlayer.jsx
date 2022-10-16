@@ -4,6 +4,7 @@ import { useSnackbar } from 'notistack';
 import Grid from '@mui/material/Grid';
 import LoadingButton from '@mui/lab/LoadingButton';
 import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -66,9 +67,12 @@ export const InvitePlayer = () => {
 
     return (
         <Grid container spacing={1}>
+            <Grid item xs={12}>
+                <Typography component="h1" variant="h6" color="inherit">Convidar jogador</Typography>
+                <Typography component="p" variant="body" color="inherit">Quando o convite for enviado, ele aparecerá no Perfil do jogador.</Typography>
+            </Grid>
             <Grid item xs={12} md={6}>
                 <TextField
-                    margin="normal"
                     variant="filled"
                     fullWidth
                     color="secondary"
@@ -81,8 +85,8 @@ export const InvitePlayer = () => {
                 />
             </Grid>
             <Grid item xs={12} md={6}>
-                <FormControl variant="filled" fullWidth sx={{ mt: 2}}>
-                    <InputLabel id="party-select-label" color="secondary">Convidar para mesa: </InputLabel>
+                <FormControl variant="filled" fullWidth>
+                    <InputLabel id="party-select-label" color="secondary">Mesa: </InputLabel>
                         <Select
                             labelId="party-select-label"
                             id="party-select"
