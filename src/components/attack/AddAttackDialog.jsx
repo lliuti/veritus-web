@@ -228,7 +228,7 @@ export const AddAttackDialog = (props) => {
 
     return (
         <Dialog onClose={handleClose} open={open} fullWidth maxWidth='md'>
-            <Typography component="h1" variant="h5" color="inherit" sx={{ paddingLeft: 2, paddingTop: 2}}>Adicionar Ataque / Arma</Typography>
+            <Typography component="h1" variant="h6" color="inherit" sx={{ paddingLeft: 2, paddingTop: 2}}>Adicionar Ataque / Arma</Typography>
             <Box component="div" sx={{ p: 2 }}>
                 <Grid container sx={{ alignItems: 'center' }} spacing={1}>
                     <Grid item xs={12}>
@@ -403,8 +403,8 @@ export const AddAttackDialog = (props) => {
                     : <></>}
 
                     <Grid item xs={12}>
-                        <Typography component="h1" variant="h5" color="inherit" sx={{ mt: 3 }}>Dano</Typography>
-                        <Typography component="p" variant="body1" color="text.secondary" sx={{ mt: 0 }}>Evite espaços e acentos. Exemplo de rolagem: 2d6+3</Typography>
+                        <Typography component="h1" variant="h6" color="inherit" sx={{ mt: 3 }}>Dano</Typography>
+                        <Typography component="p" variant="body2" color="text.secondary" sx={{ mt: 0 }}>Evite espaços e acentos. Exemplo de rolagem: 2d6+3</Typography>
                     </Grid>
                     <Grid item xs={12}>
                         {damageValues.map((damage, index) => (
@@ -462,8 +462,8 @@ export const AddAttackDialog = (props) => {
                     </Grid>
 
                     <Grid item xs={12}>
-                        <Typography component="h1" variant="h5" color="inherit" sx={{ mt: 2 }}>Dano Crítico</Typography>
-                        <Typography component="p" variant="body1" color="text.secondary" sx={{ mt: 0 }}>Evite espaços e acentos. Exemplo de rolagem: 2d6+3</Typography>
+                        <Typography component="h1" variant="h6" color="inherit" sx={{ mt: 2 }}>Dano Crítico</Typography>
+                        <Typography component="p" variant="body2" color="text.secondary" sx={{ mt: 0 }}>Evite espaços e acentos. Exemplo de rolagem: 2d6+3</Typography>
                     </Grid>
                     <Grid item xs={12}>
                         {criticalDamageValues.map((damage, index) => (
