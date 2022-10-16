@@ -121,10 +121,10 @@ export function Build({ characterInfo, fetchCharacter }) {
 
     return (
         <Grid item xs={12} sm={6} md={12} sx={{ mt: 5 }}>
-            <Typography component="h1" variant="h5" color="inherit">Build</Typography>
-            <Grid container columnSpacing={1} rowSpacing={0}>
+            <Typography component="h1" variant="h6" color="inherit" sx={{ mb: 1 }}>Build</Typography>
+            <Grid container spacing={1}>
                 <Grid item xs={6} sm={6} md={2.4}>
-                    <FormControl variant="filled" fullWidth sx={{ mt: 2}}>
+                    <FormControl variant="filled" fullWidth>
                         <InputLabel id="background-select-label" color="secondary">Origem</InputLabel>
                         <Select
                             labelId="background-select-label"
@@ -167,7 +167,7 @@ export function Build({ characterInfo, fetchCharacter }) {
                     </FormControl>
                 </Grid>
                 <Grid item xs={6} sm={6} md={2.4}>
-                    <FormControl variant="filled" fullWidth sx={{ mt: 2}}>
+                    <FormControl variant="filled" fullWidth>
                         <InputLabel id="class-select-label" color="secondary">Classe</InputLabel>
                         <Select
                             size="small"
@@ -187,7 +187,7 @@ export function Build({ characterInfo, fetchCharacter }) {
                     </FormControl>
                 </Grid>
                 <Grid item xs={6} sm={6} md={2.4}>
-                    <FormControl variant="filled" fullWidth sx={{ mt: 2}}>
+                    <FormControl variant="filled" fullWidth>
                         <InputLabel id="archetype-select-label" color="secondary">Trilha</InputLabel>
                             {(() => {
                                 if (characterClass == "Combatente") {
@@ -255,7 +255,7 @@ export function Build({ characterInfo, fetchCharacter }) {
                     </FormControl>
                 </Grid>
                 <Grid item xs={6} sm={6} md={2.4}>
-                    <FormControl variant="filled" fullWidth sx={{ mt: 2}}>
+                    <FormControl variant="filled" fullWidth>
                         <InputLabel id="affinity-select-label" color="secondary">Afinidade</InputLabel>
                         <Select
                             labelId="affinity-select-label"
@@ -278,7 +278,6 @@ export function Build({ characterInfo, fetchCharacter }) {
                 </Grid>
                 <Grid item xs={6} sm={6} md={2.4}>
                     <TextField
-                        margin="normal"
                         id="nex"
                         size="small"
                         label="NEX %"
@@ -295,7 +294,6 @@ export function Build({ characterInfo, fetchCharacter }) {
                 </Grid>
                 <Grid item xs={6} sm={6} md={2.4}>
                     <TextField
-                        margin="normal"
                         id="movement"
                         size="small"
                         label="Deslocamento"
@@ -309,7 +307,7 @@ export function Build({ characterInfo, fetchCharacter }) {
                         />
                 </Grid>
                 <Grid item xs={6} sm={6} md={2.4}>
-                    <FormControl variant="filled" fullWidth sx={{ mt: 2}}>
+                    <FormControl variant="filled" fullWidth>
                         <InputLabel id="rank-select-label" color="secondary">Patente</InputLabel>
                         <Select
                             labelId="rank-select-label"
@@ -333,7 +331,7 @@ export function Build({ characterInfo, fetchCharacter }) {
                 {
                     parties.length > 0 ? 
                     <Grid item xs={6} md={2.4}>
-                        <FormControl variant="filled" fullWidth sx={{ mt: 2 }}>
+                        <FormControl variant="filled" fullWidth>
                             <InputLabel id="active-party-select-label" color="secondary">Mesa ativa</InputLabel>
                             <Select
                                 labelId="active-party-select-label"
@@ -359,7 +357,7 @@ export function Build({ characterInfo, fetchCharacter }) {
                         variant='outlined' 
                         fullWidth 
                         // size="large" 
-                        sx={{ mt: 2.4, height: 0.6 }}
+                        sx={{ mt: 0.5, height: 0.9 }}
                         onClick={() => setModifiersDialogOpen(true)}
                         endIcon={<CalculateIcon/>}
                     >
@@ -389,7 +387,7 @@ export function Build({ characterInfo, fetchCharacter }) {
                         endIcon={<RotateLeftIcon/>}
                         // size="large"
                         fullWidth
-                        sx={{ mt: 2.4, height: 0.6 }}
+                        sx={{ mt: 0.5, height: 0.9 }}
                     >
                         Recalcular
                     </LoadingButton>
