@@ -128,7 +128,7 @@ export function EditBonusDialog({ onClose, open, characterSkills, fetchCharacter
 
     return (
         <Dialog onClose={handleClose} open={open} fullWidth maxWidth='lg'>
-            <Typography component="h1" variant="h5" color="inherit" sx={{ paddingLeft: 2, paddingTop: 2}}>Editar Bônus</Typography>
+            <Typography component="h1" variant="h6" color="inherit" sx={{ paddingLeft: 2, paddingTop: 2}}>Editar Bônus</Typography>
             <Box component="div" sx={{ p: 2 }}>
                 <Grid container spacing={{ xs: 0.5, sm: 1}}>
                     <Grid item xs={12} sm={3}>
