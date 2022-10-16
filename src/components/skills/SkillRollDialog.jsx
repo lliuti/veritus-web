@@ -14,7 +14,7 @@ export function SkillRollDialog(props) {
 
     return (
         <Dialog onClose={handleClose} open={open}>
-            <Typography component="h1" variant="h5" color="inherit" sx={{ px: 2, paddingTop: 2 }}>Rolagem de {skillRollDialogInfo.skill} com {skillRollDialogInfo.attributeName}</Typography>
+            <Typography component="h1" variant="h6" color="inherit" sx={{ px: 2, paddingTop: 2 }}>Rolagem de {skillRollDialogInfo.skill} com {skillRollDialogInfo.attributeName}</Typography>
             <Box component="div" sx={{ p: 2 }}>
                 <Grid container sx={{ alignItems: 'center' }}>
                     <Grid item xs={12}>
