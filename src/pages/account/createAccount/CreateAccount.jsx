@@ -71,10 +71,9 @@ export const CreateAccount = () => {
                 <Typography component="h3" variant="subtitle1" sx={{ mb: 2}}>
                     Lembre-se do usuário e senha pois mó preg redefinir
                 </Typography>
-                <Grid container spacing={2}>
+                <Grid container spacing={1}>
                     <Grid item xs={12} md={6}>
                         <TextField
-                            margin="normal"
                             color="secondary"
                             required
                             fullWidth
@@ -88,7 +87,6 @@ export const CreateAccount = () => {
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <TextField
-                            margin="normal"
                             required
                             fullWidth
                             id="username"
@@ -101,7 +99,6 @@ export const CreateAccount = () => {
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <TextField
-                            margin="normal"
                             required
                             fullWidth
                             color="secondary"
@@ -114,7 +111,6 @@ export const CreateAccount = () => {
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <TextField
-                            margin="normal"
                             required
                             fullWidth
                             color="secondary"
