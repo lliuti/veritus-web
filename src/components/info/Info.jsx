@@ -78,7 +78,7 @@ export const Info = ({ characterInfo }) => {
                     </Card>
                 </Grid>
                 <Grid onClick={() => setUpdatePictureDialog(true)} item xs={12} md={1} display={{ xs: "none", sm: "flex" }}>
-                    <img src={pictureUrl} alt="Character picture" width="104px" />
+                    <img src={pictureUrl} alt="Character picture" height="104px" width="104px" style={{"object-fit": "cover"}}/>
                 </Grid>
                 <Grid item xs={12} md={11}>
                     <Grid container spacing={1}>
