@@ -4,6 +4,7 @@ import { useSnackbar } from 'notistack';
 import Grid from '@mui/material/Grid';
 import LoadingButton from '@mui/lab/LoadingButton';
 import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 import InputAdornment from '@mui/material/InputAdornment';
 
 import InputLabel from '@mui/material/InputLabel';
@@ -63,9 +64,12 @@ export const CreateParty = ({ fetchParties }) => {
 
     return (
         <Grid container spacing={1}>
+            <Grid item xs={12}>
+                <Typography component="h1" variant="h6" color="inherit">Criar mesa</Typography>
+                <Typography component="p" variant="body" color="inherit">As informações preenchidas aqui aparecerão no convite para os jogadores.</Typography>
+            </Grid>
             <Grid item xs={12} sm={6}>
                 <TextField
-                    margin="normal"
                     variant="filled"
                     fullWidth
                     color="secondary"
@@ -78,7 +82,7 @@ export const CreateParty = ({ fetchParties }) => {
                 />
             </Grid>
             <Grid item xs={12} sm={6}>
-                <FormControl variant="filled" fullWidth sx={{ mt: 2}}>
+                <FormControl variant="filled" fullWidth>
                     <InputLabel id="party-model-select-label" color="secondary">Modelo</InputLabel>
                     <Select
                         labelId="party-model-select-label"
@@ -98,7 +102,6 @@ export const CreateParty = ({ fetchParties }) => {
             </Grid>
             <Grid item xs={12} sm={6}>
                 <TextField
-                    margin="normal"
                     variant="filled"
                     fullWidth
                     color={partyDescriptionCharacters > 155 ? "error" : "secondary"}
@@ -114,7 +117,7 @@ export const CreateParty = ({ fetchParties }) => {
                 />
             </Grid>
             <Grid item xs={12} sm={6}>
-                <FormControl variant="filled" fullWidth sx={{ mt: 2}}>
+                <FormControl variant="filled" fullWidth>
                     <InputLabel id="party-rules-select-label" color="secondary">Regras</InputLabel>
                     <Select
                         labelId="party-rules-select-label"
