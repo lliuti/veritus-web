@@ -63,7 +63,7 @@ export const CustomRollDialog = (props) => {
         <>
             <Dialog onClose={handleClose} open={open} fullWidth>
                 <Box component="div" sx={{ p: 2 }}>
-                    <Typography component="h1" variant="h5" color="inherit" sx={{ mb: 1 }}>Rolagem customizada</Typography>
+                    <Typography component="h1" variant="h6" color="inherit" sx={{ mb: 1 }}>Rolagem customizada</Typography>
                     <Grid container spacing={1}>
                         <Grid item xs={12}>
                             <Typography 
@@ -158,7 +158,7 @@ const RollResult = (props) => {
 
     return (
         <Dialog onClose={handleClose} open={open} fullWidth>
-            <Typography component="h1" variant="h5" color="inherit" sx={{ px: 2, paddingTop: 2 }}>Resultado de rolagem customizada</Typography>
+            <Typography component="h1" variant="h6" color="inherit" sx={{ px: 2, paddingTop: 2 }}>Resultado de rolagem customizada</Typography>
             <Box component="div" sx={{ p: 2 }}>
                 <Grid container sx={{ alignItems: 'center' }}>
                     <Grid item xs={12}>
