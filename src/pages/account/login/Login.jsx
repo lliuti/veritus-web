@@ -62,10 +62,9 @@ export const Login = () => {
                 <Typography component="h3" variant="subtitle1" sx={{ mb: 2}}>
                     Faça Login para acessar a plataforma    
                 </Typography>
-                <Grid container spacing={2} sx={{ mb: 3 }}>
+                <Grid container spacing={1} sx={{ mb: 3 }}>
                     <Grid item xs={12} md={6}>
                         <TextField
-                            margin="normal"
                             required
                             fullWidth
                             id="username"
@@ -78,7 +77,6 @@ export const Login = () => {
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <TextField
-                            margin="normal"
                             required
                             fullWidth
                             color="secondary"
