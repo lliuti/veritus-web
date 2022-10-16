@@ -171,10 +171,12 @@ export const Profile = () => {
                         <Typography component="h2" variant="h6" color="inherit">
                             Informações de usuário
                         </Typography>
+                        <Typography component="p" variant="body2" color="text.secondary">
+                            Com exceção do nome de usuário, não compartilhe as demais informações com ninguém.
+                        </Typography>
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <TextField
-                            margin="normal"
                             color="secondary"
                             variant="filled"
                             fullWidth
@@ -188,7 +190,6 @@ export const Profile = () => {
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <TextField
-                            margin="normal"
                             fullWidth
                             variant="filled"
                             id="username"
@@ -201,7 +202,6 @@ export const Profile = () => {
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <TextField
-                            margin="normal"
                             fullWidth
                             variant="filled"
                             color="secondary"
@@ -214,7 +214,6 @@ export const Profile = () => {
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <TextField
-                            margin="normal"
                             fullWidth
                             variant="filled"
                             color="secondary"
@@ -255,6 +254,9 @@ export const Profile = () => {
                             <Typography component="h2" variant="h6" color="inherit">
                                 Mesas que participo 
                             </Typography>
+                            <Typography component="p" variant="body2" color="text.secondary">
+                                Todas as mesas aceitas aparecerão aqui.
+                            </Typography>
                         </Grid>
                     : <></>}
                     {acceptedInvites?.map((invite) => (
@@ -293,6 +295,9 @@ export const Profile = () => {
                     <Grid item xs={12}>
                         <Typography component="h2" variant="h6" color="inherit">
                             {invites.length < 1 ? "Nenhum convite de mesa pendente" : "Convites para mesas"}
+                        </Typography>
+                        <Typography component="p" variant="body2" color="text.secondary">
+                            Todos os convites para mesas aparecerão aqui.
                         </Typography>
                     </Grid>
                     {invites?.map((invite) => (
