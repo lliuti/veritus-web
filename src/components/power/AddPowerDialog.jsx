@@ -153,7 +153,7 @@ export const AddPowerDialog = (props) => {
 
     return (
         <Dialog onClose={handleClose} open={open} fullWidth maxWidth='lg'>
-            <Typography component="h1" variant="h5" color="inherit" sx={{ paddingLeft: 2, paddingTop: 2}}>Adicionar Item</Typography>
+            <Typography component="h1" variant="h6" color="inherit" sx={{ paddingLeft: 2, paddingTop: 2}}>Adicionar Item</Typography>
             <Box component="div" sx={{ p: 2 }}>
                 <Grid container sx={{ alignItems: 'center' }} spacing={1}>
                     <Grid item xs={12} md={6}>
