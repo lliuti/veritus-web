@@ -109,7 +109,7 @@ export function EditSkillsDialog(props) {
 
     return (
         <Dialog onClose={handleClose} open={open} fullWidth maxWidth='lg'>
-            <Typography component="h1" variant="h5" color="inherit" sx={{ paddingLeft: 2, paddingTop: 2}}>Editar Perícias</Typography>
+            <Typography component="h1" variant="h6" color="inherit" sx={{ paddingLeft: 2, paddingTop: 2}}>Editar Perícias</Typography>
             <Typography component="p" variant="body" color="text.secondary" sx={{ paddingLeft: 2, mt: 1 }}>Origem: {backgroundSkills}</Typography>
             <Typography component="p" variant="body" color="text.secondary" sx={{ paddingLeft: 2 }}>Classe: {classSkills}</Typography>
             <Box component="div" sx={{ p: 2 }}>
