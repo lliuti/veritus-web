@@ -99,7 +99,7 @@ export const Header = ({ variant }) => {
                                 <Typography textAlign="center">Criar Personagem</Typography>
                             </MenuItem>
                     </Menu>
-                    <Typography component="h1" variant="h5" color="inherit" noWrap sx={{ flexGrow: 1 }}>
+                    <Typography component="h1" variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
                         Veritus
                     </Typography>
                     <Box sx={{ display: { xs: "none", md: "flex"}, mr: { md: 1 } }}>
