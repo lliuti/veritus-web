@@ -2,7 +2,7 @@
   "name": "rpg-plataforma-web",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://lliuti.github.io/veritus-web",
+  "homepage": "https://lliuti.com/veritus",
   "type": "module",
   "scripts": {
     "dev": "vite",
