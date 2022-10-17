@@ -409,7 +409,7 @@ export const AddAttackDialog = (props) => {
                     <Grid item xs={12}>
                         {damageValues.map((damage, index) => (
                             <Grid key={index} container spacing={1} sx={{ mb: 1 }}>
-                                <Grid item xs={12} md={6}>
+                                <Grid item xs={12} sm={5} md={6}>
                                     <TextField 
                                         id="damage" 
                                         name="damage"
@@ -422,7 +422,7 @@ export const AddAttackDialog = (props) => {
                                         fullWidth
                                     />
                                 </Grid>
-                                <Grid item xs={12} md={4}>
+                                <Grid item xs={8} sm={5} md={4}>
                                     <FormControl variant="filled" fullWidth>
                                         <InputLabel id="damageTypeLabel" name="damageTypeLabel" color="secondary">Tipo</InputLabel>
                                         <Select
@@ -451,8 +451,8 @@ export const AddAttackDialog = (props) => {
                                         </Select>
                                     </FormControl>
                                 </Grid>
-                                <Grid item xs={12} md={2}>
-                                    <Button onClick={() => handleRemoveDamage(index)} color="inherit" sx={{ mt: 0.8 }} fullWidth>Remover Dano</Button>
+                                <Grid item xs={4} sm={2} md={2}>
+                                    <Button onClick={() => handleRemoveDamage(index)} color="inherit" sx={{ mt: 0.8 }} fullWidth>Remover</Button>
                                 </Grid>
                             </Grid>
                         ))}
@@ -468,7 +468,7 @@ export const AddAttackDialog = (props) => {
                     <Grid item xs={12}>
                         {criticalDamageValues.map((damage, index) => (
                             <Grid key={index} container spacing={1} sx={{ mb: 1 }}>
-                                <Grid item xs={12} md={6}>
+                                <Grid item xs={12} sm={5} md={6}>
                                     <TextField 
                                         id="damage" 
                                         name="damage"
@@ -481,7 +481,7 @@ export const AddAttackDialog = (props) => {
                                         fullWidth
                                     />
                                 </Grid>
-                                <Grid item xs={12} md={4}>
+                                <Grid item xs={8} sm={5} md={4}>
                                     <FormControl variant="filled" fullWidth>
                                         <InputLabel id="criticalDamageTypeLabel" name="criticalDamageTypeLabel" color="secondary">Tipo</InputLabel>
                                         <Select
@@ -510,8 +510,8 @@ export const AddAttackDialog = (props) => {
                                         </Select>
                                     </FormControl>
                                 </Grid>
-                                <Grid item xs={12} md={2}>
-                                    <Button onClick={() => handleRemoveCriticalDamage(index)} color="inherit" sx={{ mt: 0.8 }} fullWidth>Remover Dano</Button>
+                                <Grid item xs={4} sm={2} md={2}>
+                                    <Button onClick={() => handleRemoveCriticalDamage(index)} color="inherit" sx={{ mt: 0.8 }} fullWidth>Remover</Button>
                                 </Grid>
                             </Grid>
                         ))}
