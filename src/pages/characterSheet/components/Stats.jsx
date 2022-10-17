@@ -62,7 +62,7 @@ export function Stats({ characterStatus, fetchCharacter }) {
     };
 
     return (
-        <Grid item xs={12} sm={3} md={2} sx={{ mt: 5 }}>
+        <Grid item xs={12} md={3} sx={{ mt: 5 }}>
             <Typography component="h1" variant="h6" color="inherit" sx={{ mb: 1}}>Saúde</Typography>
             <Button onClick={handleHpClickOpen} color="secondary" variant='outlined' fullWidth sx={{ mb: 1, display: "flex", alignItems: "center", justifyContent: "space-around" }}>
                 <Typography component="span" variant="inherit">PV</Typography>
