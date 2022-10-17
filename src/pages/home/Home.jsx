@@ -7,10 +7,7 @@ export function Home() {
     return (
         <>
             <Header variant="home"/>
-            <Container component="main" sx={{ mt: 5}}>
-                <Typography component="h2" variant="h6" color="inherit" sx={{ mb: 2}}>
-                    Meus personagens
-                </Typography>
+            <Container component="main" sx={{ my: 5}}>
                 <Characters/>
             </Container>
         </>
