@@ -24,6 +24,7 @@ export const Info = ({ characterInfo }) => {
     const [belief, setBelief] = useState('');
     const [pictureUrl, setPictureUrl] = useState('');
     const [updatePictureDialog, setUpdatePictureDialog] = useState(false);
+    const [previousData, setPreviousData] = useState('');
     const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
@@ -41,6 +42,7 @@ export const Info = ({ characterInfo }) => {
     }, [characterInfo]);
 
     const handleUpdateCharacterInfo = async () => {
+        
         try {
             await api.put(`/characters/${characterInfo.id}/info`, { 
                 name,
@@ -77,8 +79,13 @@ export const Info = ({ characterInfo }) => {
                         />
                     </Card>
                 </Grid>
-                <Grid onClick={() => setUpdatePictureDialog(true)} item xs={12} md={1} display={{ xs: "none", sm: "flex" }}>
-                    <img src={pictureUrl} alt="Character picture" height="104px" width="104px" style={{"object-fit": "cover"}}/>
+                <Grid onClick={() => setUpdatePictureDialog(true)} item xs={12} md={1} display={{ xs: "none", sm: "flex" }} sx={{
+                    ":hover": {
+                        cursor: "pointer",
+                        opacity: 0.9,
+                    }
+                }}>
+                    <img src={pictureUrl} alt="Character picture" height="104px" width="104px" style={{"objectFit": "cover"}}/>
                 </Grid>
                 <Grid item xs={12} md={11}>
                     <Grid container spacing={1}>
@@ -93,7 +100,11 @@ export const Info = ({ characterInfo }) => {
                                 color='secondary'
                                 value={name || ''}
                                 onChange={(event) => setName(event.target.value)}
-                                onBlur={handleUpdateCharacterInfo}
+                                onFocus={() => setPreviousData(name)}
+                                onBlur={() => {
+                                    if (previousData == name) { return };
+                                    handleUpdateCharacterInfo();
+                                }}
                             />
                         </Grid>
                         <Grid item xs={6} sm={6} md={2.4}>
@@ -107,7 +118,11 @@ export const Info = ({ characterInfo }) => {
                                 color='secondary'
                                 value={nickname || ''}
                                 onChange={(event) => setNickname(event.target.value)}
-                                onBlur={handleUpdateCharacterInfo}
+                                onFocus={() => setPreviousData(nickname)}
+                                onBlur={() => {
+                                    if (previousData == nickname) { return };
+                                    handleUpdateCharacterInfo();
+                                }}
                             />
                         </Grid>
                         <Grid item xs={6} sm={6} md={2.4}>
@@ -122,7 +137,11 @@ export const Info = ({ characterInfo }) => {
                                 color='secondary'
                                 value={age || 0}
                                 onChange={(event) => setAge(event.target.value)}
-                                onBlur={handleUpdateCharacterInfo}
+                                onFocus={() => setPreviousData(age)}
+                                onBlur={() => {
+                                    if (previousData == age) { return };
+                                    handleUpdateCharacterInfo();
+                                }}
                             />
                         </Grid>
                         <Grid item xs={6} sm={6} md={2.4}>
@@ -137,7 +156,11 @@ export const Info = ({ characterInfo }) => {
                                 color='secondary'
                                 value={height || ''}
                                 onChange={(event) => setHeight(event.target.value)}
-                                onBlur={handleUpdateCharacterInfo}
+                                onFocus={() => setPreviousData(height)}
+                                onBlur={() => {
+                                    if (previousData == height) { return };
+                                    handleUpdateCharacterInfo();
+                                }}
                             />
                         </Grid>
                         <Grid item xs={6} sm={6} md={2.4}>
@@ -152,7 +175,11 @@ export const Info = ({ characterInfo }) => {
                                 color='secondary'
                                 value={bodyType || ''}
                                 onChange={(event) => setBodyType(event.target.value)}
-                                onBlur={handleUpdateCharacterInfo}
+                                onFocus={() => setPreviousData(bodyType)}
+                                onBlur={() => {
+                                    if (previousData == bodyType) { return };
+                                    handleUpdateCharacterInfo();
+                                }}
                             />
                         </Grid>
                         <Grid item xs={6} sm={6} md={2.4}>
@@ -167,7 +194,11 @@ export const Info = ({ characterInfo }) => {
                                 color='secondary'
                                 value={hair || ''}
                                 onChange={(event) => setHair(event.target.value)}
-                                onBlur={handleUpdateCharacterInfo}
+                                onFocus={() => setPreviousData(hair)}
+                                onBlur={() => {
+                                    if (previousData == hair) { return };
+                                    handleUpdateCharacterInfo();
+                                }}
                             />
                         </Grid>
                         <Grid item xs={6} sm={6} md={2.4}>
@@ -182,7 +213,11 @@ export const Info = ({ characterInfo }) => {
                                 color='secondary'
                                 value={gender || ''}
                                 onChange={(event) => setGender(event.target.value)}
-                                onBlur={handleUpdateCharacterInfo}
+                                onFocus={() => setPreviousData(gender)}
+                                onBlur={() => {
+                                    if (previousData == gender) { return };
+                                    handleUpdateCharacterInfo();
+                                }}
                             />
                         </Grid>
                         <Grid item xs={6} sm={6} md={2.4}>
@@ -197,7 +232,11 @@ export const Info = ({ characterInfo }) => {
                                 color='secondary'
                                 value={belief || ''}
                                 onChange={(event) => setBelief(event.target.value)}
-                                onBlur={handleUpdateCharacterInfo}
+                                onFocus={() => setPreviousData(belief)}
+                                onBlur={() => {
+                                    if (previousData == belief) { return };
+                                    handleUpdateCharacterInfo();
+                                }}
                             />
                         </Grid>
                         <Grid item xs={6} sm={6} md={2.4}>
@@ -212,7 +251,11 @@ export const Info = ({ characterInfo }) => {
                                 color='secondary'
                                 value={greatestQuality || ''}
                                 onChange={(event) => setGreatestQuality(event.target.value)}
-                                onBlur={handleUpdateCharacterInfo}
+                                onFocus={() => setPreviousData(greatestQuality)}
+                                onBlur={() => {
+                                    if (previousData == greatestQuality) { return };
+                                    handleUpdateCharacterInfo();
+                                }}
                             />
                         </Grid>
                         <Grid item xs={6} sm={6} md={2.4}>
@@ -227,7 +270,11 @@ export const Info = ({ characterInfo }) => {
                                 color='secondary'
                                 value={worstFlaw || ''}
                                 onChange={(event) => setWorstFlaw(event.target.value)}
-                                onBlur={handleUpdateCharacterInfo}
+                                onFocus={() => setPreviousData(worstFlaw)}
+                                onBlur={() => {
+                                    if (previousData == worstFlaw) { return };
+                                    handleUpdateCharacterInfo();
+                                }}
                             />
                         </Grid>
                     </Grid>
