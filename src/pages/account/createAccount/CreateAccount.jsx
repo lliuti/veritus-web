@@ -45,7 +45,7 @@ export const CreateAccount = () => {
     
             context.Login(username, password);
     
-            navigate("/");
+            navigate("/home");
         } catch (err) {
             enqueueSnackbar("Não foi possível criar uma conta.", { 
                 variant: "error"
@@ -65,11 +65,8 @@ export const CreateAccount = () => {
                 justifyContent: 'center'
             }}>
                 <img alt="logo" src={Verissimo} width="200px" style={{ borderRadius: '50%', border: '2px solid #78909c' }}/>
-                <Typography component="h1" variant="h4" sx={{ my: 2}}>
+                <Typography component="h1" variant="h4" sx={{ my: 2 }}>
                     Criar uma nova conta
-                </Typography>
-                <Typography component="h3" variant="subtitle1" sx={{ mb: 2}}>
-                    Lembre-se do usuário e senha pois mó preg redefinir
                 </Typography>
                 <Grid container spacing={1}>
                     <Grid item xs={12} md={6}>
