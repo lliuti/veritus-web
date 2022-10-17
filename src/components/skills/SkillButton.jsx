@@ -10,7 +10,7 @@ export const SkillButton = ({ skillShort, skillFull, skill, handleSkillRollOpen,
             variant='outlined' 
             fullWidth
             size="small"
-            sx={{ my: 0.4, px: 2, display: "flex", alignItems: "center", justifyContent: "space-between"}}>
+            sx={{ mb: 0.8, px: 2, display: "flex", alignItems: "center", justifyContent: "space-between"}}>
                 <Typography component="span" variant="inherit">{skillShort}</Typography>
                 <Typography component="span" variant="inherit">{skillFull}</Typography>
                 <Typography component="span" variant="inherit">{skill != "0" ? `+${skill}` : "0"}</Typography>
