@@ -41,7 +41,7 @@ export function Defenses({ characterDefenses, fetchCharacter }) {
     }
 
     return (
-        <Grid item xs={12} sm={4} md={1} sx={{ mt: 5 }}>
+        <Grid item xs={12} md={3} sx={{ mt: 5 }}>
             <Typography component="h1" variant="h6" color="inherit" sx={{ mb: 1}}>Defesa</Typography>
             <Grid container spacing={1}>
                 <Grid item xs={6} md={12}>
@@ -50,7 +50,7 @@ export function Defenses({ characterDefenses, fetchCharacter }) {
                         placement="top-start"
                     >
                         <TextField
-                            size='small'
+                            size='regular'
                             id="passive"
                             label="Passiva"
                             name="passive"
@@ -60,7 +60,7 @@ export function Defenses({ characterDefenses, fetchCharacter }) {
                             value={passive || ''}
                             onChange={(event) => setPassive(event.target.value)}
                             onBlur={handleUpdateDefenses}
-                            sx={{ mb: 1, mt: 0}}
+                            sx={{ mb: 0, mt: 0}}
                         />
                     </Tooltip>
                 </Grid>
@@ -70,7 +70,7 @@ export function Defenses({ characterDefenses, fetchCharacter }) {
                         placement="top-start"
                     >
                         <TextField
-                            size='small'
+                            size='regular'
                             id="dodging"
                             label="Esquivando"
                             name="dodging"
@@ -80,7 +80,7 @@ export function Defenses({ characterDefenses, fetchCharacter }) {
                             onChange={(event) => setDodging(event.target.value)}
                             onBlur={handleUpdateDefenses}
                             fullWidth
-                            sx={{ mb: 1, mt: 0}}
+                            sx={{ mb: 0, mt: 0}}
                         />
                     </Tooltip>
                 </Grid>
