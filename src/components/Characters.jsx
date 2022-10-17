@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
+import CardMedia from '@mui/material/CardMedia';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
@@ -53,31 +54,45 @@ export function Characters() {
     }
 
     return (
-        <Grid container spacing={{ xs: 1, md: 2 }}>
+        <Grid container spacing={{ xs: 3, md: 1 }}>
+            <Grid item xs={12}>
+                <Typography component="h2" variant="h6" color="inherit">
+                    Meus personagens
+                </Typography>
+            </Grid>
             {
-                characters.map((character) => (
-                    <Grid item key={character.id}>
-                        <Card sx={{ py: 1, px: 2 }}>
-                            <CardContent>
-                                <Typography variant="h5" component="div" sx={{ mb: 1 }}>
-                                    {character.name}
+                characters.length > 0 ? characters.map((character) => (
+                    <Grid item xs={12} sm={6} md={3} key={character.id}>
+                        <Card sx={[ { '&:hover': { cursor: "pointer", transform: "scale(1.01)", transition: "0ms all" } } ]}>
+                            <CardMedia
+                                component="img"
+                                image={character.pictureUrl}
+                                alt="Character picture"
+                                height="200px"
+                                width="200px"
+                                onClick={() => navigate(`/personagens/${character.id}`)}
+                            />
+                            <CardContent onClick={() => navigate(`/personagens/${character.id}`)}>
+                                <Typography component="h1" variant="h6" sx={{ my: 1, textAlign: "center" }}>
+                                    {character.name.length > 21 ? character.name.substring(0, 22) + "..." : character.name}
                                 </Typography>
-                                <Typography sx={{ mb: 1 }} color="text.secondary">
+                                <Typography component="p" variant="body1" sx={{ mb: 1, textAlign: "center" }} color="text.secondary">
                                     {character.background}
                                 </Typography>
-                                <Typography sx={{ mb: 1 }} color="text.secondary">
-                                    {character.characterClass} <Bull/> {character.archetype}
+                                <Typography component="p" variant="body1" sx={{ mb: 1, textAlign: "center" }} color="text.secondary">
+                                    {character.characterClass}
                                 </Typography>
-                                <Typography color="text.secondary">
-                                    Nex {character.nex}% <Bull/> {character.rank}
+                                <Typography component="p" variant="body1" sx={{ mb: 1, textAlign: "center" }} color="text.secondary">
+                                    Nex {character.nex}%
                                 </Typography>
                             </CardContent>
-                            <CardActions sx={{ justifyContent: 'flex-start' }}>
+                            <CardActions sx={{ justifyContent: 'space-between' }}>
                                 <LoadingButton 
                                     onClick={() => handleDeleteCharacter(character.id, character.name)} 
-                                    size="small" 
+                                    size="regular" 
                                     color="error" 
                                     variant="text"
+                                    fullWidth
                                     loading={deleteCharacterLoading}
                                 >
                                     Deletar
@@ -89,18 +104,18 @@ export function Characters() {
                                     open={deleteDialogOpen}
                                     fetchMyCharacters={fetchMyCharacters}
                                 />
-                                <Button 
-                                    onClick={() => navigate(`/personagens/${character.id}`)} 
-                                    size="small" 
-                                    color="secondary" 
-                                    variant="outlined"
-                                >
-                                    Visualizar
-                                </Button>
                             </CardActions>
                         </Card>
                     </Grid>
-                ))
+                )) : 
+                <Grid item xs={12}>
+                    <Typography component="p" variant="body1" sx={{ mb: 1 }} color="text.secondary">
+                        Voce ainda não criou nenhum personagem.
+                    </Typography>
+                    <Typography component="p" variant="body1" sx={{ mb: 0 }} color="text.secondary">
+                        Faça isso clicando no botão do menu superior.
+                    </Typography>
+                </Grid>
             }
             <Backdrop
                 sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
