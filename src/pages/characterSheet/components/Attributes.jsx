@@ -75,7 +75,7 @@ export function Attributes({ characterAttributes, fetchCharacter }) {
     }
 
     return (
-        <Grid item xs={12} sm={5} md={3} sx={{ mt: 5 }}>
+        <Grid item xs={12} md={6} sx={{ mt: 5 }}>
             <Typography component="h1" variant="h6" color="inherit" sx={{ mb: 1}}>Atributos</Typography>
             <Grid container spacing={1}>
                 <Grid item xs={6}>
