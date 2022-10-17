@@ -25,6 +25,7 @@ export function Build({ characterInfo, fetchCharacter }) {
     const [loadingRecalculate, setLoadingRecalculate] = useState(false);
     const [modifiersDialogOpen, setModifiersDialogOpen] = useState(false);
     const [recalculate, setRecalculate] = useState(false);
+    const [previousData, setPreviousData] = useState('');
 
     const [activeParty, setActiveParty] = useState("");
     const [parties, setParties] = useState([]);
@@ -134,7 +135,11 @@ export function Build({ characterInfo, fetchCharacter }) {
                             label="Origem"
                             fullWidth
                             onChange={(event) => setBackground(event.target.value)}
-                            onBlur={handleUpdateCharacterInfo}
+                            onClick={() => setPreviousData(background)}
+                            onBlur={() => {
+                                if (previousData == background) { return };
+                                handleUpdateCharacterInfo();
+                            }}
                             color="secondary"
                         >
                             <MenuItem value={"Acadêmico"}>Acadêmico</MenuItem>
@@ -177,7 +182,11 @@ export function Build({ characterInfo, fetchCharacter }) {
                             label="Classe"
                             fullWidth
                             onChange={(event) => setCharacterClass(event.target.value)}
-                            onBlur={handleUpdateCharacterInfo}
+                            onClick={() => setPreviousData(characterClass)}
+                            onBlur={() => {
+                                if (previousData == characterClass) { return };
+                                handleUpdateCharacterInfo();
+                            }}
                             color="secondary"
                         >
                             <MenuItem value={"Combatente"}>Combatente</MenuItem>
@@ -200,7 +209,11 @@ export function Build({ characterInfo, fetchCharacter }) {
                                             label="Trilha"
                                             fullWidth
                                             onChange={(event) => setArchetype(event.target.value)}
-                                            onBlur={handleUpdateCharacterInfo}
+                                            onClick={() => setPreviousData(archetype)}
+                                            onBlur={() => {
+                                                if (previousData == archetype) { return };
+                                                handleUpdateCharacterInfo();
+                                            }}
                                             color="secondary"
                                         >
                                             <MenuItem value={"Aniquilador"}>Aniquilador</MenuItem>
@@ -220,7 +233,11 @@ export function Build({ characterInfo, fetchCharacter }) {
                                             label="Trilha"
                                             fullWidth
                                             onChange={(event) => setArchetype(event.target.value)}
-                                            onBlur={handleUpdateCharacterInfo}
+                                            onClick={() => setPreviousData(archetype)}
+                                            onBlur={() => {
+                                                if (previousData == archetype) { return };
+                                                handleUpdateCharacterInfo();
+                                            }}
                                             color="secondary"
                                         >
                                             <MenuItem value={"Atirador de Elite"}>Atirador de Elite</MenuItem>
@@ -240,7 +257,11 @@ export function Build({ characterInfo, fetchCharacter }) {
                                             label="Trilha"
                                             fullWidth
                                             onChange={(event) => setArchetype(event.target.value)}
-                                            onBlur={handleUpdateCharacterInfo}
+                                            onClick={() => setPreviousData(archetype)}
+                                            onBlur={() => {
+                                                if (previousData == archetype) { return };
+                                                handleUpdateCharacterInfo();
+                                            }}
                                             color="secondary"
                                         >
                                             <MenuItem value={"Conduíte"}>Conduíte</MenuItem>
@@ -265,7 +286,11 @@ export function Build({ characterInfo, fetchCharacter }) {
                             fullWidth
                             label="Afinidade"
                             onChange={(event) => setAffinity(event.target.value)}
-                            onBlur={handleUpdateCharacterInfo}
+                            onClick={() => setPreviousData(affinity)}
+                            onBlur={() => {
+                                if (previousData == affinity) { return };
+                                handleUpdateCharacterInfo();
+                            }}
                             color="secondary"
                             >
                             <MenuItem value={"Nenhuma"}>Nenhuma</MenuItem>
@@ -289,8 +314,12 @@ export function Build({ characterInfo, fetchCharacter }) {
                         color='secondary'
                         value={nex || 0}
                         onChange={handleNexChange}
-                        onBlur={handleUpdateCharacterInfo}
-                        />
+                        onFocus={() => setPreviousData(nex)}
+                        onBlur={() => {
+                            if (previousData == nex) { return };
+                            handleUpdateCharacterInfo();
+                        }}
+                    />
                 </Grid>
                 <Grid item xs={6} sm={6} md={2.4}>
                     <TextField
@@ -303,7 +332,11 @@ export function Build({ characterInfo, fetchCharacter }) {
                         color='secondary'
                         value={movement || ''}
                         onChange={(event) => setMovement(event.target.value)}
-                        onBlur={handleUpdateCharacterInfo}
+                        onFocus={() => setPreviousData(movement)}
+                        onBlur={() => {
+                            if (previousData == movement) { return };
+                            handleUpdateCharacterInfo();
+                        }}
                         />
                 </Grid>
                 <Grid item xs={6} sm={6} md={2.4}>
@@ -318,7 +351,11 @@ export function Build({ characterInfo, fetchCharacter }) {
                             fullWidth
                             label="Patente"
                             onChange={(event) => setRank(event.target.value)}
-                            onBlur={handleUpdateCharacterInfo}
+                            onClick={() => setPreviousData(rank)}
+                            onBlur={() => {
+                                if (previousData == rank) { return };
+                                handleUpdateCharacterInfo();
+                            }}
                             >
                             <MenuItem value={"Recruta"}>Recruta</MenuItem>
                             <MenuItem value={"Operador"}>Operador</MenuItem>
@@ -328,29 +365,32 @@ export function Build({ characterInfo, fetchCharacter }) {
                         </Select>
                     </FormControl>
                 </Grid>
-                {
-                    parties.length > 0 ? 
-                    <Grid item xs={6} md={2.4}>
-                        <FormControl variant="filled" fullWidth>
-                            <InputLabel id="active-party-select-label" color="secondary">Mesa ativa</InputLabel>
-                            <Select
-                                labelId="active-party-select-label"
-                                id="active-party-select"
-                                value={activeParty || ''}
-                                color="secondary"
-                                size="small"
-                                fullWidth
-                                label="Mesa ativa"
-                                onChange={(event) => setActiveParty(event.target.value)}
-                                onBlur={handleUpdateActiveParty}
-                            >
-                                {parties.map((p) => (
-                                    <MenuItem key={p.party.id} value={p.party.id}>{p.party.name}</MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    </Grid>
-                : <></>}
+                <Grid item xs={6} md={2.4}>
+                    <FormControl variant="filled" fullWidth>
+                        <InputLabel id="active-party-select-label" color="secondary">Mesa ativa</InputLabel>
+                        <Select
+                            labelId="active-party-select-label"
+                            id="active-party-select"
+                            value={activeParty || ''}
+                            color="secondary"
+                            size="small"
+                            fullWidth
+                            label="Mesa ativa"
+                            onChange={(event) => setActiveParty(event.target.value)}
+                            onClick={() => setPreviousData(activeParty)}
+                            onBlur={() => {
+                                if (previousData == activeParty) { return };
+                                handleUpdateActiveParty();
+                            }}
+                        >
+                            {parties.length > 0 ? parties.map((p) => (
+                                <MenuItem key={p.party.id} value={p.party.id}>{p.party.name}</MenuItem>
+                            )) : <MenuItem disabled value="">
+                                    <em>Voce não participa de nenhuma mesa.</em>
+                                </MenuItem>}
+                        </Select>
+                    </FormControl>
+                </Grid>
                 <Grid item xs={6} sm={6} md={2.4}>
                     <Button 
                         color="inherit" 
