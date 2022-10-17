@@ -13,9 +13,10 @@ import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { api } from "../services/api";
 import { useSnackbar } from 'notistack';
+import { ColorModeContext } from '../contexts/colorMode/mode';
+import { FaSignInAlt } from "react-icons/fa";
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NightlightIcon from '@mui/icons-material/Nightlight';
-import { ColorModeContext } from '../contexts/colorMode/mode'
 
 export const Header = ({ variant }) => {
     const [anchorNav, setAnchorNav] = useState(null);
@@ -98,9 +99,16 @@ export const Header = ({ variant }) => {
                             }}>
                                 <Typography textAlign="center">Criar Personagem</Typography>
                             </MenuItem>
+                            <MenuItem onClick={() => {
+                                setAnchorNav(null);
+                                localStorage.setItem("mode", colorMode.mode == "light" ? "dark" : "light");
+                                colorMode.toggleColorMode();
+                            }}>
+                                { colorMode.mode == "dark" ? <LightModeIcon fontSize="small"/> : <NightlightIcon fontSize="small"/> }
+                            </MenuItem>
                     </Menu>
-                    <Typography component="h1" variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
-                        Veritus
+                    <Typography component="h1" variant="h5" color="inherit" noWrap sx={{ flexGrow: 1, fontFamily: "Holtwood One SC, serif" }}>
+                        VERITUS
                     </Typography>
                     <Box sx={{ display: { xs: "none", md: "flex"}, mr: { md: 1 } }}>
                         <Button
@@ -178,7 +186,7 @@ export const Header = ({ variant }) => {
                     <Link
                         variant="button"
                         color="inherit"
-                        onClick={() => navigate("/")}
+                        onClick={() => navigate("/home")}
                         sx={{ 
                             my: 1, 
                             mx: 2, 
