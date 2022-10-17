@@ -32,7 +32,8 @@ export function QuickNotes({ characterNotes, fetchCharacter }) {
     }
 
     return (
-        <Grid item xs={12} md={3} sx={{ mt: 5 }}>
+        // <Grid item xs={12} md={3} sx={{ mt: 5 }}>
+        <Grid item xs={12} md={6} sx={{ mt: 4 }}>
             <Typography component="h1" variant="h6" color="inherit" sx={{ mb: 0.4}}>Notas Rápidas</Typography>
             <Grid container spacing={1}>
                 <Grid item xs={12}>
