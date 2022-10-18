@@ -246,8 +246,8 @@ export function CharacterSheet() {
                 open={customRollDialogOpen}
                 characterId={characterAttributes.id}
             />
-            <Fab onClick={() => setCustomRollDialogOpen(true)} color="inherit" aria-label="dice" sx={{ position: 'fixed', bottom: 25, right: 25}} size="medium">
-                <FaDiceD20 fontSize={24} color="black"/>
+            <Fab onClick={() => setCustomRollDialogOpen(true)} color="inherit" aria-label="dice" sx={{ position: 'fixed', bottom: 25, right: 25}} size="large">
+                <FaDiceD20 fontSize={32} color="black"/>
             </Fab>
         </>
     )
