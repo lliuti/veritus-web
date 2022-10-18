@@ -39,9 +39,12 @@ export const CustomRollDialog = (props) => {
                 handleClose();
                 setRollResultDialogOpen(true);
             } else {
+                const damageArray = [];
+                damageArray.push({ damage: rollInput, type: 'Custom' });
+
                 const response = await api.post(`/characters/${characterId}/roll/damage`, {
                     attack: { 
-                        damage: rollInput.normalize('NFD').replace(/[\u0300-\u036f]/g, ""), 
+                        damage: JSON.stringify(damageArray), 
                         attack: "Customizada", 
                         criticalDamage: "" 
                     },
@@ -52,6 +55,7 @@ export const CustomRollDialog = (props) => {
                 setRollResultDialogOpen(true);
             }
         } catch (err) {
+            console.log(err);
             enqueueSnackbar("Não foi possível realizar a rolagem customizada.", { 
                 variant: "error"
             });
@@ -167,14 +171,14 @@ const RollResult = (props) => {
                             variant="body1" 
                             color="inherit"
                         >
-                            Dados: {customRollInfo.damage ? customRollInfo.damage : customRollInfo.input}
+                            Dados: {customRollInfo.resultValues !== undefined ? customRollInfo.resultValues[0].damageRoll : customRollInfo.input}
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
-                        <Typography component="p" variant="body1" color="inherit">Rolagens: {customRollInfo.diceRolls}</Typography>
+                        <Typography component="p" variant="body1" color="inherit">Rolagens: {customRollInfo.resultValues !== undefined ? customRollInfo.resultValues[0].diceRolls: customRollInfo.diceRolls}</Typography>
                     </Grid>
                     <Grid item xs={12}>
-                        <Typography component="p" variant="body" color="inherit" sx={{ fontWeight: 'bold'}}>Resultado: {customRollInfo.testResult}</Typography>
+                        <Typography component="p" variant="body" color="inherit" sx={{ fontWeight: 'bold'}}>Resultado: {customRollInfo.resultValues !== undefined ? customRollInfo.resultValues[0].testResult : customRollInfo.testResult}</Typography>
                     </Grid>
                 </Grid>
                 <Grid container sx={{ alignItems: 'end', mt: 1}}>
