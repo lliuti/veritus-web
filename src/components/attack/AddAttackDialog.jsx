@@ -63,6 +63,21 @@ export const AddAttackDialog = (props) => {
             setDescription(attackToEdit.description);
 
             setButtonFunction("update");
+        } else {
+            setAddToInventoryValue(true);
+            setAttack("");
+            setTest("");
+            setDamage("");
+            setCriticalDamage("");
+            setDamageValues([{ damage: '', type: 'B' }]);
+            setCriticalDamageValues([{ damage: '', type: 'B' }]);
+            setDamageType("");
+            setCategory("");
+            setMargin("");
+            setMultiplier("");
+            setRange("");
+            setWeight("");
+            setDescription("");
         };
     }, [attackToEdit])
 

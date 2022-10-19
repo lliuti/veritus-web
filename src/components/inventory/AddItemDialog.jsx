@@ -41,6 +41,11 @@ export const AddItemDialog = (props) => {
             setCategory(itemToEdit.category);
             setWeight(itemToEdit.weight);
             setButtonFunction("update");
+        } else {
+            setItem("");
+            setWeight("0");
+            setDescription("");
+            setCategory("0");
         };
     }, [itemToEdit])
 

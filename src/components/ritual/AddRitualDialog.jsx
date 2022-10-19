@@ -61,6 +61,19 @@ export const AddRitualDialog = (props) => {
             setBriefDescription(ritualToEdit.briefDescription)
             setAscended(ritualToEdit.ascended)
             setAwoken(ritualToEdit.awoken)
+        } else {
+            setName("");
+            setElement("");
+            setCircle("");
+            setExecution("");
+            setRange("");
+            setTarget("");
+            setDuration("");
+            setResistance("");
+            setDescription("");
+            setBriefDescription("");
+            setAscended("");
+            setAwoken("");
         };
     }, [ritualToEdit])
 

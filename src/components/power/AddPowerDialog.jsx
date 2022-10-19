@@ -44,6 +44,11 @@ export const AddPowerDialog = (props) => {
             // setPowerOrigin(powerToEdit.powerOrigin)
             setDescription(powerToEdit.description)
             setNex(powerToEdit.nex);
+        } else {
+            setName("");
+            setPowerType("Poder de Origem");
+            setDescription("");
+            setNex(0);
         };
     }, [powerToEdit])
 
@@ -97,10 +102,10 @@ export const AddPowerDialog = (props) => {
         }
 
 
-        setName("")
-        setPowerType("")
+        setName("");
+        setPowerType("");
         // setPowerOrigin("")
-        setDescription("")
+        setDescription("");
         setNex(0);
         fetchCharacter();
         onClose();
